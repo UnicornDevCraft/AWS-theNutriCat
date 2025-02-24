@@ -27,7 +27,7 @@
     "bootstrap": "^5.3.3"
   },
   "devDependencies": {
-    "sass": "^1.57.0",
+    "sass": "^1.32.0",
     "svgo": "^3.3.2"
   }
 }
