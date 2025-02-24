@@ -1,0 +1,112 @@
+// Importing custom variables
+@use '../custom' as *;
+@use '../components/typography' as *;
+@use '../components/mixins' as *;
+
+.recipes-header{
+  margin-top: 80px;
+  min-height: calc(100vh - 80px);
+  background: $dark-salad;
+
+  .breadcrumbs-container{
+    padding-top: 2rem;
+
+    .breadcrumb-chevron {
+        --bs-breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+        gap: 0.5rem;
+    }
+    
+    .breadcrumb-item{
+        font-size: 1em;
+        letter-spacing: 0.2em;
+    }
+  }
+
+  .header-text{
+    h1{
+        font-family: $font-bala;
+        font-size: 4rem;
+        line-height: 3rem;
+    }
+
+    p{
+        font-size: 1rem;
+        font-family: 'Courier New', Courier, monospace;
+        padding: 2rem 1rem 0;
+
+        @include media-breakpoint-up(md){
+          font-size: 1.2rem;
+        }
+    }
+  }
+
+  .recipes-search{
+    .searchBox{
+        width: 100%;
+    }
+
+    p{
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      padding-top: 1rem;
+
+      @include media-breakpoint-up(md){
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.recipes-body{
+  background: $light;
+
+  h1{
+    font-family: $font-bala;
+    font-size: 4rem;
+    padding-top: 4rem;
+  }
+
+  .row {
+    .card {
+      min-width: 300px;
+      max-width: 80vw;
+
+        img {
+            height: 100%;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+        }
+
+        h3 {
+          color: $dark-salad;
+          font-weight: bold;
+          font-size: 1.2rem;
+          background: transparent;
+        }
+
+        .cook-time{
+          position: absolute;
+          top: 1.25rem;
+          right: 1.25rem;
+          color: $white;
+          background: $white-transparent-01;
+          backdrop-filter: blur(30px);
+          box-shadow: 0 5px 25px $black-transparent-03;
+          border-radius: 15px;
+          font-size: 1.5rem;
+          color: $white;
+        }
+
+        .recipe-tags{
+          font-family: 'Courier New', Courier, monospace;
+          flex-wrap: wrap;
+          row-gap: 0.5rem;
+        }
+
+        .make{
+          font-weight: bold;
+        }
+      }
+    }
+  
+}

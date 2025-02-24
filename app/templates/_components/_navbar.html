@@ -1,0 +1,102 @@
+<!-- ////////////////////////////////////////////////////////////////////////////////////////
+                                  THE NAVBAR SECTION
+  /////////////////////////////////////////////////////////////////////////////////////////////-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-white menu shadow fixed-top">
+  <div class="container-fluid d-flex justify-content-between align-items-center position-relative">
+    <!-- Button toggler for Offcanvas Menu -->
+    <button class="navbar-toggler menuToggle py-1 px-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="{{ url_for('recipes.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+      data-bs-custom-class="custom-tooltip" data-bs-title="Home">
+      <img src="{{ url_for('static', filename='img/logo_horiz.png') }}" alt="The Nutri Cat logo">
+    </a>
+    <div class="d-flex align-items-center search-user">
+      <a class="btn btn-primary rounded-circle text-white d-flex align-items-center justify-content-center me-2" id="searchToggle" aria-label="Search">
+        <span class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search">search</span>
+      </a>
+      <!-- User Profile Button -->
+      <a href="#" class="btn btn-primary rounded-circle text-white d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;" aria-label="Profile">
+        K
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Offcanvas Menu Start -->
+<div class="offcanvas offcanvas-start offcanvas-menu" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+  <div class="offcanvas-header">
+    <a href="{{ url_for('recipes.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+    data-bs-custom-class="custom-tooltip" data-bs-title="Home" class="offcanvas-title" id="offcanvasNavbarLabel">
+      <img src="{{ url_for('static', filename='img/logo_horiz.png') }}" alt="The Nutri Cat logo" class="">
+    </a>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <ul class="navbar-nav navigation">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('recipes.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="Home">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.index') }}#about" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="About Us">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.recipes') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="All Recipes">Recipes</a>
+      </li>
+      {% if g.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.menus') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="Custom Menus">Menus</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.index') }}#favorites-slider" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="Favorite Recipes">Favorites</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('auth.logout') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+          data-bs-custom-class="custom-tooltip" data-bs-title="Log out" aria-label="Log out">Sign Out
+      </li> -->
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('auth.login') }}">Sign In</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+<!-- Search Box for mobile -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <input class="form-control me-2" type="search" placeholder="Search by name, ingredient, menu..." aria-label="Search">
+        <button type="button" class="btn btn-primary">Search</button>
+      </div>
+      <div class="modal-body">
+        <h1>Categories</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search box for full menu -->
+<div id="searchBox" class="searchBox position-fixed top-0 start-0 w-100 h-100 bg-white p-4 d-none">
+  <form class="d-flex position-relative">
+    <input class="form-control me-2" type="search" placeholder="Search by name, ingredient, menu..." aria-label="Search">
+    <button class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y p-2" type="submit" aria-label="Search">
+      <span class="material-symbols-outlined">search</span>
+    </button>
+  </form>
+</div>

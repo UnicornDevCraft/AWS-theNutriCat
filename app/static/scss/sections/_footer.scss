@@ -1,0 +1,52 @@
+@use '../custom' as *;
+@use '../components/typography' as *;
+@use '../components/mixins' as *;
+
+.footer{
+    background: $ivory;
+
+    .footer-logo{
+
+        a{
+            width: 60%;
+
+            @include media-breakpoint-up(xs){
+                max-width: 125px;
+            }
+
+            img{
+                width: 100%;
+            }
+        }
+    
+        span{
+            width: 100%;
+            color: $secondary;
+        }
+    }
+
+    .social-media{
+
+        li a i{
+            font-size: 1.6rem;
+            margin: 0 0.3rem;
+        }
+    }
+}
+
+
+//back to top button
+.back-to-top {
+    position: fixed;
+    width: 3rem;
+    height: 3rem;
+    right: 1.875rem;
+    bottom: 1.875rem;
+    z-index: 9999;
+  
+    i {
+        color: $ivory;
+        font-size: 1rem;
+        @include absoluteCenter;
+    }
+  }

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block section %}
+<section class="login d-flex justify-content-center align-items-center">
+    <div id="container" class="position-absolute w-100 h-100 top-0 start-0 overflow-hidden"></div>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+            <div
+                class="col-10 col-xs-8 col-s-7 col-sm-6 col-m-5 col-md-4 col-lg-3 login-form d-flex justify-content-center align-items-center">
+                <form id="login-form" action="/auth/login" method="post" autocomplete="off">
+                    <h2 class="position-relative text-white text-center fs-3 fw-semibold my-5">Sign In</h2>
+                    <div class="input-group">
+                        <input type="email" class="input required-field" name="email" id="email" data-field="email"
+                            placeholder="" autofocus required>
+                        <label for="email" class="label">Email</label>
+                        <div class="feedback pt-2" aria-live="polite"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input required-field" name="password" id="password"
+                            data-field="password" placeholder="" required>
+                        <span class="toggleBtn hidden"></span>
+                        <label for="password" class="label">Password</label>
+                        <div class="feedback pt-2" aria-live="polite"></div>
+                    </div>
+                    <button id="submit-login-form" class="btn w-100 mt-5 text-uppercase shining-btn"
+                        type="submit">Login</button>
+                    <div class="signin">
+                        <p>Don&#39;t have an account? <a href="{{ url_for('auth.register') }}">Sign Up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,68 @@
+@use '../custom' as *;
+@use '../components/typography' as *;
+@use '../components/mixins' as *;
+
+
+#about{
+    padding-top: 6rem;
+}
+.about{
+    position: relative;
+    padding: 1rem 0 0 0;
+    background: #FEEFDD;
+    color: $dark-green;
+
+    &-line{
+        font-size: 1.2rem;
+
+        @include media-breakpoint-up(lg) {
+            font-size: 1.4rem;
+        }
+    }
+
+    &-descr{
+        font-size: 1rem;
+
+        @include media-breakpoint-up(lg) {
+            font-size: 1.2rem;
+        }
+    }
+
+    &__content {
+        padding: 1rem 3rem 1rem 3rem;
+        margin-top: 0;
+        max-width: 100%;
+
+        p {
+            font-size: 0.8rem;
+
+            @include media-breakpoint-up(lg) {
+                font-size: 1rem;
+            }
+        }
+
+        @include media-breakpoint-up(lg) {
+            margin-top: 8rem;
+        }
+
+        .icon {
+
+            font-size: 1.5rem;
+            color: $primary;
+
+            @include media-breakpoint-up(lg) {
+                font-size: 2.5rem;
+            }
+        }
+    }
+
+
+    &__pic {
+        max-width: 80%;
+
+        @include media-breakpoint-up(lg){
+            max-width: 100%;
+        }
+    }
+
+}

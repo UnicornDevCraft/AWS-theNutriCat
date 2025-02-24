@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Recipes | The Nutri Cat{% endblock %}
+{% block navbar %}
+{% include '_components/_navbar.html' %}
+{% endblock %}
+{% block section %}
+<!-- ////////////////////////////////////////////////////////////////////////////////////////
+                               START THE ALL RECIPES SECTION
+/////////////////////////////////////////////////////////////////////////////////////////////-->
+<section class="recipes-header justify-content-center">
+    <!-- Start the breadcrumbs -->
+    <div class="container-fluid breadcrumbs-container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-chevron justify-content-center p-3 ">
+                    <li class="breadcrumb-item">
+                        <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        data-bs-custom-class="custom-tooltip" data-bs-title="Home" href="{{ url_for('recipes.index') }}">
+                            The Nutri Cat
+                            <span class="visually-hidden">Home</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fw-semibold text-decoration-none text-uppercase" href="{{ url_for('recipes.recipes') }}">Recipes</a>
+                    </li>
+                </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Start the Recipes header -->
+    <div class="container-fluid header-text mt-2 mt-md-5 mb-5">
+        <div class="row d-flex justify-content-center text-white">
+            <div class="col-md-6 text-center">
+                <h1>Search Recipes</h1>
+                <p>We’ve lovingly organized these recipes to make your search a breeze—whether it’s weeknight dinners, meal prep ideas, or something special. Whatever you’re craving, we’re here to help you find your perfect match!</p>
+            </div>
+        </div>
+    </div>
+    <!-- Start the main search -->
+    <div class="container-fluid recipes-search pb-5">
+        <div class="row d-flex mx-3 justify-content-center">
+            <div class="col-md-6 recipes-search">
+                <form class="searchBox position-relative" role="search">
+                    <input class="form-control rounded-5" type="search" placeholder="Search" aria-label="Search" autofocus>
+                    <button class="btn btn-primary position-absolute end-0 top-50 translate-middle-y rounded-5" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+            <p class="text-center text-white">Or browse our favorites below</p>
+        </div>
+    </div>
+    
+</section>
+<section class="recipes-body album pt-2 pb-5 justify-content-center">
+    <h1 class="text-capitalize text-center text-secondary">All recipes</h1>
+    <div class="container-fluid my-5">     
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+            {% for recipe in recipes %}
+                <div class="col">
+                    <div class="card shadow-sm rounded-5 mx-auto">
+                        {% if recipe['image_path'] %}
+                            <img src="{{ url_for('static', filename='img/recipes/' + recipe['image_path']) }}" alt="{{ recipe['title'] }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h3 class="card-header text-capitalize text-center">{{ recipe['title'] }}</h3>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div class="cook-time d-flex justify-content-center align-items-center">
+                                    &nbsp;<ion-icon name="time-outline"></ion-icon>
+                                    &nbsp; <span class="text-white">{{ recipe['prep_time'] + recipe['cook_time'] }}</span>&nbsp; 
+                                </div>
+                                <div class="recipe-tags d-flex justify-content-start align-items-center">
+                                    <!-- Display Tags -->
+                                    {% if recipe['tags'] %}
+                                        {% for tag in recipe['tags'].split(',') %}
+                                            <button class="btn btn-sm btn-outline-secondary rounded-3 mx-1">{{ tag }}</button>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <button type="button" class="btn btn-m btn-primary rounded-4 text-white make">Make</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Recipe Pagination">
+        <ul class="pagination justify-content-center">
+            {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('recipes.recipes', page=page-1) }}"><i class="bi bi-chevron-bar-left"></i></a>
+                </li>
+            {% endif %}
+
+            {% for p in range(1, total_pages + 1) %}
+                <li class="page-item {% if p == page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('recipes.recipes', page=p) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+
+            {% if page < total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('recipes.recipes', page=page+1) }}"><i class="bi bi-chevron-bar-right"></i></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</section>
+
+{% endblock %}
+
+{% block footer %}
+{% include '_components/_footer.html' %}
+{% endblock %}

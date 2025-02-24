@@ -1,0 +1,112 @@
+// Importing custom variables
+@use '../custom' as *;
+@use '../components/typography' as *;
+@use '../components/mixins' as *;
+
+.home {
+
+  margin-top: 80px;
+  min-height: calc(100vh - 80px);
+  background: url('../img/cat_salad.png') center / cover no-repeat;
+
+  .welcome-container {
+    flex-wrap: nowrap;
+    height: clamp(50vh, 60vh, 80vh);
+    background: $white-transparent-0015;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 5px 25px $black-transparent-03;
+    border-radius: 15px;
+
+    @include media-breakpoint-up(md) {
+      margin-right: 5rem !important;
+    }
+
+    @include media-breakpoint-up(md) {
+      margin-right: 10rem !important;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-right: 16rem !important;
+    }
+
+    .welcome-card {
+      flex-wrap: nowrap;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+
+      @include media-breakpoint-up(xxl) {
+        font-size: 1.6rem;
+      }
+
+      span {
+        font-family: $font-bala;
+        font-size: 2.2rem;
+        color: $primary;
+        text-shadow: 4px 4px 2px $dark-salad;
+        display: block;
+
+        @include media-breakpoint-up(s) {
+          font-size: 2.4rem;
+        }
+
+        @include media-breakpoint-up(lg) {
+          font-size: 2.2rem;
+        }
+
+        @include media-breakpoint-up(xxl) {
+          font-size: 3rem;
+        }
+      }
+    }
+
+    p {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    button {
+      color: $white;
+      margin-bottom: 1.5rem;
+      padding: 0.25rem 2rem 0.75rem 1.5rem;
+
+      @include media-breakpoint-up(s) {
+        width: 75%;
+
+      }
+
+      @include media-breakpoint-up(m) {
+        width: 85%;
+      }
+
+      @include media-breakpoint-up(xl) {
+        width: 75%;
+      }
+
+      @include media-breakpoint-up(xl) {
+        width: 70%;
+      }
+
+      @include media-breakpoint-up(xxl) {
+        width: 60%;
+      }
+
+      span {
+        font-size: 1.8rem;
+        color: $white;
+        background: $dark-salad;
+        border-radius: 50%;
+        position: relative;
+        top: 0.4rem;
+        right: -1rem;
+      }
+
+      &:hover {
+        background: $dark-green;
+        box-shadow: 0 0 25px $golden-orange, 0 0 100px $golden-orange, 0 0 150px $golden-orange;
+      }
+    }
+  }
+}
+

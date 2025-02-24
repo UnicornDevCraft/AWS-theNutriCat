@@ -1,0 +1,19 @@
+@use '../custom' as *;
+
+// Gradient for notifications
+@mixin linear-gradient($direction: to right, $color1: #3498db, $stop1: 0%, $color2: #2ecc71, $stop2: 100%) {
+    background-image: linear-gradient($direction, $color1 $stop1, $color2 $stop2);
+}
+
+//absolute center
+@mixin absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// GRADIENT MIXIN 
+@mixin gradient {
+    background: linear-gradient(to right, rgba($primary, 0.95), rgba($success, 0.95));
+}

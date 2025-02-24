@@ -1,0 +1,112 @@
+@use '../custom' as *;
+@use '../components/mixins' as *;
+
+$font-cat: 'calli_catregular', sans-serif;
+$font-margin: 'margin_demoregular', sans-serif;
+$font-bala: 'balabeloo', sans-serif;
+
+@font-face {
+    font-family: 'calli_catregular';
+    src: url('../fonts/callicatregular-rporm-webfont.woff2') format('woff2'),
+         url('../fonts/callicatregular-rporm-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    unicode-range: U+0020-002F, U+0041-FFFF;
+}
+
+
+@font-face {
+    font-family: 'margin_demoregular';
+    src: url('../fonts/margin_demo-webfont.woff2') format('woff2'),
+         url('../fonts/margin_demo-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'balabeloo';
+    src: url('../fonts/BalabelooPro-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.display-2 {
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    font-family: 'Poppins', sans-serif;
+
+    &--intro {
+        display: inline-block;
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    &--description {
+        font-size: 1rem;
+        display: block;
+        margin-top: 1.2rem;
+        text-transform: none;
+
+        @include media-breakpoint-up(lg) {
+            font-size: 1.4rem;
+            display: inline-block;
+        }
+    }
+}
+
+// HEADING LINE 
+.heading-line::before {
+    content: "";
+    width: 10rem;
+    height: 0.1rem;
+    display: block;
+    margin: 0 auto;
+    background-color: $primary;
+}
+.heading-line::after {
+    content: "";
+    width: 2rem;
+    padding-top: 0.5rem;
+    height: 0.2rem;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    background-color: $primary;
+}
+
+// DISPLAY 3 
+.display-3 {
+    font-family: 'Poppins', sans-serif;
+
+    &--title {
+        font-size: 1.2rem;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        display: inline-block;
+        background-image: linear-gradient(to right, $primary, $primary);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        @include media-breakpoint-up(lg) {
+            font-size: 1.8rem;
+        }
+
+
+    }
+}
+
+// BORDER RIGHT 
+.border-right {
+    border-right: 0;
+
+    @include media-breakpoint-up(md) {
+        border-right: 0.1rem solid $dark-salad;
+        height: 100%;
+    }
+}
