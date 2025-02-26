@@ -76,16 +76,12 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM users WHERE id = ?', (user_id,)
-        ).fetchone()
+        g.user = User.query.get(user_id)
 
 @bp.route('/logout')
 def logout():
     session.clear()
-    error = 'You are successfuly logged out!'
-    errorType = 'success'
-    flash(error, errorType)
+    flash('You are successfuly logged out!', 'success')
     return redirect(url_for('index'))
 
 def login_required(view):
@@ -99,8 +95,7 @@ def login_required(view):
     return wrapped_view
 
 def generate_random_username():
-    db = get_db()
     username = "user" + "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
-    while db.execute("SELECT 1 FROM users WHERE username = ?", (username,)).fetchone():
+    while User.query.filter_by(username=username).first(): 
         username = "user" + "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
     return username

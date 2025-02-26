@@ -2,105 +2,96 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
+from sqlalchemy.orm import joinedload
 
 from app.auth import login_required
-from app.db import get_db
+from app.db import db
+from app.models import Recipe, Tag, RecipeTag
 
 bp = Blueprint('recipes', __name__)
 
 @bp.route('/')
 def index():
-    db = get_db()
-    favorite_recipes = []
+    # Fetch first 7 recipes
+    recipes = Recipe.query.limit(7).all()
 
-    try:
-        # Query the database for the first 7 recipes
-        favorites = db.execute('''
-            SELECT title, cook_time, prep_time, image_path
-            FROM recipes WHERE id < 8
-        ''').fetchall()
-
-        if not favorites:
-            print("No favorite recipes found in the database.")
-            return render_template('recipes/index.html', favorites=[])
-
-        # Process each recipe and build the favorite_recipes list
-        for favorite in favorites:
-            favorite_recipes.append({
-                'name': favorite["title"].capitalize(),
-                'time': (favorite["prep_time"] or 0) + (favorite["cook_time"] or 0),
-                'image': favorite["image_path"] or "default_image.png"  # Fallback to a default image
-            })
-
-    except Exception as e:
-        print(f"Database error: {e}")
-        return f"An error occurred: {e}", 500
+    favorite_recipes = [
+        {
+            'name': recipe.title.capitalize(),
+            'time': (recipe.prep_time or 0) + (recipe.cook_time or 0),
+            'image': recipe.image_path or "default_image.png"
+        }
+        for recipe in recipes
+    ]
 
     return render_template('recipes/index.html', favorites=favorite_recipes)
 
 @bp.route('/recipes')
 def recipes():
-    db = get_db()
     per_page = 9
     page = request.args.get('page', 1, type=int)
-    offset = (page - 1) * per_page
+    
+    # Fetch recipes with associated tags, paginated
+    paginated_recipes = Recipe.query.options(
+        joinedload(Recipe.tags)  # Eager load tags
+    ).paginate(page=page, per_page=per_page, error_out=False)
 
-    # SQL query to select recipe details along with associated tags
-    query = """
-        SELECT r.id, r.title, r.servings, r.prep_time, r.cook_time, r.image_path, 
-               GROUP_CONCAT(t.name) AS tags
-        FROM recipes r
-        LEFT JOIN recipe_tags rt ON r.id = rt.recipe_id
-        LEFT JOIN tags t ON rt.tag_id = t.id
-        GROUP BY r.id
-        LIMIT ? OFFSET ?
-    """
-    recipes = db.execute(query, (per_page, offset)).fetchall()
-
-    # Query total count of recipes
-    total_recipes = db.execute("SELECT COUNT(*) FROM recipes").fetchone()[0]
-    total_pages = (total_recipes + per_page - 1) // per_page
-
-    return render_template('recipes/recipes.html', recipes=recipes, page=page, total_pages=total_pages)
+    return render_template(
+        'recipes/recipes.html',
+        recipes=paginated_recipes.items,
+        page=page,
+        total_pages=paginated_recipes.pages
+    )
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['body']
+        servings = request.form.get('servings', type=int)
+        prep_time = request.form.get('prep_time', type=int)
+        cook_time = request.form.get('cook_time', type=int)
+        image_path = request.form.get('image_path')
+        tag_names = request.form.getlist('tags')  # Assuming multi-select for tags
         error = None
 
         if not title:
             error = 'Title is required.'
 
-        if error is not None:
+        if error:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
+            recipe = Recipe(
+                title=title,
+                servings=servings or 1,
+                prep_time=prep_time,
+                cook_time=cook_time,
+                image_path=image_path,
             )
-            db.commit()
+            db.session.add(recipe)
+            db.session.commit()
+
+            # Add tags if provided
+            if tag_names:
+                for tag_name in tag_names:
+                    tag = Tag.query.filter_by(name=tag_name).first()
+                    if not tag:
+                        tag = Tag(name=tag_name)
+                        db.session.add(tag)
+                        db.session.commit()
+                    db.session.add(RecipeTag(recipe_id=recipe.id, tag_id=tag.id))
+                db.session.commit()
+
             return redirect(url_for('recipes.index'))
 
     return render_template('recipes/create.html')
 
 
+
 def get_recipe(id, check_author=True):
-    recipe = get_db().execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' WHERE p.id = ?',
-        (id,)
-    ).fetchone()
+    recipe = Recipe.query.get_or_404(id)
 
-    if recipe is None:
-        abort(404, f"Recipe id {id} doesn't exist.")
-
-    if check_author and recipe['author_id'] != g.user['id']:
+    if check_author and g.user.id != recipe.author_id:
         abort(403)
 
     return recipe
@@ -111,39 +102,38 @@ def update(id):
     recipe = get_recipe(id)
 
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
-        error = None
+        recipe.title = request.form['title']
+        recipe.servings = request.form.get('servings', type=int)
+        recipe.prep_time = request.form.get('prep_time', type=int)
+        recipe.cook_time = request.form.get('cook_time', type=int)
+        recipe.image_path = request.form.get('image_path')
+        tag_names = request.form.getlist('tags')
 
-        if not title:
-            error = 'Title is required.'
-
-        if error is not None:
-            flash(error)
+        if not recipe.title:
+            flash('Title is required.')
         else:
-            db = get_db()
-            db.execute(
-                'UPDATE post SET title = ?, body = ?'
-                ' WHERE id = ?',
-                (title, body, id)
-            )
-            db.commit()
+            # Update tags
+            recipe.tags.clear()
+            for tag_name in tag_names:
+                tag = Tag.query.filter_by(name=tag_name).first()
+                if not tag:
+                    tag = Tag(name=tag_name)
+                    db.session.add(tag)
+                db.session.add(RecipeTag(recipe_id=recipe.id, tag_id=tag.id))
+
+            db.session.commit()
             return redirect(url_for('recipes.index'))
 
     return render_template('recipes/update.html', recipe=recipe)
 
-
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
-    get_recipe(id)
-    db = get_db()
-    db.execute('DELETE FROM post WHERE id = ?', (id,))
-    db.commit()
+    recipe = get_recipe(id)
+    db.session.delete(recipe)
+    db.session.commit()
     return redirect(url_for('recipes.index'))
 
 @bp.route('/menus')
 def menus():
-    db = get_db()
-
     return render_template('recipes/menus.html')

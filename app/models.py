@@ -8,14 +8,14 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+    def set_password(self, user_password):
+        self.password = generate_password_hash(user_password)
 
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+    def check_password(self, user_password):
+        return check_password_hash(self.password, user_password)
 
 class Recipe(db.Model):
     __tablename__ = "recipes"
@@ -34,7 +34,7 @@ class RecipeTranslation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.id", ondelete="CASCADE"), nullable=False)
-    language_code = db.Column(db.String(50), nullable=False)
+    language_code = db.Column(db.String(10), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
     instructions = db.Column(db.Text, nullable=False)
@@ -55,7 +55,7 @@ class RecipeIngredient(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.id", ondelete="CASCADE"), nullable=False)
     ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.id", ondelete="CASCADE"), nullable=False)
-    quantity = db.Column(db.Float, nullable=True)
+    quantity = db.Column(db.String(50), nullable=True)
     unit = db.Column(db.String(50), nullable=True)
     quantity_notes = db.Column(db.String(50), nullable=True)
     ingredient_notes = db.Column(db.String(255), nullable=True) 
@@ -67,7 +67,7 @@ class IngredientTranslation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.id", ondelete="CASCADE"), nullable=False)
-    language_code = db.Column(db.String(50), nullable=False)
+    language_code = db.Column(db.String(10), nullable=False)
     translated_name = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
