@@ -1,41 +1,22 @@
-import os
 from flask import Flask
+from flask_migrate import Migrate
+from config import Config
+from app.db import db
 
+migrate = Migrate()
 
-def create_app(test_config=None):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'nutri_cat.sqlite'),
-    )
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(test_config)
+    db.init_app(app)  # Initialize the database with the app
+    migrate.init_app(app, db)  # Use Flask-Migrate for database changes
 
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    # Register Blueprints
+    from app.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
-    from . import db
-    db.init_app(app)
-
-    from . import auth
-    app.register_blueprint(auth.bp)
-
-    from . import recipes
-    app.register_blueprint(recipes.bp)
-    app.add_url_rule('/', endpoint='index')
-
+    from app.recipes import bp as recipes_bp
+    app.register_blueprint(recipes_bp)
+    
     return app
