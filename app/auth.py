@@ -1,13 +1,12 @@
+
 import functools
 import random
 import string
-import sqlite3
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from app.db import get_db
+from app.models import User
+from app.db import db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -23,57 +22,28 @@ def register():
         password = request.form.get('password')
         conf_password = request.form.get('confirmation')
         terms = request.form.get('terms')
-        db = get_db()
-        error = None
-        errorType = None
 
         if not email:
-            error = 'Email is required.'
-            errorType = 'error'
+            flash('Email is required.', 'error')
         elif not password:
-            error = 'Password is required.'
-            errorType = 'error'
-        elif not conf_password:
-            error = 'Passwords have to match.'
-            errorType = 'error'
+            flash('Password is required.', 'error')
+        elif password != conf_password:
+            flash('Passwords must match.', 'error')
         elif not terms:
-            error = 'Terms not accepted.'
-            errorType = 'error'
+            flash('Terms not accepted.', 'error')
         else:
-            rows = None
-            # Query database for email
-            rows = db.execute(
-                "SELECT email FROM users WHERE email = ?", (email,)
-            ).fetchone()
-
-            if rows:
-                error = f"{email} is already registered."
-                errorType = 'error'
-
-        if error is None:
-            try:
-                db.execute(
-                    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-                    (generate_random_username(), email, generate_password_hash(password)),
-                )
-                db.commit()
-            except db.IntegrityError:
-                error = f"Sorry, {email} is already registered."
-                errorType = 'error'
+            existing_user = User.query.filter_by(email=email).first()
+            if existing_user:
+                flash(f"{email} is already registered.", 'error')
             else:
-                error = 'The registration was successful.'
-                errorType = 'success'
-                flash(error, errorType)
-
-        if errorType == 'success':
-            # Query database for id
-            user = db.execute(
-                "SELECT * FROM users WHERE email = ?", (email,)
-            ).fetchone()
-            session['user_id'] = user['id']
-            return redirect(url_for("index"))
-
-        flash(error, errorType)
+                user = User(username=generate_random_username(), email=email)
+                user.set_password(password)
+                db.session.add(user)
+                db.session.commit()
+                
+                flash('Registration successful.', 'success')
+                session['user_id'] = user['id']
+                return redirect(url_for("index"))
 
     return render_template('auth/register.html')
         
@@ -87,28 +57,15 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        db = get_db()
-        error = None
+        
+        user = User.query.filter_by(email=email).first()
 
-        user = db.execute(
-            'SELECT * FROM users WHERE email = ?', (email,)
-        ).fetchone()
-
-        if user is None:
-            error = 'Incorrect email.'
-            errorType = 'error'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
-            errorType = 'error'
-
-        if error is None:
-            session['user_id'] = user['id']
-            error = 'You are successfuly logged in!'
-            errorType = 'success'
-            flash(error, errorType)
+        if user is None or not user.check_password(password):
+            flash('Incorrect email or password.', 'error')
+        else:
+            session['user_id'] = user.id
+            flash('You are successfully logged in!', 'success')
             return redirect(url_for('index'))
-
-        flash(error, errorType)
 
     return render_template('auth/login.html')
 
