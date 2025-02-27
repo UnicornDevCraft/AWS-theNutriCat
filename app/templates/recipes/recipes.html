@@ -73,9 +73,9 @@
                                 </div>
                                 <div class="recipe-tags d-flex justify-content-start align-items-center">
                                     <!-- Display Tags -->
-                                    {% if recipe['tags'] %}
-                                        {% for tag in recipe['tags'].split(',') %}
-                                            <button class="btn btn-sm btn-outline-secondary rounded-3 mx-1">{{ tag }}</button>
+                                    {% if recipe.tags %}
+                                        {% for tag in recipe.tags %}
+                                            <button class="btn btn-sm btn-outline-secondary rounded-3 mx-1">{{ tag.name }}</button>
                                         {% endfor %}
                                     {% endif %}
                                 </div>

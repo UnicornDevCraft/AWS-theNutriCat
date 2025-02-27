@@ -17,9 +17,13 @@
         <span class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search">search</span>
       </a>
       <!-- User Profile Button -->
-      <a href="#" class="btn btn-primary rounded-circle text-white d-flex align-items-center justify-content-center"
+      <a href="{{ url_for('auth.profile') }}" class="btn btn-primary rounded-circle text-white d-flex align-items-center justify-content-center"
         style="width: 40px; height: 40px;" aria-label="Profile">
-        K
+        {% if user %}
+          {{ user.username[:2].upper() }}
+        {% else %}
+          <i class="bi bi-person-fill"></i>
+        {% endif %}
       </a>
     </div>
   </div>
@@ -59,7 +63,7 @@
       </li>
       <!-- <li class="nav-item">
         <a class="nav-link" href="{{ url_for('auth.logout') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
-          data-bs-custom-class="custom-tooltip" data-bs-title="Log out" aria-label="Log out">Sign Out
+          data-bs-custom-class="custom-tooltip" data-bs-title="Log out" aria-label="Log out">Sign Out</a>
       </li> -->
       {% else %}
       <li class="nav-item">

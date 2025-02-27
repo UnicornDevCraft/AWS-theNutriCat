@@ -1,12 +1,13 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
+from flask_sqlalchemy import pagination
 from werkzeug.exceptions import abort
 from sqlalchemy.orm import joinedload
 
 from app.auth import login_required
 from app.db import db
-from app.models import Recipe, Tag, RecipeTag
+from app.models import Recipe, Tag, RecipeTag, User
 
 bp = Blueprint('recipes', __name__)
 
@@ -24,7 +25,9 @@ def index():
         for recipe in recipes
     ]
 
-    return render_template('recipes/index.html', favorites=favorite_recipes)
+    user = User.query.filter_by(id=session.get('user_id')).first()
+    
+    return render_template('recipes/index.html', favorites=favorite_recipes, user=user)
 
 @bp.route('/recipes')
 def recipes():

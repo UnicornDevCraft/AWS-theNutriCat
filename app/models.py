@@ -28,6 +28,8 @@ class Recipe(db.Model):
     image_path = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    tags = db.relationship('Tag', secondary='recipe_tags', backref='recipes')
+
 
 class RecipeTranslation(db.Model):
     __tablename__ = "recipe_translations"

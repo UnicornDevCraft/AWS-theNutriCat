@@ -42,8 +42,8 @@ def register():
                 db.session.commit()
                 
                 flash('Registration successful.', 'success')
-                session['user_id'] = user['id']
-                return redirect(url_for("index"))
+                session['user_id'] = user.id
+                return redirect(url_for("recipes.index"))
 
     return render_template('auth/register.html')
         
@@ -65,7 +65,7 @@ def login():
         else:
             session['user_id'] = user.id
             flash('You are successfully logged in!', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('recipes.index'))
 
     return render_template('auth/login.html')
 
@@ -82,7 +82,7 @@ def load_logged_in_user():
 def logout():
     session.clear()
     flash('You are successfuly logged out!', 'success')
-    return redirect(url_for('index'))
+    return redirect(url_for('recipes.index'))
 
 def login_required(view):
     @functools.wraps(view)
@@ -93,6 +93,13 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+@bp.route('/profile')
+@login_required
+def profile():
+    user = User.query.filter_by(id=session.get('user_id')).first()
+    
+    return render_template('auth/profile.html', user=user)
 
 def generate_random_username():
     username = "user" + "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
