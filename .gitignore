@@ -3,6 +3,8 @@
 *.pyc
 __pycache__/
 
+app/static/img/recipes/
+
 instance/
 
 .pytest_cache/
