@@ -60,8 +60,8 @@
             {% for recipe in recipes %}
                 <div class="col">
                     <div class="card shadow-sm rounded-5 mx-auto">
-                        {% if recipe['image_path'] %}
-                            <img src="{{ url_for('static', filename='img/recipes/' + recipe['image_path']) }}" alt="{{ recipe['title'] }}">
+                        {% if recipe['compressed_img_URL'] %}
+                            <img src="{{ recipe['compressed_img_URL'] }}" alt="{{ recipe['title'] }}">
                         {% endif %}
                         <div class="card-body">
                             <h3 class="card-header text-capitalize text-center">{{ recipe['title'] }}</h3>

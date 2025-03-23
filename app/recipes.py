@@ -20,7 +20,7 @@ def index():
         {
             'name': recipe.title.capitalize(),
             'time': (recipe.prep_time or 0) + (recipe.cook_time or 0),
-            'image': recipe.image_path or "default_image.png"
+            'image': recipe.compressed_img_URL or "default_image.png"
         }
         for recipe in recipes
     ]
@@ -54,7 +54,7 @@ def create():
         servings = request.form.get('servings', type=int)
         prep_time = request.form.get('prep_time', type=int)
         cook_time = request.form.get('cook_time', type=int)
-        image_path = request.form.get('image_path')
+        compressed_img_URL = request.form.get('compressed_img_URL')
         tag_names = request.form.getlist('tags')  # Assuming multi-select for tags
         error = None
 
@@ -69,7 +69,7 @@ def create():
                 servings=servings or 1,
                 prep_time=prep_time,
                 cook_time=cook_time,
-                image_path=image_path,
+                compressed_img_URL=compressed_img_URL,
             )
             db.session.add(recipe)
             db.session.commit()
@@ -109,7 +109,7 @@ def update(id):
         recipe.servings = request.form.get('servings', type=int)
         recipe.prep_time = request.form.get('prep_time', type=int)
         recipe.cook_time = request.form.get('cook_time', type=int)
-        recipe.image_path = request.form.get('image_path')
+        recipe.compressed_img_URL = request.form.get('compressed_img_URL')
         tag_names = request.form.getlist('tags')
 
         if not recipe.title:

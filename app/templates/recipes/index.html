@@ -155,7 +155,7 @@
         {% for favorite in favorites %}
           <div class="swiper-slide favorite-slide">
             <div class="favorite-slide-img">
-              <img src="{{ url_for('static', filename='img/recipes/' + favorite.image) }}" alt="Favorite recipe image">
+              <img src="{{ favorite.image }}" alt="Favorite recipe image">
             </div>
             <div class="favorite-slide-content">
               <h1 class="cook-time d-flex justify-content-center align-items-center">&nbsp;<ion-icon name="time-outline"></ion-icon>&nbsp; <span>{{ favorite.time }}</span> &nbsp;</h1>

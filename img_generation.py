@@ -1,15 +1,16 @@
 # Standard library imports
 import os
+import re
 import time
 import shutil
 import mimetypes
 
 # Third-party imports
 import requests
-import psycopg2
 import boto3
+import psycopg2
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from dotenv import load_dotenv
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -39,7 +40,7 @@ def get_recipe_by_id(recipe_id):
     try:
         # Fetch recipe data with joins
         recipe = (
-            db.session.query(Recipe.id, Recipe.title, Recipe.image_path, Ingredient.name)
+            db.session.query(Recipe.id, Recipe.title, Recipe.local_image_path, Ingredient.name)
             .join(RecipeIngredient, Recipe.id == RecipeIngredient.recipe_id)
             .join(Ingredient, RecipeIngredient.ingredient_id == Ingredient.id)
             .filter(Recipe.id == recipe_id)
@@ -54,7 +55,7 @@ def get_recipe_by_id(recipe_id):
         recipe_data = {
             "id": recipe[0][0],
             "title": recipe[0][1].capitalize(),
-            "image_path": recipe[0][2] or "No image available",
+            "local_image_path": recipe[0][2] or "No image available",
             "ingredients": [ingredient.lower() for _, _, _, ingredient in recipe]
         }
 
@@ -67,45 +68,45 @@ def get_recipe_by_id(recipe_id):
         print(f"Unexpected error in get_recipe_by_id({recipe_id}): {e}")
         return None
 
-def check_public_URL_in_db(recipe_id):
+def check_quality_img_URL_in_db(recipe_id):
     """
-    Gets a public URL from the database.
-    
-    :param recipe_id: an ID of a recipe from the database
-    :return boolean: True if found URL in the database or False if an error occurred
+    Retrieves the quality_img_URL of a recipe from the database.
+
+    :param recipe_id: The ID of the recipe in the database.
+    :return: The quality_img_URL if found, None if not found or an error occurs.
     """
 
     # Validate input
     if not isinstance(recipe_id, int) or recipe_id <= 0:
-        print(f"Invalid recipe ID: {recipe_id}")
+        print(f"❌ Invalid recipe ID: {recipe_id}")
         return None
 
     try:
         # Fetch public URL from the database
-        URL_in_db = (
-            db.session.query(Recipe.public_URL).filter(Recipe.id == recipe_id).first()
-        )
+        result = db.session.query(Recipe.quality_img_URL).filter(Recipe.id == recipe_id).first()
 
-        if not URL_in_db:
-            print(f"No previous URL found for ID {recipe_id}")
-            return True
+        if result and result.quality_img_URL:
+            print(f"✅ Public URL for recipe ID {recipe_id}: {result.quality_img_URL}")
+            return result.quality_img_URL
         else:
-            print(f"The public URL for the recipe with ID {recipe_id} already exists! {URL_in_db}")
-            return False
+            print(f"ℹ️ No public URL found for recipe ID {recipe_id}.")
+            return None
 
     except SQLAlchemyError as e:
-        print(f"Database error while fetching recipe {recipe_id}: {e}")
-        return None
+        print(f"❌ Database error while fetching recipe {recipe_id}: {e}")
     except Exception as e:
-        print(f"Unexpected error in get_recipe_by_id({recipe_id}): {e}")
-        return None
+        print(f"❌ Unexpected error in check_quality_img_URL_in_db({recipe_id}): {e}")
 
-def update_recipe_table(recipe_id, public_URL):
+    return None
+
+def update_recipe_table(recipe_id, local_image_path=None, quality_img_URL=None, compressed_img_URL=None):
     """
     Updates a public URL from the database.
     
     :param recipe_id: an ID of a recipe from the database
-    :param public_URL: a public URL generated after uploading to the S3 bucket
+    :param local_image_path : a path to the local high quality png file
+    :param quality_img_URL: a URL for high quality image generated after uploading to the S3 bucket
+    :param compressed_img_URL : a URL for compressed image generated after uploading to the S3 bucket
     :return boolean: True if successfully updated the table or None if an error occurred
     """
 
@@ -114,10 +115,6 @@ def update_recipe_table(recipe_id, public_URL):
         print(f"Invalid recipe ID: {recipe_id}")
         return None
     
-    if not isinstance(public_URL, str) or not public_URL.startswith("http"):
-        print(f"Invalid URL provided: {public_URL}")
-        return None
-
     try:
         # Fetch the recipe from the database
         recipe = db.session.query(Recipe).filter(Recipe.id == recipe_id).first()
@@ -126,11 +123,19 @@ def update_recipe_table(recipe_id, public_URL):
             print(f"Recipe with ID {recipe_id} not found.")
             return False
 
-        # Update the image path (URL)
-        recipe.image_path = public_URL
+        if isinstance(local_image_path, str):
+            recipe.local_image_path = local_image_path
+            print(f"Recipe ID {recipe_id} successfully updated with new path to the local high quality png file.")
+            
+        if isinstance(quality_img_URL, str) and quality_img_URL.startswith("http"):
+            recipe.quality_img_URL = quality_img_URL
+            print(f"Recipe ID {recipe_id} successfully updated with new URL for high quality image.")
+            
+        if isinstance(compressed_img_URL, str) and compressed_img_URL.startswith("http"):
+            recipe.compressed_img_URL = compressed_img_URL
+            print(f"Recipe ID {recipe_id} successfully updated with new URL for compressed image.")
+        
         db.session.commit()
-
-        print(f"Recipe ID {recipe_id} successfully updated with new image URL.")
         return True
 
     except SQLAlchemyError as e:
@@ -177,6 +182,18 @@ def generate_prompt(recipe):
         f"Please add a textured wall background to match the color palette of the dish, fresh fruits and "
         f"vegetables, and cookware to create a fresh homemade atmosphere."
     )
+
+def create_filename(recipe_name, format):
+    """ 
+    Creates an image filename out of recipe name.
+
+    :param: recipe_name (str): The recipe name.
+    :returns: filename (str): A proper filename for the image.
+    """
+
+    filename = re.sub(r'[^a-z0-9_]', '', recipe_name.lower().replace(" ", "_")) + f".{format}"
+    
+    return filename
 
 def generate_recipe_image(recipe, prompt, max_retries=3):
     """
@@ -232,7 +249,7 @@ def download_image(image_url, recipe, image_directory):
         response = requests.get(image_url, stream=True, timeout=10)
         if response.status_code == 200:
             # Create a valid filename
-            filename = f"{recipe['title'].replace(' ', '_').lower()}.jpg"
+            filename = create_filename(recipe['title'], 'jpg')
             filepath = os.path.join(image_directory, filename)
 
             # Save the image
@@ -342,6 +359,68 @@ def crop_center(image, width, height):
     except Exception as e:
         print(f"Error cropping image: {e}")
         return None
+
+def compress_image(input_path, output_path=None, quality=85):
+    """
+    Compress an image while keeping its original dimensions.
+
+    :param input_path: Path to the original image.
+    :param output_path: Path to save the compressed image. Defaults to overwriting the original.
+    :param quality: Compression quality (1-100, higher is better). Defaults to 85.
+    :return output_path: path to the compressed file or None if there is an error
+    """
+    try:
+        # Ensure the file exists
+        if not os.path.exists(input_path):
+            print(f"Error: File '{input_path}' not found.")
+            return None
+
+        # Open the image
+        with Image.open(input_path) as img:
+            format_ = img.format
+            print(f"Original format: {format_}, Mode: {img.mode}")
+
+            # Convert PNG to JPEG if mode is RGBA, P, or even RGB (to enforce JPEG saving)
+            if format_ == "PNG" and img.mode in ("RGBA", "P", "RGB"):
+                img = img.convert("RGB")
+                format_ = "JPEG"
+                print("Converted to JPEG")
+
+            # Set default output path if not provided
+            if not output_path:
+                base_dir = os.path.dirname(input_path)
+                compressed_dir = os.path.join(base_dir, "compressed")
+
+                # Create the "compressed" folder if it does not exist
+                os.makedirs(compressed_dir, exist_ok=True)
+
+                # Get the filename without the directory
+                filename = os.path.basename(input_path)
+                name, ext = os.path.splitext(filename)
+
+                # Adjust output extension based on format
+                output_ext = ".jpg" if format_ == "JPEG" else ".png"
+                output_path = os.path.join(compressed_dir, f"{name}_compressed{output_ext}")
+
+            # Save the optimized image
+            if format_ == "JPEG":
+                img.save(output_path, "JPEG", quality=quality, optimize=True)
+            elif format_ == "PNG":
+                img.save(output_path, "PNG", optimize=True, compress_level=9)
+            else:
+                print(f"Unsupported format '{format_}'. Skipping compression.")
+                return None
+
+            print(f"Image saved: {output_path}")
+            return output_path
+
+    except UnidentifiedImageError:
+        print(f"Error: '{input_path}' is not a valid image file.")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+    return None
+    
 
 def save_image_object(image, folder_path, image_name, format):
     """
@@ -517,88 +596,118 @@ if __name__ == "__main__":
     # Initialize the Flask app without running it
     app = create_app()
 
+    # Ask user for the recipe ID to start
+    recipe_id = ask_for_recipe_id()
+
     # Push application context
     with app.app_context():
+        """ recipes = db.session.query(Recipe).all()
+        for recipe in recipes:
+            print(recipe.id, recipe.title, recipe.local_image_path, recipe.quality_img_URL, recipe.compressed_img_URL) """
+        
         while True:
-            # Asking user for the recipe ID
-            recipe_id = ask_for_recipe_id()
             try:
                 print(f'Fetching data for recipe with ID {recipe_id}...')
                 recipe = get_recipe_by_id(recipe_id)
                 if recipe:
-                    image_name = recipe['image_path']
+                    recipe_img = create_filename(recipe['title'], 'png')
                     # Check if the image for the recipe with such id exists LOCALY
-                    if image_exists_local(folder_path, image_name):
+                    if image_exists_local(folder_path, recipe_img):
                         print(f'Image for {recipe['title']} already exists localy! Please try again...')
-                        continue
+                        break
                     else:
                         # Generate an image using DeepAI API
                         image_url = generate_recipe_image(recipe, generate_prompt(recipe))
                         if image_url:
                             gen_image_path = f"{BASE_DIR}{download_image(image_url, recipe, GEN_IMAGE_DIR)}"
-                            # Enhance generated image
-                            enhanced_img_url = enhance_image(gen_image_path, recipe)
-                            if enhanced_img_url:
-                                enhanced_img_path = f"{BASE_DIR}{download_image(enhanced_img_url, recipe, ENH_IMAGE_DIR)}"
-                                # Crop enhanced image
-                                try:
-                                    cropped_img = crop_center(Image.open(enhanced_img_path), img_width, img_height)
-                                    if cropped_img:
-                                        cropped_image_path = save_image_object(cropped_img, folder_path, image_name, 'PNG')
-                                        open_in_vscode(cropped_image_path)
-                                        # Check the image and proceed as needed
-                                        user_ok = input("Are you satisfied with the image? (Y/N)  ")
-                                        if user_ok.lower() == 'y':
-                                            # Upload to S3 bucket
-                                            public_URL = upload_to_S3(cropped_image_path)
-                                            # Check database for public URL of the recipe
-                                            if check_public_URL_in_db(recipe_id):
-                                                # Update the Recipes table
-                                                update_recipe_table(recipe_id, public_URL)
-                                            else:
-                                                user_update = input("Do you want to update the link? (Y/N)  ")
-                                                if user_update.lower() == 'y':
-                                                    # Update the Recipes table
-                                                    update_recipe_table(recipe_id, public_URL)
-                                                elif user_update.lower() == 'n':
-                                                    print("The link was not updated!!!")
-                                                else:
-                                                    print("I continue without updating the link, you can do it manually...")
-                                            # Ask user before deleting generated images
-                                            user_del = input("Do you want to delete copies? (Y/N)")
-                                            if user_del.lower() == 'y':
-                                                delete_file(gen_image_path)
-                                                delete_file(enhanced_img_path)
-                                                user_cont = input("Do you like to continue generating images? (Y/N)  ")
-                                                if user_cont.lower() == 'y':
-                                                    recipe_id += 1
-                                                    continue
-                                                elif user_cont.lower() == 'n':
-                                                    print("Thank you! Bye :)")
-                                                    break
-                                                else:
-                                                    print("You can try again or something else...")
-                                                    break
-                                            elif user_del.lower() == 'n':
-                                                print("It seems you'll need to adjust manually. Exitting..")
-                                                break
-                                            else:
-                                                print("You can try again or simply something else...")
-                                                break
-                                        elif user_ok.lower() == 'n':
-                                            user_retry = input("Do you want to delete copies and regenerate images? (Y/N)")
-                                            delete_file(gen_image_path)
-                                            delete_file(enhanced_img_path)
-                                            delete_file(cropped_image_path)
-                                            continue
+                            open_in_vscode(gen_image_path)
+                            # Check the image and proceed as needed
+                            user_ok = input("Are you satisfied with the image? (Y/N) ")
+                            if user_ok.lower() == 'y':
+                                # Enhance generated image
+                                enhanced_img_url = enhance_image(gen_image_path, recipe)
+                                if enhanced_img_url:
+                                    enhanced_img_path = f"{BASE_DIR}{download_image(enhanced_img_url, recipe, ENH_IMAGE_DIR)}"
+                                    # Crop enhanced image
+                                    try:
+                                        cropped_img = crop_center(Image.open(enhanced_img_path), img_width, img_height)
+                                        if cropped_img:
+                                            local_image_path = save_image_object(cropped_img, folder_path, recipe_img, 'PNG')
                                         else:
-                                            print("That's all! Good luck :)")
+                                            print("Could not cropp the image!")
+                                            break  
+                                    except FileNotFoundError:
+                                        print("Error: Image file not found.") 
+                                    # Compress the image
+                                    compressed_img = compress_image(local_image_path)
+                                    # Upload to S3 bucket
+                                    quality_img_URL = upload_to_S3(local_image_path)
+                                    compressed_URL = upload_to_S3(compressed_img, "compressed_images/")
+                                    # Check database for public URL of the recipe
+                                    if not check_quality_img_URL_in_db(recipe_id):
+                                        # Update the Recipes table
+                                        update_recipe_table(recipe_id, local_image_path, None, compressed_URL)
+                                    else:
+                                        user_update = input("Do you want to update all the links? (Y/N)  ")
+                                        if user_update.lower() == 'y':
+                                            # Update the Recipes table
+                                            update_recipe_table(recipe_id, local_image_path, quality_img_URL, compressed_URL)
+                                        elif user_update.lower() == 'n':
+                                            print("The links were not updated!!!")
+                                        else:
+                                            print("I continue without updating the links, you can do it manually...")
+                                    # Ask user before deleting generated images
+                                    user_del = input("Do you want to delete copies? (Y/N)  ")
+                                    if user_del.lower() == 'y':
+                                        delete_file(gen_image_path)
+                                        delete_file(enhanced_img_path)
+                                        user_cont = input("Would you like to continue generating images? (Y/N)  ")
+                                        if user_cont.lower() == 'y':
+                                            recipe_id += 1
+                                            continue
+                                        elif user_cont.lower() == 'n':
+                                            print("Thank you! Bye :)")
                                             break
-                                except FileNotFoundError:
-                                    print("Error: Image file not found.")
-                                        
+                                        else:
+                                            print("You can try again or something else...")
+                                            break
+                                    elif user_del.lower() == 'n':
+                                        print("It seems you'll need to adjust manually. Exitting..")
+                                        break
+                                    else:
+                                        print("You can try again or simply something else...")
+                                        break
+                                else:
+                                    print("Could not enhance the image!")
+                                    break
+                            elif user_ok.lower() == 'n':
+                                user_retry = input("Do you want to delete it and regenerate an image? (Y/N) ")
+                                if user_retry.lower() == 'y':
+                                    delete_file(gen_image_path)
+                                    continue
+                                elif user_retry.lower() == 'n':
+                                    user_del = input("Do you want to only delete it? (Y/N)  ")
+                                    if user_del.lower() == 'y':
+                                        delete_file(gen_image_path)
+                                        break
+                                    elif user_del.lower() == 'n':
+                                        print("I can do nothing for you then.")
+                                        break
+                                    else:
+                                        print("Not an option! Try again.")
+                                        break
+                                else:
+                                    print("Not an option! Good luck :)")
+                                    break
+                            else:
+                                print("That's all! Good luck :)")
+                                break
+                        else:
+                            print("Could nor generate an image!")
+                            break                       
                 else:
                     print("Recipe not found.")
+                    break
             except FileNotFoundError as e:
                 print(f"File not found: {e}")
             except OSError as e:
