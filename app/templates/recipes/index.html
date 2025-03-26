@@ -132,7 +132,7 @@
           <p class="lh-lg">Simplify mealtime with your personalized list of favorite recipes! Add, delete, or customize dishes to suit your taste and have your go-to meals ready whenever you need them.</p>
           <button type="button" class="rounded-pill btn-rounded border-primary mt-3" onclick="window.location.href='#favorites'">Our Favorites
             <span><i class="bi bi-arrow-down"></i></span>
-        </button>
+          </button>
         </div>
       </div>
     </div>  
@@ -189,8 +189,13 @@
         </div>
         <div class="swiper-pagination"></div>
       </div>
-
     </div>
+  </div>
+  <div class="container d-flex">
+    <button type="button" class="btn btn-lg btn-success border-primary text-uppercase px-5 mt-4 mx-auto" onclick="window.location.href='{{ url_for('recipes.recipes') }}'"> 
+    <span><i class="bi bi-plus-lg"></i></span> 
+    View all recipes
+    </button>
   </div>
 </section>
 {% endblock %}

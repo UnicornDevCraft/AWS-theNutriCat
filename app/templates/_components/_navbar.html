@@ -2,7 +2,7 @@
                                   THE NAVBAR SECTION
   /////////////////////////////////////////////////////////////////////////////////////////////-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-white menu shadow fixed-top">
-  <div class="container-fluid d-flex justify-content-between align-items-center position-relative">
+  <div class="container-fluid d-flex justify-content-between align-items-center position-relative d-lg-none">
     <!-- Button toggler for Offcanvas Menu -->
     <button class="navbar-toggler menuToggle py-1 px-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
       aria-controls="offcanvasNavbar">
@@ -13,11 +13,63 @@
       <img src="{{ url_for('static', filename='img/logo_horiz.png') }}" alt="The Nutri Cat logo">
     </a>
     <div class="d-flex align-items-center search-user">
-      <a class="btn btn-primary rounded-circle text-white d-flex align-items-center justify-content-center me-2" id="searchToggle" aria-label="Search">
+      <a class="btn btn-success rounded-circle text-white d-flex align-items-center justify-content-center me-2" id="searchToggle" aria-label="Search">
         <span class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search">search</span>
       </a>
       <!-- User Profile Button -->
-      <a href="{{ url_for('auth.profile') }}" class="btn btn-primary rounded-circle text-white d-flex align-items-center justify-content-center"
+      <a href="{{ url_for('auth.profile') }}" class="btn btn-success rounded-circle text-white d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;" aria-label="Profile">
+        {% if user %}
+          {{ user.username[:2].upper() }}
+        {% else %}
+          <i class="bi bi-person-fill"></i>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+  <!-- Large screen menu start -->
+  <div class="container-fluid justify-content-between align-items-center d-none d-lg-flex large-menu px-5">
+    <a class="navbar-brand" href="{{ url_for('recipes.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+      data-bs-custom-class="custom-tooltip" data-bs-title="Home">
+      <img src="{{ url_for('static', filename='img/logo_horiz.png') }}" alt="The Nutri Cat logo">
+    </a>
+    <ul class="navbar-nav navigation ms-auto pe-5">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('recipes.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="Home">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.index') }}#about" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="About Us">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.recipes') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="All Recipes">Recipes</a>
+      </li>
+      {% if g.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.menus') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="Custom Menus">Menus</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('recipes.index') }}#favorites-slider" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-custom-class="custom-tooltip" data-bs-title="Favorite Recipes">Favorites</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('auth.login') }}">Sign In</a>
+      </li>
+      {% endif %}
+    </ul>
+    <div class="d-flex align-items-center search-user">
+      <a class="btn btn-success rounded-circle text-white d-flex align-items-center justify-content-center me-2" id="searchToggle" aria-label="Search">
+        <span class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search">search</span>
+      </a>
+      <!-- User Profile Button -->
+      <a href="{{ url_for('auth.profile') }}" class="btn btn-success rounded-circle text-white d-flex align-items-center justify-content-center"
         style="width: 40px; height: 40px;" aria-label="Profile">
         {% if user %}
           {{ user.username[:2].upper() }}
@@ -61,10 +113,6 @@
         <a class="nav-link" href="{{ url_for('recipes.index') }}#favorites-slider" data-bs-toggle="tooltip" data-bs-placement="bottom"
         data-bs-custom-class="custom-tooltip" data-bs-title="Favorite Recipes">Favorites</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('auth.logout') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
-          data-bs-custom-class="custom-tooltip" data-bs-title="Log out" aria-label="Log out">Sign Out</a>
-      </li> -->
       {% else %}
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>

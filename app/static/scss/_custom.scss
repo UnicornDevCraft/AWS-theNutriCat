@@ -70,5 +70,11 @@ $dark:          $almost-black;
 $tooltip-color: $white;
 $tooltip-bg:   $dark-salad;
 
+// Custom pagination active state
+$pagination-color: $dark-salad;
+$pagination-active-color: $white;
+$pagination-active-bg: $dark-salad;
+$pagination-active-border-color: $dark-salad;
+
 // Import Bootstrap
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';

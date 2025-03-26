@@ -50,21 +50,50 @@
             </div>
             <p class="text-center text-white">Or browse our favorites below</p>
         </div>
-    </div>
-    
+    </div>   
 </section>
 <section class="recipes-body album pt-2 pb-5 justify-content-center">
     <h1 class="text-capitalize text-center text-secondary">All recipes</h1>
+    <div class="conteiner-fluid my-5">
+        <div class="row justify-content-center align-content-center mx-3">
+            <!-- Sorting Buttons -->
+            <button id="sort-btn" class="btn btn-primary rounded-pill" data-sort="{{ 'desc' if sort_order == 'asc' else 'asc' }}">
+                Sort Alphabetically ({{ "A-Z" if sort_order == "asc" else "Z-A" }})
+            </button>
+            <button id="sort-time-btn" class="btn btn-primary rounded-pill" data-sort="{{ 'desc' if time_sort_order == 'asc' else 'asc' }}">
+                Sort by Time ({{ "Shortest" if time_sort_order == "asc" else "Longest" }})
+            </button>
+     
+            <input type="hidden" id="recipes-api-url" value="{{ url_for('recipes.recipes') }}">
+
+            <div id="filter-container">
+                {% for type, options in tag_options.items() %}
+                <div class="dropdown">
+                    <button class="btn btn-lg btn-primary dropdown-toggle rounded-pill" type="button" id="dropdown-{{ type }}" data-bs-toggle="dropdown">
+                        {{ type.capitalize() }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for name in options %}
+                        <li>
+                            <a class="dropdown-item filter-option" href="#" data-filter="{{ name }}">{{ name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="container-fluid my-5">     
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        <div id="recipes-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
             {% for recipe in recipes %}
-                <div class="col">
+                <div class="col recipe-card">
                     <div class="card shadow-sm rounded-5 mx-auto">
                         {% if recipe['compressed_img_URL'] %}
                             <img src="{{ recipe['compressed_img_URL'] }}" alt="{{ recipe['title'] }}">
                         {% endif %}
                         <div class="card-body">
-                            <h3 class="card-header text-capitalize text-center">{{ recipe['title'] }}</h3>
+                            <h3 class="card-header text-center text-secondary">{{ recipe['title'][:1] | upper + recipe['title'][1:] | lower }}</h3>
                             
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="cook-time d-flex justify-content-center align-items-center">
@@ -72,14 +101,13 @@
                                     &nbsp; <span class="text-white">{{ recipe['prep_time'] + recipe['cook_time'] }}</span>&nbsp; 
                                 </div>
                                 <div class="recipe-tags d-flex justify-content-start align-items-center">
-                                    <!-- Display Tags -->
                                     {% if recipe.tags %}
                                         {% for tag in recipe.tags %}
                                             <button class="btn btn-sm btn-outline-secondary rounded-3 mx-1">{{ tag.name }}</button>
                                         {% endfor %}
                                     {% endif %}
                                 </div>
-                                <button type="button" class="btn btn-m btn-primary rounded-4 text-white make">Make</button>
+                                <button type="button" class="btn btn-m btn-success rounded-4 text-white make">Make</button>
                             </div>
                         </div>
                     </div>
@@ -88,24 +116,23 @@
         </div>
     </div>
 
-    <!-- Pagination Controls -->
     <nav aria-label="Recipe Pagination">
         <ul class="pagination justify-content-center">
             {% if page > 1 %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('recipes.recipes', page=page-1) }}"><i class="bi bi-chevron-bar-left"></i></a>
+                    <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=page-1) }}"><i class="bi bi-chevron-bar-left"></i></a>
                 </li>
             {% endif %}
 
             {% for p in range(1, total_pages + 1) %}
                 <li class="page-item {% if p == page %}active{% endif %}">
-                    <a class="page-link" href="{{ url_for('recipes.recipes', page=p) }}">{{ p }}</a>
+                    <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=p) }}">{{ p }}</a>
                 </li>
             {% endfor %}
 
             {% if page < total_pages %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('recipes.recipes', page=page+1) }}"><i class="bi bi-chevron-bar-right"></i></a>
+                    <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=page+1) }}"><i class="bi bi-chevron-bar-right"></i></a>
                 </li>
             {% endif %}
         </ul>

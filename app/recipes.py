@@ -1,10 +1,10 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, jsonify, redirect, render_template, request, session, url_for
 )
 from flask_sqlalchemy import pagination
 from werkzeug.exceptions import abort
 from sqlalchemy.orm import joinedload
-
+from sqlalchemy import asc, desc
 from app.auth import login_required
 from app.db import db
 from app.models import Recipe, Tag, RecipeTag, User
@@ -31,20 +31,63 @@ def index():
 
 @bp.route('/recipes')
 def recipes():
-    per_page = 9
+    # Get query parameters
+    filter_tag = request.args.get('filter', None)
+    sort_order = request.args.get('sort', 'dsc')
+    time_sort_order = request.args.get('time_sort', 'asc')
     page = request.args.get('page', 1, type=int)
-    
-    # Fetch recipes with associated tags, paginated
-    paginated_recipes = Recipe.query.options(
-        joinedload(Recipe.tags)  # Eager load tags
-    ).paginate(page=page, per_page=per_page, error_out=False)
+    per_page = 9
+
+    # Get unique tag types and their names
+    tag_types = db.session.query(Tag.type).distinct().all()
+    tag_types = [t[0] for t in tag_types]
+    tag_options = {t: db.session.query(Tag.name).filter(Tag.type == t).distinct().all() for t in tag_types}
+    tag_options = {t: [n[0] for n in names] for t, names in tag_options.items()}
+
+    # Base query for recipes
+    query = Recipe.query.options(joinedload(Recipe.tags))
+
+    # Apply filter if a tag name is selected
+    if filter_tag:
+        query = query.join(Recipe.tags).filter(Tag.name == filter_tag)
+
+    # Apply sorting by title
+    if sort_order == "asc":
+        query = query.order_by(asc(Recipe.title))
+    else:
+        query = query.order_by(desc(Recipe.title))
+
+    # Apply sorting by time (prep_time + cook_time)
+    if time_sort_order == "asc":
+        query = query.order_by(Recipe.prep_time + Recipe.cook_time)
+    else:
+        query = query.order_by((Recipe.prep_time + Recipe.cook_time).desc())
+
+    # Pagination
+    paginated_recipes = query.paginate(page=page, per_page=per_page, error_out=False)
+
+    # AJAX response for filtering
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return jsonify([{
+            "title": recipe.title,
+            "compressed_img_URL": recipe.compressed_img_URL or recipe.quality_img_URL or recipe.local_image_path,
+            "prep_time": recipe.prep_time,
+            "cook_time": recipe.cook_time,
+            "tags": [{"name": tag.name} for tag in recipe.tags],
+            "id": recipe.id
+        } for recipe in paginated_recipes.items])
 
     return render_template(
-        'recipes/recipes.html',
+        "recipes/recipes.html",
         recipes=paginated_recipes.items,
+        tag_types=tag_types,
+        tag_options=tag_options,
         page=page,
-        total_pages=paginated_recipes.pages
+        total_pages=paginated_recipes.pages,
+        sort_order=sort_order,
+        time_sort_order=time_sort_order
     )
+
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
