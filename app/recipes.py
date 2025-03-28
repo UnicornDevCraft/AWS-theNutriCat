@@ -33,16 +33,33 @@ def index():
 def recipes():
     # Get query parameters
     filter_tag = request.args.get('filter', None)
-    sort_order = request.args.get('sort', 'dsc')
-    time_sort_order = request.args.get('time_sort', 'asc')
+    sort_order = request.args.get('sort', 'default')
+    time_sort_order = request.args.get('time_sort')
     page = request.args.get('page', 1, type=int)
     per_page = 9
 
     # Get unique tag types and their names
     tag_types = db.session.query(Tag.type).distinct().all()
     tag_types = [t[0] for t in tag_types]
-    tag_options = {t: db.session.query(Tag.name).filter(Tag.type == t).distinct().all() for t in tag_types}
-    tag_options = {t: [n[0] for n in names] for t, names in tag_options.items()}
+    tag_options = {}
+    for t in tag_types:
+        options = db.session.query(Tag.name).filter(Tag.type == t).distinct().all()
+        options = [n[0] for n in options]
+        if "day" in t:
+            week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+            options = sorted(options, key=lambda x: week_days.index(x) if x in week_days else len(week_days))
+            tag_name = "Day of the week"
+        elif "meal" in t:
+            meal_order = ["Breakfast", "Lunch", "Dinner", "Dessert"]
+            options = sorted(options, key=lambda x: meal_order.index(x) if x in meal_order else len(meal_order))
+            tag_name = "Meals"
+        elif "menu" in t:
+            options = sorted(options)
+            tag_name = "Menu"
+        else:
+            tag_name = t
+            
+        tag_options[tag_name] = options
 
     # Base query for recipes
     query = Recipe.query.options(joinedload(Recipe.tags))
@@ -54,38 +71,34 @@ def recipes():
     # Apply sorting by title
     if sort_order == "asc":
         query = query.order_by(asc(Recipe.title))
-    else:
+    elif sort_order == "desc":
         query = query.order_by(desc(Recipe.title))
-
-    # Apply sorting by time (prep_time + cook_time)
-    if time_sort_order == "asc":
-        query = query.order_by(Recipe.prep_time + Recipe.cook_time)
     else:
-        query = query.order_by((Recipe.prep_time + Recipe.cook_time).desc())
+        query = query.order_by(Recipe.id.asc())
 
     # Pagination
     paginated_recipes = query.paginate(page=page, per_page=per_page, error_out=False)
 
     # AJAX response for filtering
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-        return jsonify([{
+        return jsonify({
+            "recipes": [{
             "title": recipe.title,
             "compressed_img_URL": recipe.compressed_img_URL or recipe.quality_img_URL or recipe.local_image_path,
             "prep_time": recipe.prep_time,
             "cook_time": recipe.cook_time,
             "tags": [{"name": tag.name} for tag in recipe.tags],
             "id": recipe.id
-        } for recipe in paginated_recipes.items])
+        } for recipe in paginated_recipes.items],
+        "total_pages": paginated_recipes.pages})
 
     return render_template(
         "recipes/recipes.html",
         recipes=paginated_recipes.items,
-        tag_types=tag_types,
         tag_options=tag_options,
         page=page,
         total_pages=paginated_recipes.pages,
-        sort_order=sort_order,
-        time_sort_order=time_sort_order
+        sort_order=sort_order
     )
 
 

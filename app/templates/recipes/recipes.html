@@ -48,29 +48,31 @@
                     <button class="btn btn-primary position-absolute end-0 top-50 translate-middle-y rounded-5" type="submit"><i class="bi bi-search"></i></button>
                 </form>
             </div>
-            <p class="text-center text-white">Or browse our favorites below</p>
+            <div class="row d-flex justify-content-center mt-5">
+                <div class="col-md-6 d-flex flex-column align-items-center">
+                    <p class="text-center text-white">You can also add your own recipe!</p>
+                    <button class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3"><i class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</button>
+                    <p class="text-center text-white mt-5">Or browse all the recipes below:</p>
+                </div>
+            </div>
+            
         </div>
     </div>   
 </section>
 <section class="recipes-body album pt-2 pb-5 justify-content-center">
     <h1 class="text-capitalize text-center text-secondary">All recipes</h1>
-    <div class="conteiner-fluid my-5">
+    <!-- Start filtering and sorting controls -->
+    <div class="conteiner-fluid my-5 filter-sort">
         <div class="row justify-content-center align-content-center mx-3">
-            <!-- Sorting Buttons -->
-            <button id="sort-btn" class="btn btn-primary rounded-pill" data-sort="{{ 'desc' if sort_order == 'asc' else 'asc' }}">
-                Sort Alphabetically ({{ "A-Z" if sort_order == "asc" else "Z-A" }})
-            </button>
-            <button id="sort-time-btn" class="btn btn-primary rounded-pill" data-sort="{{ 'desc' if time_sort_order == 'asc' else 'asc' }}">
-                Sort by Time ({{ "Shortest" if time_sort_order == "asc" else "Longest" }})
-            </button>
-     
+           
+            <!-- Route to pass into javascript -->
             <input type="hidden" id="recipes-api-url" value="{{ url_for('recipes.recipes') }}">
-
-            <div id="filter-container">
+            <!-- Filtering controls -->
+            <div id="filter-container" class="col-md-6 d-flex justify-content-center">
                 {% for type, options in tag_options.items() %}
                 <div class="dropdown">
-                    <button class="btn btn-lg btn-primary dropdown-toggle rounded-pill" type="button" id="dropdown-{{ type }}" data-bs-toggle="dropdown">
-                        {{ type.capitalize() }}
+                    <button class="btn btn-outline-success dropdown-toggle rounded-pill px-3 mx-2" type="button" id="dropdown-{{ type }}" data-bs-toggle="dropdown">
+                        {{ type }}
                     </button>
                     <ul class="dropdown-menu">
                         {% for name in options %}
@@ -82,9 +84,26 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 d-flex justify-content-center">
+                    <!-- Sorting Button -->
+                    <button id="sort-btn" class="btn btn-outline-success rounded-pill w-75 mt-2" data-sort="{{ sort_order if sort_order in ['asc', 'desc'] else 'default' }}">
+                        Sort by the title&nbsp;
+                        {% if sort_order == "asc" %}
+                            <i class="bi bi-sort-alpha-down"></i>
+                        {% elif sort_order == "desc" %}
+                            <i class="bi bi-sort-alpha-down-alt"></i>
+                        {% else %}
+                            <i class="bi bi-filter"></i>
+                        {% endif %}
+                    </button>
+                </div>
+            </div>
+            
         </div>
     </div>
-    <div class="container-fluid my-5">     
+    <!-- Start recipe section -->
+    <div class="container-fluid my-5 show-recipes">     
         <div id="recipes-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
             {% for recipe in recipes %}
                 <div class="col recipe-card">
