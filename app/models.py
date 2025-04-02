@@ -2,6 +2,11 @@ from app.db import db
 from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from sqlalchemy import DDL, Index
+from sqlalchemy.schema import CreateTable
+from sqlalchemy.orm import validates
+from sqlalchemy.dialects.postgresql import TSVECTOR
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -31,7 +36,14 @@ class Recipe(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     tags = db.relationship('Tag', secondary='recipe_tags', backref='recipes')
+    ingredients = db.relationship('Ingredient', secondary='recipe_ingredients', backref='recipes')
+    instructions = db.relationship('Instruction', backref='recipes', lazy=True)
+    title_search = db.Column(TSVECTOR)
 
+    @validates('title')
+    def validate_title(self, key, value):
+        self.title_search = func.to_tsvector('english', value)
+        return value
 
 class RecipeTranslation(db.Model):
     __tablename__ = "recipe_translations"
@@ -52,6 +64,16 @@ class Ingredient(db.Model):
     name = db.Column(db.String(255), unique=True, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    name_search = db.Column(TSVECTOR)
+
+    __table_args__ = (
+        Index('ix_ingredients_name', 'name'),  # Create index on 'name' column
+    )
+
+    @validates('name')
+    def validate_name(self, key, value):
+        self.name_search = func.to_tsvector('english', value)
+        return value
 
 class RecipeIngredient(db.Model):
     __tablename__ = "recipe_ingredients"
@@ -86,6 +108,12 @@ class Instruction(db.Model):
     instruction = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    instruction_search = db.Column(TSVECTOR)
+
+    @validates('instruction')
+    def validate_instruction(self, key, value):
+        self.instruction_search = func.to_tsvector('english', value)
+        return value
 
 class Tag(db.Model):
     __tablename__ = "tags"
@@ -93,6 +121,10 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     type = db.Column(db.String(50), nullable=False)
+
+    __table_args__ = (
+        Index('ix_tags_name', 'name'),  # Create index on 'name' column
+    )
 
 class RecipeTag(db.Model):
     __tablename__ = "recipe_tags"
@@ -111,9 +143,7 @@ class Favorite(db.Model):
     # Ensures a user cannot favorite the same recipe multiple times
     __table_args__ = (db.UniqueConstraint("user_id", "recipe_id", name="uq_user_recipe"),)
 
-
-
-
-
-
-    
+# Adding indexing for search
+Index('ix_recipes_title_search', Recipe.title_search, postgresql_using='gin')
+Index('ix_ingredients_name_search', Ingredient.name_search, postgresql_using='gin')
+Index('ix_instructions_instruction_search', Instruction.instruction_search, postgresql_using='gin')

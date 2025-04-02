@@ -4,10 +4,11 @@ from flask import (
 from flask_sqlalchemy import pagination
 from werkzeug.exceptions import abort
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func, or_
 from sqlalchemy import asc, desc
 from app.auth import login_required
 from app.db import db
-from app.models import Recipe, Tag, RecipeTag, User
+from app.models import Ingredient, Recipe, Instruction, RecipeTag, Tag, User
 
 bp = Blueprint('recipes', __name__)
 
@@ -32,9 +33,9 @@ def index():
 @bp.route('/recipes')
 def recipes():
     # Get query parameters
+    search_query = request.args.get('search', '')
     filter_tag = request.args.get('filter', None)
     sort_order = request.args.get('sort', 'default')
-    time_sort_order = request.args.get('time_sort')
     page = request.args.get('page', 1, type=int)
     per_page = 9
 
@@ -61,8 +62,25 @@ def recipes():
             
         tag_options[tag_name] = options
 
-    # Base query for recipes
-    query = Recipe.query.options(joinedload(Recipe.tags))
+    # Full-text search query
+    if search_query:
+        # Search in title, ingredients, and instructions
+        search_conditions = or_(
+            Recipe.title_search.match(search_query),
+            func.to_tsvector(Ingredient.name).match(search_query),
+            func.to_tsvector(Instruction.instruction).match(search_query)
+        )
+        query = (
+            db.session.query(Recipe)
+            .join(Recipe.ingredients)
+            .join(Recipe.instructions)
+            .filter(search_conditions)
+            .distinct(Recipe.id)  # Ensures each recipe appears only once
+        )
+        
+    else:
+        # Base query for recipes
+        query = Recipe.query.options(joinedload(Recipe.tags))
 
     # Apply filter if a tag name is selected
     if filter_tag:
@@ -76,8 +94,11 @@ def recipes():
     else:
         query = query.order_by(Recipe.id.asc())
 
+    
+
     # Pagination
     paginated_recipes = query.paginate(page=page, per_page=per_page, error_out=False)
+    print(query)
 
     # AJAX response for filtering
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":

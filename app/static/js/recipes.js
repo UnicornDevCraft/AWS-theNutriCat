@@ -1,10 +1,12 @@
-window.fetchRecipes = function (page = 1, filter = "", sort = "") {
+window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
     const apiUrl = document.getElementById("recipes-api-url").value;
     let queryUrl = `${apiUrl}?page=${page}`;
 
+    if (search) queryUrl += `&search=${search}`;
     if (filter) queryUrl += `&filter=${filter}`;
     if (sort) queryUrl += `&sort=${sort}`;
-    console.log(queryUrl)
+    console.log("Fetching: ", queryUrl)
+    
     fetch(queryUrl, {
         headers: { "X-Requested-With": "XMLHttpRequest" }
     })
@@ -17,8 +19,9 @@ window.fetchRecipes = function (page = 1, filter = "", sort = "") {
         container.innerHTML = "";
 
         if (data.recipes.length === 0) {
-            container.innerHTML = "<p>No recipes found.</p>";
+            container.innerHTML = `<p class="text-center mx-auto">No recipes found.</p>`;
         } else {
+            console.log("Recipes:", data.recipes)
             data.recipes.forEach(recipe => {
                 container.innerHTML += `
                     <div class="col recipe-card">
@@ -41,20 +44,20 @@ window.fetchRecipes = function (page = 1, filter = "", sort = "") {
                     </div>`;
             });
         }
-
-        updatePagination(data.total_pages, page, filter, sort);
+        
+        updatePagination(data.total_pages, page, filter, sort, search);
     })
     .catch(error => console.error("Error fetching recipes:", error));
 };
 
-window.updatePagination = function (totalPages, currentPage = 1, filter = "", sort = "") {
+window.updatePagination = function (totalPages, currentPage = 1, filter = "", sort = "", search = "") {
     const paginationContainer = document.querySelector(".pagination");
     paginationContainer.innerHTML = "";
 
     if (currentPage > 1) {
         paginationContainer.innerHTML += `
             <li class="page-item">
-                <a class="page-link page-link-btn" href="#" onclick="fetchRecipes(${currentPage - 1}, '${filter}', '${sort}')">
+                <a class="page-link page-link-btn" href="#" onclick="fetchRecipes(${currentPage - 1}, '${filter}', '${sort}', '${search}')">
                     <i class="bi bi-chevron-bar-left"></i>
                 </a>
             </li>`;
@@ -63,54 +66,68 @@ window.updatePagination = function (totalPages, currentPage = 1, filter = "", so
     for (let p = 1; p <= totalPages; p++) {
         paginationContainer.innerHTML += `
             <li class="page-item ${p === currentPage ? 'active' : ''}">
-                <a class="page-link page-link-btn" href="#" onclick="fetchRecipes(${p}, '${filter}', '${sort}')">${p}</a>
+                <a class="page-link page-link-btn" href="#" onclick="fetchRecipes(${p}, '${filter}', '${sort}', '${search}')">${p}</a>
             </li>`;
     }
 
     if (currentPage < totalPages) {
         paginationContainer.innerHTML += `
             <li class="page-item">
-                <a class="page-link page-link-btn" href="#" onclick="fetchRecipes(${currentPage + 1}, '${filter}', '${sort}')">
+                <a class="page-link page-link-btn" href="#" onclick="fetchRecipes(${currentPage + 1}, '${filter}', '${sort}', '${search}')">
                     <i class="bi bi-chevron-bar-right"></i>
                 </a>
             </li>`;
     }
 };
 
+window.searchRecipes = function (filter = "", sort = "") {
+    const searchQuery = document.getElementById('search-input').value.trim();
+    const encodedSearch = encodeURIComponent(searchQuery);
+
+    console.log("Searching for:", searchQuery);
+    fetchRecipes(1, filter, sort, encodedSearch);
+};
+
 // Handle filter and sorting
 document.addEventListener("DOMContentLoaded", function () {
     let currentFilter = "";
     let currentSort = "";
+    let currentSearch = "";
+
+    document.getElementById("search-btn").addEventListener("click", function (e) {
+        e.preventDefault();
+        searchRecipes(currentFilter, currentSort);
+    });
 
     document.querySelectorAll(".filter-option").forEach(item => {
         item.addEventListener("click", function (e) {
             e.preventDefault();
             currentFilter = this.getAttribute("data-filter");
-            fetchRecipes(1, currentFilter, currentSort);
+            fetchRecipes(1, currentFilter, currentSort, currentSearch);
         });
     });
 
     document.getElementById("sort-btn").addEventListener("click", function () {
         let currentSort = this.getAttribute("data-sort");
-        console.log(currentSort)
+    
         // Toggle sorting: default → asc → desc → default
         if (currentSort === "default") {
             currentSort = "asc";
         } else if (currentSort === "asc") {
             currentSort = "desc";
         } else {
-            currentSort = "default";  // Reset to original order
+            currentSort = "default";
         }
-        console.log(currentSort)
+        
         // Update button attribute
         this.setAttribute("data-sort", currentSort);
 
         // Update button icon and text
         this.innerHTML = `Sort by the title&nbsp;
             <i class="bi ${currentSort === "asc" ? "bi-sort-alpha-down" : currentSort === "desc" ? "bi-sort-alpha-down-alt" : "bi-filter"}"></i>`;
-        console.log(currentSort)
+        
         // Call fetchRecipes with the new sorting order
-        fetchRecipes(1, currentFilter, currentSort);
+        fetchRecipes(1, currentFilter, currentSort, currentSearch);
     });
 
 });
