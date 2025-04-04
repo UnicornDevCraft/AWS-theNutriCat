@@ -5,7 +5,7 @@
   <div class="container-fluid d-flex justify-content-between align-items-center position-relative d-lg-none">
     <!-- Button toggler for Offcanvas Menu -->
     <button class="navbar-toggler menuToggle py-1 px-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-      aria-controls="offcanvasNavbar">
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="{{ url_for('recipes.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -130,6 +130,7 @@
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header d-flex align-items-center justify-content-between">
+        <h1 id="searchModalLabel" class="visually-hidden">Search Modal</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           <i class="bi bi-chevron-left"></i>
         </button>

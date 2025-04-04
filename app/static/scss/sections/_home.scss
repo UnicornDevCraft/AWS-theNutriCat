@@ -45,7 +45,7 @@
         font-family: $font-bala;
         font-size: 2.2rem;
         color: $primary;
-        text-shadow: 4px 4px 2px $dark-salad;
+        text-shadow: 4px 4px 2px $white;
         display: block;
 
         @include media-breakpoint-up(s) {
@@ -107,6 +107,16 @@
         box-shadow: 0 0 25px $golden-orange, 0 0 100px $golden-orange, 0 0 150px $golden-orange;
       }
     }
+  }
+}
+.accordion-body {
+  a {
+      text-decoration: none;
+      color: $primary;
+      
+      &:hover {
+          text-decoration: underline;
+      }
   }
 }
 

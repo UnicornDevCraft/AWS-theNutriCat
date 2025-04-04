@@ -1,4 +1,34 @@
-// Homepage slider with favorite recipes
+async function toggleFavorite(recipeId) {
+    try {
+        const response = await fetch(`/toggle_favorite/${recipeId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.status === 401) {
+            console.warn("User is not logged in.");
+            alert("Please log in to add favorites!");
+            return;
+        }
+
+        const data = await response.json();
+        if (data.success) {
+            if (data.favorite){
+                console.log("Recipe added to favorites!", data.favorite);
+                return (data.favorite);
+            } else {
+                console.log("Recipe removed from favorites!", data.favorite);
+                return (data.favorite);
+            }
+            console.log("Favorite toggled successfully!", data);
+        } else {
+            console.error("Error toggling favorite:", data.error);
+        }
+    } catch (error) {
+        console.error("Request failed:", error);
+    }
+}
+
 
 if (!window.location.pathname.startsWith("/auth/")) {
     document.addEventListener("DOMContentLoaded", () => {
@@ -41,6 +71,29 @@ if (!window.location.pathname.startsWith("/auth/")) {
             } else {
                 star.style.color = "#ced4da";
             }
+            });
+        });
+
+        document.querySelectorAll(".favorite-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const recipeId = this.getAttribute("data-recipe-id");
+                const icon = this.querySelector(".heart-icon");
+                const isFavorite = icon.getAttribute("name") === "heart";
+                console.log("Recipe ID:", recipeId);
+                console.log("Is favorite:", isFavorite);
+                console.log(icon.getAttribute("name"));
+    
+                // Toggle icon state
+                icon.setAttribute("name", isFavorite ? "heart-outline" : "heart");
+    
+                // Send request to backend
+                if (toggleFavorite(recipeId) === true) {
+                    icon.setAttribute("name", "heart");
+                    icon.classList.replace("bi-heart", "bi-heart-fill");
+                } else {
+                    icon.setAttribute("name", "heart-outline");
+                    icon.classList.replace("bi-heart-fill", "bi-heart");
+                }
             });
         });
     });

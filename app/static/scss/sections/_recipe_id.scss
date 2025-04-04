@@ -1,0 +1,30 @@
+// Importing custom variables
+@use '../custom' as *;
+@use '../components/typography' as *;
+@use '../components/mixins' as *;
+
+body {
+    background-color: #f8f9fa;
+}
+.recipe-header {
+    position: relative;
+    text-align: center;
+}
+.recipe-header img {
+    width: 100%;
+    border-radius: 0 0 30px 30px;
+}
+.recipe-content {
+    margin-top: -40px;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.tab-content {
+    padding-top: 15px;
+}
+.tab-button.active {
+    background-color: #ff6b6b;
+    color: white;
+}

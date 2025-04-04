@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Recipes | The Nutri Cat{% endblock %}
+{% block navbar %}
+{% include '_components/_navbar.html' %}
+{% endblock %}
+{% block section %}
+<!-- ////////////////////////////////////////////////////////////////////////////////////////
+                               START THE SHOW RECIPE SECTION
+/////////////////////////////////////////////////////////////////////////////////////////////-->
+<div class="container">
+    <!-- Recipe Header with Image -->
+    <div class="recipe-header">
+        <img src="{{ recipe.image_path }}" alt="{{ recipe.title }}" class="img-fluid">
+    </div>
+
+    <!-- Recipe Details -->
+    <div class="recipe-content">
+        <h2>{{ recipe.title }}</h2>
+        <p class="text-muted">{{ recipe.description }}</p>
+        
+        <!-- Metadata -->
+        <div class="d-flex justify-content-between text-muted">
+            <span>⏳ {{ recipe.prep_time }} min</span>
+            <span>🔥 {{ recipe.cook_time }} min</span>
+            <span>🍽 {{ recipe.servings }} servings</span>
+        </div>
+
+        <!-- Tab Navigation -->
+        <ul class="nav nav-pills mt-3" id="recipeTabs">
+            <li class="nav-item">
+                <button class="nav-link active tab-button" data-bs-toggle="pill" data-bs-target="#ingredientsTab">Ingredients</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link tab-button" data-bs-toggle="pill" data-bs-target="#instructionsTab">Instructions</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Ingredients Tab -->
+            <div class="tab-pane fade show active" id="ingredientsTab">
+                <ul class="list-group mt-3">
+                    {% for ingredient in ingredients %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>{{ ingredient[0] }}</span>
+                            <span class="text-muted">{{ ingredient[1] }} {{ ingredient[2] }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Instructions Tab -->
+            <div class="tab-pane fade" id="instructionsTab">
+                <ol class="list-group list-group-numbered mt-3">
+                    {% for instruction in instructions %}
+                        <li class="list-group-item">{{ instruction.step_text }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include '_components/_footer.html' %}
+{% endblock %}

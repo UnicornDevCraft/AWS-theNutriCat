@@ -1,9 +1,8 @@
-
 import functools
 import random
 import string
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, jsonify, redirect, render_template, request, session, url_for
 )
 from app.models import User
 from app.db import db
@@ -84,10 +83,13 @@ def logout():
     flash('You are successfuly logged out!', 'success')
     return redirect(url_for('recipes.index'))
 
+
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
+            if request.accept_mimetypes["application/json"]:
+                return jsonify({"success": False, "error": "Unauthorized"}), 401
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
@@ -106,3 +108,5 @@ def generate_random_username():
     while User.query.filter_by(username=username).first(): 
         username = "user" + "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
     return username
+
+

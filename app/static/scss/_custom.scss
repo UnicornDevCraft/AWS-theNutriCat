@@ -34,6 +34,7 @@ $white-transparent-0015: rgba(255, 255, 255, 0.015);
 $white-transparent-01: rgba(255, 255, 255, 0.1);
 $white-transparent-015: rgba(255, 255, 255, 0.15);
 $white-transparent-02: rgba(255, 255, 255, 0.2);
+$white-transparent-08: rgba(255, 255, 255, 0.8);
 
 // Black transparent colors
 $black-transparent-005: rgba(0, 0, 0, 0.05);
@@ -75,6 +76,17 @@ $pagination-color: $dark-salad;
 $pagination-active-color: $white;
 $pagination-active-bg: $dark-salad;
 $pagination-active-border-color: $dark-salad;
+
+//ACCORDION OVERRIDES
+$accordion-padding-y:                     1.5rem;
+$accordion-padding-x:                     1.5rem;
+$accordion-button-active-bg:              rgba($primary, 0.2);
+$accordion-button-focus-border-color:     $primary;
+$accordion-icon-color:                    $primary;
+$accordion-icon-active-color:             $secondary;
+$accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='#{$accordion-icon-color}' stroke-linecap='round' stroke-linejoin='round'><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4'/></svg>") ;
+$accordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='#{$accordion-icon-active-color}' stroke-linecap='round' stroke-linejoin='round'><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8'/></svg>") ;
+$accordion-icon-width:                    1.75rem;
 
 // Import Bootstrap
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';

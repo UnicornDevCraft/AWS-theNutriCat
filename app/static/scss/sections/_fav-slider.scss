@@ -74,6 +74,17 @@ background: $ivory;
             right: 0;
             bottom: 0;
 
+            .favorite-btn{
+                position: absolute;
+                top: 1rem;
+                left: 1.25rem;
+                background-color: transparent;
+                border: none;
+                color: $white;
+                font-size: 2rem;
+                
+            }
+
             .cook-time{
                 position: absolute;
                 top: 1.25rem;

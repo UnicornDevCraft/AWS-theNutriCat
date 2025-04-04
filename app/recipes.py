@@ -8,7 +8,7 @@ from sqlalchemy import func, or_
 from sqlalchemy import asc, desc
 from app.auth import login_required
 from app.db import db
-from app.models import Ingredient, Recipe, Instruction, RecipeTag, Tag, User
+from app.models import Favorite, Ingredient, Recipe, Instruction, RecipeTag, RecipeIngredient, Tag, User
 
 bp = Blueprint('recipes', __name__)
 
@@ -19,9 +19,10 @@ def index():
 
     favorite_recipes = [
         {
-            'name': recipe.title.capitalize(),
-            'time': (recipe.prep_time or 0) + (recipe.cook_time or 0),
-            'image': recipe.compressed_img_URL or "default_image.png"
+            "name": recipe.title.capitalize(),
+            "id" : recipe.id,
+            "time" : (recipe.prep_time or 0) + (recipe.cook_time or 0),
+            "image" : recipe.compressed_img_URL or "default_image.png"
         }
         for recipe in recipes
     ]
@@ -75,7 +76,7 @@ def recipes():
             .join(Recipe.ingredients)
             .join(Recipe.instructions)
             .filter(search_conditions)
-            .distinct(Recipe.id)  # Ensures each recipe appears only once
+            .distinct(Recipe.id)
         )
         
     else:
@@ -93,8 +94,6 @@ def recipes():
         query = query.order_by(desc(Recipe.title))
     else:
         query = query.order_by(Recipe.id.asc())
-
-    
 
     # Pagination
     paginated_recipes = query.paginate(page=page, per_page=per_page, error_out=False)
@@ -122,6 +121,37 @@ def recipes():
         sort_order=sort_order
     )
 
+@bp.route('/recipe/<int:recipe_id>')
+def recipe_id(recipe_id):
+    # Fetch recipe by ID
+    recipe = Recipe.query.get(recipe_id)
+    if not recipe:
+        abort(404)  # Return a 404 if the recipe isn't found
+
+    # Get ingredients for the recipe (using the relationship)
+    ingredients = recipe.ingredients  # Assuming you've set up a relationship in the Recipe model
+
+    # Get instructions for the recipe
+    instructions = Instruction.query.filter_by(recipe_id=recipe_id).order_by(Instruction.step_number).all()
+
+    return render_template('recipes/recipe_id.html', recipe=recipe, ingredients=ingredients, instructions=instructions)
+
+@bp.route("/toggle_favorite/<int:recipe_id>", methods=["POST"])
+@login_required
+def toggle_favorite(recipe_id):
+    user = User.query.filter_by(id=session.get('user_id')).first()
+    
+    favorite = Favorite.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()
+
+    if favorite:
+        db.session.delete(favorite)
+        db.session.commit()
+        return jsonify({"success": True, "favorite": False})
+    else:
+        new_favorite = Favorite(user_id=user.id, recipe_id=recipe_id)
+        db.session.add(new_favorite)
+        db.session.commit()
+        return jsonify({"success": True, "favorite": True})
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -165,7 +195,6 @@ def create():
             return redirect(url_for('recipes.index'))
 
     return render_template('recipes/create.html')
-
 
 
 def get_recipe(id, check_author=True):

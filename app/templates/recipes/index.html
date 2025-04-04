@@ -158,6 +158,10 @@
               <img src="{{ favorite.image }}" alt="Favorite recipe image">
             </div>
             <div class="favorite-slide-content">
+              <!-- Heart Button -->
+              <button class="favorite-btn" data-recipe-id="{{ favorite.id }}" aria-label="Add to favorites">
+                <i class="bi bi-heart heart-icon" name="heart-outline"></i>
+              </button>
               <h1 class="cook-time d-flex justify-content-center align-items-center">&nbsp;<ion-icon name="time-outline"></ion-icon>&nbsp; <span>{{ favorite.time }}</span> &nbsp;</h1>
               <div class="favorite-slide-content-bottom">
                 <h2 class="dish-name">
@@ -196,6 +200,75 @@
     <span><i class="bi bi-plus-lg"></i></span> 
     View all recipes
     </button>
+  </div>
+</section>
+<section id="faq" class="faq bg-success pb-5">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,32L48,26.7C96,21,192,11,288,42.7C384,75,480,149,576,154.7C672,160,768,96,864,90.7C960,85,1056,139,1152,154.7C1248,171,1344,149,1392,138.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+  <div class="container">
+    <div class="row text-center">
+      <h1 class="display-3 fw-bold text-uppercase text-white">faq</h1>
+      <div class="heading-line mt-1 mb-3"></div>
+      <p class="lead text-white">Frequently asked questions, get knowledge before hand</p>
+    </div>
+    <!-- accordion content -->
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="accordion" id="accordionExample">
+          <!-- accordion #1 -->
+          <div class="accordion-item shadow mb-3">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                How can I access the themed recipe collections on Nutri Ninja?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                To access the themed recipe collections on Nutri Ninja, simply navigate to the "Recipes" section of our website. From there, you'll find a variety of themed collections, including our popular New Year's collection and other seasonal favorites. Click on any collection to browse through the recipes and get inspired to create delicious and nutritious meals for any occasion.
+              </div>
+            </div>
+          </div>
+          <!-- accordion #2 -->
+          <div class="accordion-item shadow mb-3">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Are the recipes on Nutri Ninja suitable for specific dietary preferences or restrictions?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Yes! At Nutri Ninja, we strive to provide recipes that cater to a variety of dietary preferences and restrictions. Whether you're vegetarian, vegan, gluten-free, or following a specific eating plan like keto or paleo, you'll find a wide range of options to suit your needs. Each recipe includes detailed ingredient lists and instructions, as well as information on dietary considerations, such as allergens or special diets.
+              </div>
+            </div>
+          </div>
+          <!-- accordion #3 -->
+          <div class="accordion-item shadow mb-3">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Can I customize the serving sizes or ingredients in Nutri Ninja recipes?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Absolutely! We understand that everyone's tastes and nutritional needs are unique, which is why we encourage you to customize our recipes to suit your preferences. You can easily adjust the serving sizes, swap out ingredients, or add your own personal touches to make each recipe your own. Feel free to get creative and experiment with different flavors and combinations to find what works best for you.
+              </div>
+            </div>
+          </div>
+          <!-- accordion #4 -->
+          <div class="accordion-item shadow mb-3">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                How can I stay updated on new recipes, tips, and special offers from Nutri Ninja?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Stay connected with Nutri Ninja by subscribing to our <a href="https://t.me/nutrikatkapro">Telegram channel</a>! Or enter your email address in the <a href="#contact">subscription box</a> located at the bottom of our website, and you'll receive regular updates on new recipes, meal planning tips, and exclusive offers delivered straight to your inbox. You can also follow us on social media for daily inspiration and to join our community of health enthusiasts.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {% endblock %}
