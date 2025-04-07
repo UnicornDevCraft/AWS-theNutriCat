@@ -17,6 +17,9 @@ def index():
     # Fetch first 7 recipes
     recipes = Recipe.query.limit(7).all()
 
+    # Fetch the user from the session
+    user = User.query.filter_by(id=session.get('user_id')).first()
+
     favorite_recipes = [
         {
             "name": recipe.title.capitalize(),
@@ -26,8 +29,6 @@ def index():
         }
         for recipe in recipes
     ]
-
-    user = User.query.filter_by(id=session.get('user_id')).first()
     
     return render_template('recipes/index.html', favorites=favorite_recipes, user=user)
 
@@ -39,6 +40,19 @@ def recipes():
     sort_order = request.args.get('sort', 'default')
     page = request.args.get('page', 1, type=int)
     per_page = 9
+
+    # Fetch the user from the session
+    user = User.query.filter_by(id=session.get('user_id')).first()
+
+    if user:
+        # Fetch the user's favorite recipes
+        favorite_recipes_ids = Favorite.query.filter_by(user_id=user.id).with_entities(Favorite.recipe_id).all()
+        favorite_recipe_ids_set = {recipe_id for recipe_id, in favorite_recipes_ids}
+        print(favorite_recipe_ids_set)
+    else:
+        favorite_recipe_ids_set = set()
+
+        print(f"Favorites are {favorite_recipe_ids_set}, user is {user}")
 
     # Get unique tag types and their names
     tag_types = db.session.query(Tag.type).distinct().all()
@@ -97,7 +111,6 @@ def recipes():
 
     # Pagination
     paginated_recipes = query.paginate(page=page, per_page=per_page, error_out=False)
-    print(query)
 
     # AJAX response for filtering
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":
@@ -108,9 +121,12 @@ def recipes():
             "prep_time": recipe.prep_time,
             "cook_time": recipe.cook_time,
             "tags": [{"name": tag.name} for tag in recipe.tags],
+            "favorite": recipe.id in favorite_recipe_ids_set,
             "id": recipe.id
         } for recipe in paginated_recipes.items],
-        "total_pages": paginated_recipes.pages})
+        "total_pages": paginated_recipes.pages,
+        "user": True if user else False}
+        )
 
     return render_template(
         "recipes/recipes.html",
@@ -118,7 +134,8 @@ def recipes():
         tag_options=tag_options,
         page=page,
         total_pages=paginated_recipes.pages,
-        sort_order=sort_order
+        sort_order=sort_order,
+        favorite_recipe_ids_set=favorite_recipe_ids_set
     )
 
 @bp.route('/recipe/<int:recipe_id>')
@@ -139,19 +156,23 @@ def recipe_id(recipe_id):
 @bp.route("/toggle_favorite/<int:recipe_id>", methods=["POST"])
 @login_required
 def toggle_favorite(recipe_id):
-    user = User.query.filter_by(id=session.get('user_id')).first()
-    
+    user = g.user
+
+    recipe = Recipe.query.get(recipe_id)
+    if not recipe:
+        return jsonify({"success": False, "error": "Recipe not found"}), 404
+
     favorite = Favorite.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()
 
     if favorite:
         db.session.delete(favorite)
         db.session.commit()
-        return jsonify({"success": True, "favorite": False})
+        return jsonify({"success": True, "favorite": False, "message": "Removed from favorites!"})
     else:
         new_favorite = Favorite(user_id=user.id, recipe_id=recipe_id)
         db.session.add(new_favorite)
         db.session.commit()
-        return jsonify({"success": True, "favorite": True})
+        return jsonify({"success": True, "favorite": True, "message": "Added to favorites!"})
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

@@ -145,7 +145,7 @@
 <section id="favorites-slider" class="bg-white favorites-slider">
   <div class="container text-center">
     <h3 class="display-3--title">- tranding on <em>The Nutri Cat</em> -</h3>
-    <h1 class="display-3 fw-bold">Favorite Recipes</h1>
+    <h1 class="display-3 fw-bold">Top Recipes</h1>
     <div class="heading-line mb-5"></div>
   </div>
   <div class="container">
@@ -154,14 +154,10 @@
         <!-- Slide-start -->
         {% for favorite in favorites %}
           <div class="swiper-slide favorite-slide">
-            <div class="favorite-slide-img">
-              <img src="{{ favorite.image }}" alt="Favorite recipe image">
+            <div class="favorite-slide-img" data-recipe-id="{{ favorite.id }}">
+              <img src="{{ favorite.image }}" alt="Favorite recipe image" class="img-favorite">
             </div>
             <div class="favorite-slide-content">
-              <!-- Heart Button -->
-              <button class="favorite-btn" data-recipe-id="{{ favorite.id }}" aria-label="Add to favorites">
-                <i class="bi bi-heart heart-icon" name="heart-outline"></i>
-              </button>
               <h1 class="cook-time d-flex justify-content-center align-items-center">&nbsp;<ion-icon name="time-outline"></ion-icon>&nbsp; <span>{{ favorite.time }}</span> &nbsp;</h1>
               <div class="favorite-slide-content-bottom">
                 <h2 class="dish-name">
@@ -218,12 +214,12 @@
           <div class="accordion-item shadow mb-3">
             <h2 class="accordion-header">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                How can I access the themed recipe collections on Nutri Ninja?
+                How can I access the themed recipe collections on the Nutri Cat?
               </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                To access the themed recipe collections on Nutri Ninja, simply navigate to the "Recipes" section of our website. From there, you'll find a variety of themed collections, including our popular New Year's collection and other seasonal favorites. Click on any collection to browse through the recipes and get inspired to create delicious and nutritious meals for any occasion.
+                To access the themed recipe collections on the Nutri Cat, simply navigate to the "Recipes" section of our website. From there, you'll find a variety of themed collections, including our popular New Year's collection and other seasonal favorites. Click on any collection to browse through the recipes and get inspired to create delicious and nutritious meals for any occasion.
               </div>
             </div>
           </div>
@@ -231,12 +227,12 @@
           <div class="accordion-item shadow mb-3">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Are the recipes on Nutri Ninja suitable for specific dietary preferences or restrictions?
+                Are the recipes on the Nutri Cat suitable for specific dietary preferences or restrictions?
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                Yes! At Nutri Ninja, we strive to provide recipes that cater to a variety of dietary preferences and restrictions. Whether you're vegetarian, vegan, gluten-free, or following a specific eating plan like keto or paleo, you'll find a wide range of options to suit your needs. Each recipe includes detailed ingredient lists and instructions, as well as information on dietary considerations, such as allergens or special diets.
+                Yes! At the Nutri Cat, we strive to provide recipes that cater to a variety of dietary preferences and restrictions. Whether you're vegetarian, vegan, gluten-free, or following a specific eating plan like keto or paleo, you'll find a wide range of options to suit your needs. Each recipe includes detailed ingredient lists and instructions, as well as information on dietary considerations, such as allergens or special diets.
               </div>
             </div>
           </div>
@@ -244,7 +240,7 @@
           <div class="accordion-item shadow mb-3">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Can I customize the serving sizes or ingredients in Nutri Ninja recipes?
+                Can I customize the serving sizes or ingredients in the Nutri Cat recipes?
               </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -257,12 +253,12 @@
           <div class="accordion-item shadow mb-3">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                How can I stay updated on new recipes, tips, and special offers from Nutri Ninja?
+                How can I stay updated on new recipes, tips, and special offers from the Nutri Cat?
               </button>
             </h2>
             <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                Stay connected with Nutri Ninja by subscribing to our <a href="https://t.me/nutrikatkapro">Telegram channel</a>! Or enter your email address in the <a href="#contact">subscription box</a> located at the bottom of our website, and you'll receive regular updates on new recipes, meal planning tips, and exclusive offers delivered straight to your inbox. You can also follow us on social media for daily inspiration and to join our community of health enthusiasts.
+                Stay connected with the Nutri Cat by subscribing to our <a href="https://t.me/nutrikatkapro">Telegram channel</a>! Or enter your email address in the <a href="#contact">subscription box</a> located at the bottom of our website, and you'll receive regular updates on new recipes, meal planning tips, and exclusive offers delivered straight to your inbox. You can also follow us on social media for daily inspiration and to join our community of health enthusiasts.
               </div>
             </div>
           </div>

@@ -117,6 +117,18 @@
                             <h3 class="card-header text-center"><a href="{{ url_for('recipes.recipe_id', recipe_id=recipe.id) }}" class="text-secondary fs-6 recipe-link" data-recipe-id="{{ recipe.id }}"> {{ recipe.title.capitalize() }}</a></h3>
                             
                             <div class="d-flex justify-content-between align-items-center mt-3">
+                                {% if g.user %}
+                                <!-- Heart Button -->
+                                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add or remove from favorites">
+                                    {% if recipe.id in favorite_recipe_ids_set %}
+                                        <i class="bi bi-heart-fill heart-icon" name="heart" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        data-bs-custom-class="custom-tooltip" data-bs-title="Remove from favorites"></i>
+                                    {% else %}
+                                        <i class="bi bi-heart heart-icon" name="heart-outline" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        data-bs-custom-class="custom-tooltip" data-bs-title="Add to favorites"></i>
+                                    {% endif %} 
+                                    </button>
+                                {% endif %}
                                 <div class="cook-time d-flex justify-content-center align-items-center">
                                     &nbsp;<ion-icon name="time-outline"></ion-icon>
                                     &nbsp; <span class="text-white">{{ recipe['prep_time'] + recipe['cook_time'] }}</span>&nbsp; 
@@ -124,7 +136,7 @@
                                 <div class="recipe-tags d-flex justify-content-start align-items-center">
                                     {% if recipe.tags %}
                                         {% for tag in recipe.tags %}
-                                            <button class="btn btn-sm btn-outline-secondary rounded-3 mx-1 filter-btn" data-filter="{{ tag.name }}">{{ tag.name }}</button>
+                                            <button class="btn btn-outline-secondary rounded-3 mx-1 filter-btn" data-filter="{{ tag.name }}">{{ tag.name }}</button>
                                         {% endfor %}
                                     {% endif %}
                                 </div>

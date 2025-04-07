@@ -21,6 +21,8 @@
 </head>
 
 <body>
+  <div id="flash-container" class="position-fixed top-0 end-0 mt-5 p-2" style="z-index: 1055;">
+  </div> 
   {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
   <section class="user-notifications">
@@ -41,12 +43,15 @@
       </div>
       {% endfor %}
     </div>
+       
   </section>
   {% endif %}
   {% endwith %}
   {% block navbar %}{% endblock %}
   {% block section %}{% endblock %}
   {% block footer %}{% endblock %}
+
+  
 
   <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
