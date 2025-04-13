@@ -45,7 +45,7 @@
             <div class="col-md-6 recipes-search">
                 <form class="searchBox position-relative" role="search">
                     <input id="search-input" class="form-control rounded-5" type="search" placeholder="Search" aria-label="Search" autofocus>
-                    <button id="search-btn" class="btn btn-primary position-absolute end-0 top-50 translate-middle-y rounded-5" type="submit">
+                    <button id="search-btn" class="btn btn-primary position-absolute end-0 top-50 translate-middle-y rounded-5" type="submit" area-label="Search">
                         <i class="bi bi-search"></i>
                     </button>
                 </form>
@@ -70,7 +70,7 @@
             <!-- Route to pass into javascript -->
             <input type="hidden" id="recipes-api-url" value="{{ url_for('recipes.recipes') }}">
             <!-- Filtering controls -->
-            <div id="filter-container" class="col-md-6 d-flex justify-content-center">
+            <div id="filter-container" class="col-md-6 d-flex flex-wrap gap-2 justify-content-center">
                 {% for type, options in tag_options.items() %}
                 <div class="dropdown">
                     <button class="btn btn-outline-success dropdown-toggle rounded-pill px-3 mx-2" type="button" id="dropdown-{{ type }}" data-bs-toggle="dropdown">

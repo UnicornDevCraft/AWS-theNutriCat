@@ -25,7 +25,7 @@ window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
                 container.innerHTML += `
                     <div class="col recipe-card">
                         <div class="card shadow-sm rounded-5 mx-auto">
-                            <img src="${recipe.compressed_img_URL || recipe.quality_img_URL || recipe.local_image_path}" alt="${recipe.title}" data-recipe-id="${ recipe.id }" class="recipe-img">
+                            <img src="${recipe.compressed_img_URL || recipe.quality_img_URL}" alt="${recipe.title}" data-recipe-id="${ recipe.id }" class="recipe-img">
                             <div class="card-body">
                                 <h3 class="card-header text-center"><a href="#" class="text-secondary fs-6 recipe-link" data-recipe-id="{{ recipe.id }}">${recipe.title.charAt(0).toUpperCase() + recipe.title.slice(1).toLowerCase()}</a></h3>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
@@ -73,7 +73,6 @@ window.attachFavoriteListeners = function() {
         const recipeId = this.getAttribute("data-recipe-id");
         const icon = this.querySelector(".heart-icon");
         
-        // Optional: disable button while waiting
         this.disabled = true;
 
         const isNowFavorite = await toggleFavorite(recipeId);
@@ -89,7 +88,7 @@ window.attachFavoriteListeners = function() {
                 icon.setAttribute("data-bs-title", "Add to favorites");
                 icon.classList.replace("bi-heart-fill", "bi-heart");
             } else {
-                // Error or not logged in: do nothing or revert state if needed
+                // Error or not logged in do nothing
                 console.warn("Favorite toggle failed or user not logged in.");
             }
 
@@ -100,6 +99,13 @@ window.attachFavoriteListeners = function() {
           showFlashMessage("Error toggling favorite", "danger");
         }
       });
+    });
+    document.querySelectorAll(".make, .recipe-img, .recipe-link").forEach(button => {
+        button.addEventListener("click", function(e) {
+            e.preventDefault();
+            const recipeId = this.getAttribute("data-recipe-id");
+            window.location.href = `/recipe/${recipeId}`;
+        });
     });
   }
   
@@ -148,7 +154,7 @@ async function toggleFavorite(recipeId) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-Requested-With": "XMLHttpRequest" // Optional if your Flask checks for it
+                "X-Requested-With": "XMLHttpRequest"
             },
         });
 
@@ -206,6 +212,17 @@ if (window.location.pathname.startsWith("/recipes")) {
         let currentFilter = "";
         let currentSort = "";
         let currentSearch = "";
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeFilter = urlParams.get('filter');
+
+        if (activeFilter) {
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                const filter = button.getAttribute('data-filter');
+                if (filter === activeFilter) {
+                    button.classList.add('active');
+                }
+            });
+        }
 
         document.getElementById("search-btn").addEventListener("click", function (e) {
             e.preventDefault();
@@ -235,7 +252,6 @@ if (window.location.pathname.startsWith("/recipes")) {
             }
         });
         
-
         document.getElementById("sort-btn").addEventListener("click", function () {
             let currentSort = this.getAttribute("data-sort");
         
@@ -296,10 +312,5 @@ if (window.location.pathname.startsWith("/recipes")) {
                 this.disabled = false;
             });
         });
-        
-
-    
-
-
     });
 };

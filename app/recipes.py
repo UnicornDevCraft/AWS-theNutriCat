@@ -140,18 +140,55 @@ def recipes():
 
 @bp.route('/recipe/<int:recipe_id>')
 def recipe_id(recipe_id):
-    # Fetch recipe by ID
-    recipe = Recipe.query.get(recipe_id)
+    # Fetch recipe and eager-load relationships
+    recipe = Recipe.query.options(
+        joinedload(Recipe.tags),
+        joinedload(Recipe.instructions),
+        joinedload(Recipe.ingredients)
+    ).get(recipe_id)
+
     if not recipe:
-        abort(404)  # Return a 404 if the recipe isn't found
+        abort(404)
 
-    # Get ingredients for the recipe (using the relationship)
-    ingredients = recipe.ingredients  # Assuming you've set up a relationship in the Recipe model
+    # Instructions (already eager-loaded, but sorted just in case)
+    instructions = sorted(recipe.instructions, key=lambda x: x.step_number)
 
-    # Get instructions for the recipe
-    instructions = Instruction.query.filter_by(recipe_id=recipe_id).order_by(Instruction.step_number).all()
+    # RecipeIngredients (includes quantity, unit, and ingredient data)
+    recipe_ingredients = (
+        RecipeIngredient.query
+        .filter_by(recipe_id=recipe_id)
+        .join(Ingredient)
+        .add_entity(Ingredient)
+        .all()
+    )
 
-    return render_template('recipes/recipe_id.html', recipe=recipe, ingredients=ingredients, instructions=instructions)
+    # Format ingredient data as needed: [(ingredient_name, quantity, unit, ingredient_notes)]
+    ingredients = [
+        {
+            'name': ingredient.name,
+            'quantity': ri.quantity,
+            'unit': ri.unit,
+            'quantity_notes': ri.quantity_notes,
+            'ingredient_notes': ri.ingredient_notes
+        }
+        for ri, ingredient in recipe_ingredients
+    ]
+    print(ingredients)
+
+    # Favorite recipes set (if user is logged in)
+    favorite_recipe_ids_set = set()
+    if g.user:
+        favorite_recipe_ids_set = {
+            fav.recipe_id for fav in Favorite.query.filter_by(user_id=g.user.id).all()
+        }
+
+    return render_template(
+        'recipes/recipe_id.html',
+        recipe=recipe,
+        ingredients=ingredients,
+        instructions=instructions,
+        favorite_recipe_ids_set=favorite_recipe_ids_set
+    )
 
 @bp.route("/toggle_favorite/<int:recipe_id>", methods=["POST"])
 @login_required
