@@ -8,7 +8,7 @@ from sqlalchemy import func, or_
 from sqlalchemy import asc, desc
 from app.auth import login_required
 from app.db import db
-from app.models import Favorite, Ingredient, Recipe, Instruction, RecipeTag, RecipeIngredient, Tag, User
+from app.models import Favorite, Ingredient, Recipe, Instruction, RecipeTag, RecipeIngredient, Tag, User, UserRecipeNote
 
 bp = Blueprint('recipes', __name__)
 
@@ -135,11 +135,14 @@ def recipes():
         page=page,
         total_pages=paginated_recipes.pages,
         sort_order=sort_order,
-        favorite_recipe_ids_set=favorite_recipe_ids_set
+        favorite_recipe_ids_set=favorite_recipe_ids_set, 
+        user=user
     )
 
 @bp.route('/recipe/<int:recipe_id>')
 def recipe_id(recipe_id):
+    note = None
+
     # Fetch recipe and eager-load relationships
     recipe = Recipe.query.options(
         joinedload(Recipe.tags),
@@ -173,21 +176,24 @@ def recipe_id(recipe_id):
         }
         for ri, ingredient in recipe_ingredients
     ]
-    print(ingredients)
 
-    # Favorite recipes set (if user is logged in)
+    # Favorite recipes set and notes
     favorite_recipe_ids_set = set()
     if g.user:
         favorite_recipe_ids_set = {
             fav.recipe_id for fav in Favorite.query.filter_by(user_id=g.user.id).all()
         }
+        note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
+        user = g.user
 
     return render_template(
         'recipes/recipe_id.html',
         recipe=recipe,
         ingredients=ingredients,
         instructions=instructions,
-        favorite_recipe_ids_set=favorite_recipe_ids_set
+        favorite_recipe_ids_set=favorite_recipe_ids_set, 
+        note=note, 
+        user=user
     )
 
 @bp.route("/toggle_favorite/<int:recipe_id>", methods=["POST"])
@@ -211,6 +217,42 @@ def toggle_favorite(recipe_id):
         db.session.commit()
         return jsonify({"success": True, "favorite": True, "message": "Added to favorites!"})
 
+@bp.route('/recipe/<int:recipe_id>/note', methods=['POST'])
+@login_required
+def save_note(recipe_id):
+    note_text = request.form.get('note', '')
+    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
+
+    if note:
+        note.note = note_text
+    else:
+        note = UserRecipeNote(user_id=g.user.id, recipe_id=recipe_id, note=note_text)
+        db.session.add(note)
+
+    db.session.commit()
+    flash("Note saved successfully.", "success")
+    return redirect(url_for('recipes.recipe_id', recipe_id=recipe_id, note=note_text))
+
+@bp.route("/recipe/<int:recipe_id>/note/edit", methods=["POST"])
+@login_required
+def edit_note(recipe_id):
+    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
+    if note:
+        note.note = request.form["note"]
+        db.session.commit()
+        flash("Note updated successfully.", "success")
+    return redirect(url_for("recipes.recipe_id", recipe_id=recipe_id))
+
+@bp.route("/recipe/<int:recipe_id>/note/delete", methods=["POST"])
+@login_required
+def delete_note(recipe_id):
+    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
+    if note:
+        db.session.delete(note)
+        db.session.commit()
+        flash("Note deleted.","success")
+    return redirect(url_for("recipes.recipe_id", recipe_id=recipe_id))
+
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
@@ -220,7 +262,7 @@ def create():
         prep_time = request.form.get('prep_time', type=int)
         cook_time = request.form.get('cook_time', type=int)
         compressed_img_URL = request.form.get('compressed_img_URL')
-        tag_names = request.form.getlist('tags')  # Assuming multi-select for tags
+        tag_names = request.form.getlist('tags')
         error = None
 
         if not title:

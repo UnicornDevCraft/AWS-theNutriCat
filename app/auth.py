@@ -97,9 +97,12 @@ def login_required(view):
     return wrapped_view
 
 @bp.route('/profile')
-@login_required
 def profile():
     user = User.query.filter_by(id=session.get('user_id')).first()
+
+    if user is None:
+        flash('You need to be logged in to view your profile.', 'error')
+        return redirect(url_for('auth.login'))
     
     return render_template('auth/profile.html', user=user)
 

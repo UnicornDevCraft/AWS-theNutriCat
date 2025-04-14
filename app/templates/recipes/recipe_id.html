@@ -9,7 +9,7 @@
                                START THE SHOW RECIPE SECTION
 /////////////////////////////////////////////////////////////////////////////////////////////-->
 <section class="recipe-section">
-    <div class="container-fluid d-flex flex-column align-items-center">
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
         <div class="row d-flex flex-column recipe-card">
             <div class="col recipe-image w-100">
                 <img src="{{ recipe.quality_img_URL or recipe.compressed_img_URL }}" alt="{{ recipe.title }}" class="img-fluid">
@@ -72,26 +72,33 @@
                 </div>
             </div>
         </div>
-        <div class="row recipe-content mt-3">
-            <div class="col w-100">
-                <ul class="nav nav-pills d-flex justify-content-center align-items-center w-100 mx-0 mt-3" id="recipeTabs">
-                    <li class="nav-item ">
-                        <button class="nav-link active tab-button" data-bs-toggle="pill" data-bs-target="#ingredientsTab">
-                            <img src="{{ url_for('static', filename='img/icons/salads.svg') }}" alt="Salad icon">
-                            Ingredients
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link tab-button" data-bs-toggle="pill" data-bs-target="#instructionsTab">
-                            <img src="{{ url_for('static', filename='img/icons/process.svg') }}" alt="Instructions icon">
-                            Instructions
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content">
+        <div class="container recipe-content mt-3">
+            <ul class="nav nav-pills justify-content-center flex-wrap flex-sm-nowrap text-center mx-0 mt-3" id="recipeTabs">
+                <li class="col-6 col-sm-4 nav-item p-0">
+                    <button class="nav-link active tab-button m-0" data-bs-toggle="pill" data-bs-target="#ingredientsTab">
+                        <img src="{{ url_for('static', filename='img/icons/salads.svg') }}" alt="Salad icon">
+                        Ingredients
+                    </button>
+                </li>
+                <li class="col-6 col-sm-4 nav-item p-0">
+                    <button class="nav-link tab-button m-0" data-bs-toggle="pill" data-bs-target="#instructionsTab">
+                        <img src="{{ url_for('static', filename='img/icons/process.svg') }}" alt="Instructions icon">
+                        Instructions
+                    </button>
+                </li>
+                {% if g.user %}
+                <li class="w-100 w-sm-auto nav-item">
+                    <button class="nav-link tab-button m-0 mt-1" data-bs-toggle="pill" data-bs-target="#notesTab">
+                        <img src="{{ url_for('static', filename='img/icons/sticky-notes.svg') }}" alt="Notes icon">
+                        Notes
+                    </button>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="row d-flex flex-column justify-content-center align-items-center w-100 mt-3">
+            <div class="col tab-content">
                 <div class="tab-pane fade show active" id="ingredientsTab">
-                    <ul class="list-group mt-3">
+                    <ul class="list-group mx-2 mx-md-5 mt-3">
                         {% for ingredient in ingredients %}
                             <li class="list-group-item d-flex justify-content-between">
                                 <div class="col d-flex flex-column">
@@ -111,12 +118,41 @@
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="instructionsTab">
-                    <ol class="list-group list-group-numbered mx-5 mt-3">
+                    <ol class="list-group list-group-numbered mx-2 mx-md-5 mt-3">
                         {% for instruction in instructions %}
                             <li class="list-group-item">{{ instruction.instruction }}</li>
                         {% endfor %}
                     </ol>
                 </div>
+                {% if g.user %}
+                <div class="tab-pane fade d-flex flex-column justify-content-center align-items-center mt-3" id="notesTab">
+                    {% if note %}
+                        <h3>Your Note</h3>
+                        <p>{{ note.note }}</p>
+
+                        <div class="d-flex gap-2 mt-2">
+                            <!-- Edit Form Toggle -->
+                            <button class="btn btn-outline-primary" onclick="document.getElementById('editNoteForm').classList.toggle('d-none')">Edit</button>
+                    
+                            <!-- Delete Form -->
+                            <form method="POST" action="{{ url_for('recipes.delete_note', recipe_id=recipe.id) }}">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    
+                        <!-- Hidden Edit Form -->
+                        <form method="POST" action="{{ url_for('recipes.edit_note', recipe_id=recipe.id) }}" id="editNoteForm" class="d-none mt-3 w-100">
+                            <textarea name="note" class="form-control" rows="4">{{ note.note }}</textarea>
+                            <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
+                        </form>
+                    {% else %}
+                        <form method="POST" action="{{ url_for('recipes.save_note', recipe_id=recipe.id) }}">
+                            <textarea name="note" class="form-control" rows="4">{{ note.note if note else '' }}</textarea>
+                            <button type="submit" class="btn btn-primary mt-2">Save Note</button>
+                        </form>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
         </div>
             
