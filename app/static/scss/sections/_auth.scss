@@ -1,12 +1,12 @@
 // Importing custom variables
 @use '../custom' as *;
-@use '../components/typography' as *;
-@use '../components/mixins' as *;
 
-// Styling registration/login form
+// ====================
+// AUTH PAGE BACKGROUNDS
+// ====================
 .register {
     min-height: 100vh;
-    background: url('../img/cat_background.png') center / cover no-repeat;
+    background: url('../img/register_background2.png') center / cover no-repeat;
 }
 
 .login {
@@ -14,187 +14,162 @@
     background: url('../img/cooking_cat.png') center / cover no-repeat;
 }
 
-form {
-    width: 90%;
-}
-
-.register-form,
-.login-form {
+// ====================
+// SHARED AUTH FORM STYLE
+// ====================
+.auth-form {
     flex-wrap: wrap;
     background: $white-transparent-0015;
     backdrop-filter: blur(30px);
     box-shadow: 0 5px 25px $black-transparent-03;
     border-radius: 15px;
 
-    h2 {
-        letter-spacing: 1px;
-        font-family: 'Poppins', sans-serif;
-    }
+    form {
+        width: 90%; 
 
-    .input-group {
-        position: relative;
-        margin: 2rem auto 0;
-        max-width: 100%;
-
-        input {
+        h2 {
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+    // ====================
+    // INPUT GROUP
+    // ====================
+        .input-group {
             position: relative;
-            width: 100%;
-            padding: 0.4rem 0;
-            font-size: 1rem;
-            color: $white;
-            font-weight: 500;
-            background: transparent;
-            border: none;
-            outline: none;
-            border-bottom: 2px solid $white;
-        }
+            margin: 2rem auto 0;
+            max-width: 100%;
 
-        .toggleBtn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            background: transparent;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &::before {
-                font-family: 'Material Symbols Outlined';
-                content: "\e8f4";
+            input {
+                position: relative;
+                width: 100%;
+                padding: 0.4rem 0;
+                font-size: 1rem;
                 color: $white;
+                font-weight: 500;
+                background: transparent;
+                border: none;
+                outline: none;
+                border-bottom: 2px solid $white;
             }
 
-            &.showing::before {
-                content: "\e8f5";
-            }
-
-            &.hidden {
-                visibility: hidden;
-            }
-        }
-
-        label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            color: $white;
-            pointer-events: none;
-            transition: all 0.5s ease;
-        }
-
-        input:focus~label,
-        input:valid~label,
-        input:not(:placeholder-shown)~label {
-            top: -1.5rem;
-            font-size: 0.9rem;
-            color: $gray-300;
-        }
-    }
-
-    .check label {
-        margin: 1.5rem 0;
-        font-size: 0.9rem;
-
-        input {
-            position: absolute;
-            appearance: none;
-            left: 0;
-
-            &::before {
-                content: '';
+            label {
                 position: absolute;
+                top: 0;
+                left: 0;
+                color: $white;
+                pointer-events: none;
+                transition: all 0.5s ease;
+            }
+
+            // floating label behavior
+            input:focus ~ label,
+            input:valid ~ label,
+            input:not(:placeholder-shown) ~ label {
+                top: -1.5rem;
+                font-size: 0.9rem;
+                color: $gray-300;
+            }
+
+            // toggle password button
+            .toggleBtn {
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                width: 1.5rem;
+                height: 1.5rem;
+                background: transparent;
+                border-radius: 50%;
+                cursor: pointer;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 1.2rem;
-                height: 1.2rem;
-                border-radius: 4px;
-                background: $white-transparent-015;
-                color: $golden-orange;
-                top: 50%;
-                transform: translateY(-50%);
-            }
 
-            &:checked::before {
-                font-family: 'Material Symbols Outlined';
-                content: "\e91d";
-                font-size: 1rem;
-                background-color: $white-transparent-015;
-            }
-        }
+                &::before {
+                    font-family: 'Material Symbols Outlined';
+                    content: "\e8f4";
+                    color: $white;
+                }
 
-        span {
-            padding-left: 0.5rem;
+                &.showing::before {
+                    content: "\e8f5";
+                }
 
-            a {
-                color: $white;
-                text-decoration: none;
-
-                &:hover {
-                    text-decoration: underline;
+                &.hidden {
+                    visibility: hidden;
                 }
             }
         }
-    }
-
-    // Shining button effect
-    .shining-btn {
-        padding: 0.5rem;
-        color: $golden-orange;
-        font-size: 1rem;
-        font-weight: 500;
-        background: $white-transparent-0015;
-        border-radius: 40px;
-        border: 2px solid $golden-orange;
-        outline: none;
-        cursor: pointer;
-        letter-spacing: 0.1em;
-        transition: 1s;
-        overflow: hidden;
-
-        &:hover {
-            background: $golden-orange;
-            box-shadow: 0 0 25px $golden-orange, 0 0 100px $golden-orange, 0 0 150px $golden-orange;
-        }
-
-        span {
-            position: relative;
-            display: inline-block;
-            transition: transform 0.5s;
-            text-shadow: 0 35px $white;
-            transform: translateY(0px);
-        }
-
-        &:hover span.hover {
-            transform: translateY(-35px);
-        }
-
-        span.hover {
-            transform: translateY(-35px);
-        }
-    }
-
-    .signin {
-        margin-top: 1.5rem;
-        text-align: center;
-
-        p {
-            color: $white;
+    // ====================
+    // CHECKBOX SECTION
+    // ====================
+        .check label {
+            margin: 1.5rem 0;
             font-size: 0.9rem;
 
-            a {
+            input {
+                position: absolute;
+                appearance: none;
+                left: 0;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    border-radius: 4px;
+                    background: $white-transparent-015;
+                    color: $golden-orange;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+
+                &:checked::before {
+                    font-family: 'Material Symbols Outlined';
+                    content: "\e91d";
+                    font-size: 1rem;
+                    background-color: $white-transparent-015;
+                }
+            }
+
+            span {
+                padding-left: 0.5rem;
+
+                a {
+                    color: $white;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        // ====================
+        // SIGN-IN LINK
+        // ====================
+        .signin {
+            margin-top: 1.5rem;
+            text-align: center;
+
+            p {
+                font-size: 0.9rem;
                 color: $white;
-                text-decoration: none;
-                font-weight: 700;
+                
+                a {
+                    color: $white;
+                    text-decoration: none;
+                    font-weight: 700;
 
 
-                &:hover {
-                    text-decoration: underline;
-                    opacity: 0.8;
+                    &:hover {
+                        text-decoration: underline;
+                        opacity: 0.8;
+                    }
                 }
             }
         }

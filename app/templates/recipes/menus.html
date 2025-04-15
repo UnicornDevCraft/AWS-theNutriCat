@@ -5,8 +5,56 @@
 {% include '_components/_navbar.html' %}
 {% endblock %}
 {% block section %}
-<section class="menus d-flex align-items-center justify-content-center">
-    <div class="container-fluid">
+<section class="menus">
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slides" style="--img: url('https://nutri-cat-images.s3.eu-central-1.amazonaws.com/recipe_images/chicken_lasagna_alla_genovese.png')">
+                <div class="content">
+                    <h2>Italian menu</h2>
+                    <p class="text-capitalize">Italian Cuisine Recipes: Delicious and Healthy</p>
+                    <a href="{{ url_for('recipes.recipes') }}?page=1&filter=Italian#all-recipes" class="btn btn-primary">Show recipes</a>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('https://nutri-cat-images.s3.eu-central-1.amazonaws.com/recipe_images/avocado_toast_with_egg_and_salad.png')">
+                <div class="content">
+                    <h2>Fast menu</h2>
+                    <p class="text-capitalize">Easy and fast to prepare recipes for every day</p>
+                    <a href="{{ url_for('recipes.recipes') }}?page=1&filter=Fast#all-recipes" class="btn btn-primary">Show recipes</a>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('https://nutri-cat-images.s3.eu-central-1.amazonaws.com/recipe_images/guacamole_with_melon_and_lavash_nachos.png')">
+                <div class="content">
+                    <h2>Summer menu</h2>
+                    <p class="text-capitalize">Balanced recipes for every day from seasonal products</p>
+                    <a href="{{ url_for('recipes.recipes') }}?page=1&filter=Summer#all-recipes" class="btn btn-primary">Show recipes</a>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('https://nutri-cat-images.s3.eu-central-1.amazonaws.com/recipe_images/salad_with_eggplant_zucchini_and_mozzarella.png')">
+                <div class="content">
+                    <h2>Italian menu</h2>
+                    <p class="text-capitalize">Italian Cuisine Recipes: Delicious and Healthy</p>
+                    <a href="{{ url_for('recipes.recipes') }}?page=1&filter=Italian#all-recipes" class="btn btn-primary">Show recipes</a>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('https://nutri-cat-images.s3.eu-central-1.amazonaws.com/recipe_images/chicken_salad_with_couscous_and_feta.png')">
+                <div class="content">
+                    <h2>Fast menu</h2>
+                    <p class="text-capitalize">Easy and fast to prepare recipes for every day</p>
+                    <a href="{{ url_for('recipes.recipes') }}?page=1&filter=Fast#all-recipes" class="btn btn-primary">Show recipes</a>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('https://nutri-cat-images.s3.eu-central-1.amazonaws.com/recipe_images/easy_salmon_quiche_with_zucchini.png')">
+                <div class="content">
+                    <h2>Summer menu</h2>
+                    <p class="text-capitalize">Balanced recipes for every day from seasonal products</p>
+                    <a href="{{ url_for('recipes.recipes') }}?page=1&filter=Summer#all-recipes" class="btn btn-primary">Show recipes</a>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <span class="prev"></span>
+            <span class="next"></span>
+        </div>
     </div>
 </section>
 {% endblock %}

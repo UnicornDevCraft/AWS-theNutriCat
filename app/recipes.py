@@ -48,11 +48,9 @@ def recipes():
         # Fetch the user's favorite recipes
         favorite_recipes_ids = Favorite.query.filter_by(user_id=user.id).with_entities(Favorite.recipe_id).all()
         favorite_recipe_ids_set = {recipe_id for recipe_id, in favorite_recipes_ids}
-        print(favorite_recipe_ids_set)
     else:
         favorite_recipe_ids_set = set()
-
-        print(f"Favorites are {favorite_recipe_ids_set}, user is {user}")
+        user = None
 
     # Get unique tag types and their names
     tag_types = db.session.query(Tag.type).distinct().all()
@@ -99,7 +97,10 @@ def recipes():
 
     # Apply filter if a tag name is selected
     if filter_tag:
-        query = query.join(Recipe.tags).filter(Tag.name == filter_tag)
+        if filter_tag == "favorites":
+            query = query.filter(Recipe.id.in_(favorite_recipe_ids_set))
+        else:
+            query = query.join(Recipe.tags).filter(Tag.name == filter_tag)
 
     # Apply sorting by title
     if sort_order == "asc":

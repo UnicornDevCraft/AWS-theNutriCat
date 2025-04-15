@@ -1,7 +1,48 @@
 @use '../custom' as *;
-@use '../components/typography' as *;
 @use '../components/mixins' as *;
 
+// ====================
+// SHINING BUTTON
+// ====================
+.shining-btn {
+    padding: 0.5rem;
+    color: $primary;
+    font-size: 1rem;
+    font-weight: 500;
+    background: $white-transparent-0015;
+    border-radius: 40px;
+    border: 2px solid $primary;
+    outline: none;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: 1s;
+    overflow: hidden;
+
+    &:hover {
+        background: $primary;
+        box-shadow: 0 0 25px $primary, 0 0 100px $primary, 0 0 150px $primary;
+    }
+
+    span {
+        position: relative;
+        display: inline-block;
+        transition: transform 0.5s;
+        text-shadow: 0 35px $white;
+        transform: translateY(0px);
+    }
+
+    &:hover span.hover {
+        transform: translateY(-35px);
+    }
+
+    span.hover {
+        transform: translateY(-35px);
+    }
+}
+
+// ====================
+// ROUNDED BUTTON
+// ====================
 .btn-rounded {
     position: relative;
     padding: 0.8375rem 4.375rem 0.8375rem 1.25rem;
@@ -39,7 +80,7 @@
         color: $ivory;
 
         span {
-            background-color: rgba($black, 0.6);
+            background-color: $black-transparent-06;
         }
     }
 }
