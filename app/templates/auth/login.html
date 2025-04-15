@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div
-                class="col-10 col-xs-8 col-s-7 col-sm-6 col-m-5 col-md-4 col-lg-3 login-form d-flex justify-content-center align-items-center auth-form">
+                class="col-11 col-xs-10 col-s-9 col-sm-7 col-m-6 col-md-5 col-lg-3 login-form d-flex justify-content-center align-items-center auth-form">
                 <form id="login-form" action="/auth/login" method="post" autocomplete="off">
                     <h2 class="position-relative text-white text-center fs-3 fw-semibold my-5">Sign In</h2>
                     <div class="input-group">
@@ -28,6 +28,9 @@
                         type="submit">Login</button>
                     <div class="signin">
                         <p>Don&#39;t have an account? <a href="{{ url_for('auth.register') }}">Sign Up</a></p>
+                    </div>
+                    <div class="forgot-password-link">
+                        <p>Forgot your password? <a href="{{ url_for('auth.forgot_password') }}">Reset it</a></p>
                     </div>
                 </form>
             </div>

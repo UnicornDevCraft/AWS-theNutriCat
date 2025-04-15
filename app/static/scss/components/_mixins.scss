@@ -5,7 +5,7 @@
     background-image: linear-gradient($direction, $color1 $stop1, $color2 $stop2);
 }
 
-//absolute center
+// Absolute center
 @mixin absoluteCenter {
     position: absolute;
     top: 50%;
@@ -13,7 +13,7 @@
     transform: translate(-50%, -50%);
 }
 
-// GRADIENT MIXIN 
+// Gradient for rounded buttons 
 @mixin gradient {
-    background: linear-gradient(to right, rgba($primary, 0.95), rgba($success, 0.95));
+    background: linear-gradient(to right, rgba($light, 0.95), rgba($primary, 0.95));
 }

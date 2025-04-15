@@ -96,7 +96,7 @@ window.attachFavoriteListeners = function() {
   
         } catch (err) {
           console.error("Favorite toggle failed or user not logged in.", err);
-          showFlashMessage("Error toggling favorite", "danger");
+          showAlertMessage("Error toggling favorite", "error");
         }
       });
     });
@@ -167,10 +167,10 @@ async function toggleFavorite(recipeId) {
         console.log("Favorite response:", data);
 
         if (data.success) {
-            showFlashMessage(data.message, "success");
+            showAlertMessage(data.message, "success");
             return data.favorite;
         } else {
-            showFlashMessage(data.message, "error");
+            showAlertMessage(data.message, "error");
             console.error("Error toggling favorite:", data.error);
             return null;
         }
@@ -180,7 +180,7 @@ async function toggleFavorite(recipeId) {
     }
 }
 
-window.showFlashMessage = function (message, type = "info") {
+window.showAlertMessage = function (message, type = "info") {
     const container = document.getElementById("flash-container");
     
     if (!container) {
@@ -204,7 +204,7 @@ window.showFlashMessage = function (message, type = "info") {
       alert.classList.add("fade");
       setTimeout(() => alert.remove(), 500); // remove after fade out
     }, 5000);
-  }
+}  
   
 // Handle filter and sorting
 if (window.location.pathname.startsWith("/recipes")) {

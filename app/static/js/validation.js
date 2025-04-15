@@ -108,15 +108,17 @@ function confirmPassw(confirmPassword) {
   
 // Check terms
 function checkTerms() {
-const terms = document.querySelector("#terms");
-let error = "";
+    const terms = document.querySelector("#terms");
+    let error = "";
 
-if (terms.checked) {
-    error = "Looks good!";
-} else {
-    error = "Please accept the terms and conditions";
+    if (terms.checked) {
+        error = "Looks good!";
+    } else {
+        error = "Please accept the terms and conditions";
+    }
+    return error;
 }
-return error;
-}
+
+
   
   

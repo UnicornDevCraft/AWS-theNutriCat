@@ -1,16 +1,13 @@
-// Importing custom variables
-@use '../custom' as *;
-@use '../components/typography' as *;
-@use '../components/mixins' as *;
+// This file contains all the animations used in the app
 
-// Let it snow, disabled button and feedback in forms styling
+// Let it snow animation
 .snow{
     position: absolute;
     top: 0;
     left: 0;
     width: 50px;
     height: 50px;
-    background-image: url("../img/star.png");
+    background-image: url('/static/img/star.png');
     background-size: cover;
     animation: animationSnow 4s ease-in-out infinite;
 
@@ -25,17 +22,6 @@
         100%{
             transform: translate(100px, 50vh);
             opacity: 0;
-        }
-        
+        } 
     }
-}
-
-.disabled-button {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.feedback{
-    font-family: $font-cat;
-    font-size: 0.8rem;
 }

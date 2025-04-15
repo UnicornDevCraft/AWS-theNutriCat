@@ -72,15 +72,22 @@
                 line-height: 2.5rem;
             }
         }
-
     }
 
     &:hover {
         @include gradient;
-        color: $ivory;
+        color: $success;
 
         span {
             background-color: $black-transparent-06;
         }
     }
+}
+
+// ====================
+// DISABLED BUTTON
+// ====================
+.disabled-button {
+    cursor: not-allowed;
+    opacity: 0.6;
 }

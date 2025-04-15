@@ -46,4 +46,68 @@ if (window.location.pathname.startsWith("/auth/register")) {
         setupFormSubmitWithSpinner(form, submitButton, "Login");
         autoDismissToasts();          
   });
+} else if(window.location.pathname.startsWith("/auth/forgot-password")) {
+    document.addEventListener("DOMContentLoaded", () => {
+        letItSnow();
+        btnShine();
+
+        // Declaring variables for forgot password form validation
+        const form = document.querySelector("#forgot-password-form");
+        const submitButton = document.querySelector("#submit-forgot-password-form");
+        const inputFields = form.querySelectorAll(".required-field");
+
+        const formStatus = {
+          email: 1,
+        };
+
+        updateSubmitButtonState(formStatus, submitButton);
+        setupInputValidation(inputFields, formStatus, submitButton);
+
+        // Add form submission listener to check email only after submission
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault(); // Prevent default form submission to control flow
+
+          const emailInput = document.querySelector('#email');
+          const email = emailInput.value.trim();
+          
+          // Check if email exists in the database
+          const res = await fetch(`/auth/check-email?email=${encodeURIComponent(email)}`);
+          const data = await res.json();
+
+          console.log(data);
+
+          if (!data.exists) {
+            showAlertMessage("This email is not registered", "danger");
+          } else {
+              // Proceed to submit the form if the email is valid
+              form.submit();
+              setupFormSubmitWithSpinner(form, submitButton, "Submitted");
+          }
+        });
+
+        
+        autoDismissToasts();          
+  });
+} else if(window.location.pathname.startsWith("/auth/reset-password")) {
+    document.addEventListener("DOMContentLoaded", () => {
+        letItSnow();
+        btnShine();
+
+        // Declaring variables for reset password form validation
+        const form = document.querySelector("#reset-password-form");
+        const submitButton = document.querySelector("#submit-reset-password-form");
+        const inputFields = form.querySelectorAll(".required-field");
+        const toggleBtns = document.querySelectorAll(".toggleBtn");
+
+        const formStatus = {
+          password: 1,
+          confirm_password: 1,
+        };
+
+        updateSubmitButtonState(formStatus, submitButton);
+        setupInputValidation(inputFields, formStatus, submitButton);
+        setupPasswordToggles(toggleBtns);
+        setupFormSubmitWithSpinner(form, submitButton, "Submitted");
+        autoDismissToasts();          
+  });
 }

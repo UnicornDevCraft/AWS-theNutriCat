@@ -1,5 +1,10 @@
+// Importing the custom variables
 @use '../custom' as *;
-@use '../components/mixins' as *;
+
+// Font family for the entire document
+body{
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
 
 $font-cat: 'calli_catregular', sans-serif;
 $font-margin: 'margin_demoregular', sans-serif;
@@ -7,31 +12,26 @@ $font-bala: 'balabeloo', sans-serif;
 
 @font-face {
     font-family: 'calli_catregular';
-    src: url('../fonts/callicatregular-rporm-webfont.woff2') format('woff2'),
-         url('../fonts/callicatregular-rporm-webfont.woff') format('woff');
+    src: url('/static/fonts/callicatregular-rporm-webfont.woff2') format('woff2'),
+         url('/static/fonts/callicatregular-rporm-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     unicode-range: U+0020-002F, U+0041-FFFF;
 }
 
-
 @font-face {
     font-family: 'margin_demoregular';
-    src: url('../fonts/margin_demo-webfont.woff2') format('woff2'),
-         url('../fonts/margin_demo-webfont.woff') format('woff');
+    src: url('/static/fonts/margin_demo-webfont.woff2') format('woff2'),
+         url('/static/fonts/margin_demo-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'balabeloo';
-    src: url('../fonts/BalabelooPro-Regular.woff2') format('woff2');
+    src: url('/static/fonts/BalabelooPro-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-}
-
-body{
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .display-2 {
@@ -67,6 +67,7 @@ body{
     margin: 0 auto;
     background-color: $primary;
 }
+
 .heading-line::after {
     content: "";
     width: 2rem;
@@ -96,8 +97,6 @@ body{
         @include media-breakpoint-up(lg) {
             font-size: 1.8rem;
         }
-
-
     }
 }
 

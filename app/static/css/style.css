@@ -15542,29 +15542,126 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.snow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background-image: url("/static/img/star.png");
+  background-size: cover;
+  animation: animationSnow 4s ease-in-out infinite;
+}
+@keyframes animationSnow {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100px, 50vh);
+    opacity: 0;
+  }
+}
+
+.shining-btn {
+  padding: 0.5rem;
+  color: #f7801c;
+  font-size: 1rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: 40px;
+  border: 2px solid #f7801c;
+  outline: none;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: 1s;
+  overflow: hidden;
+}
+.shining-btn:hover {
+  background: #f7801c;
+  box-shadow: 0 0 25px #f7801c, 0 0 100px #f7801c, 0 0 150px #f7801c;
+}
+.shining-btn span {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.5s;
+  text-shadow: 0 35px #fff;
+  transform: translateY(0px);
+}
+.shining-btn:hover span.hover {
+  transform: translateY(-35px);
+}
+.shining-btn span.hover {
+  transform: translateY(-35px);
+}
+
+.btn-rounded {
+  position: relative;
+  padding: 0.8375rem 4.375rem 0.8375rem 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  border: 0.1rem solid rgba(255, 255, 240, 0.6);
+  background-color: #FFFFF0;
+  color: #1b3711;
+  display: block;
+}
+.btn-rounded span {
+  position: absolute;
+  background-color: #f7801c;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+.btn-rounded span i {
+  color: #FFFFF0;
+  font-size: 1rem;
+  line-height: 2.5rem;
+}
+.btn-rounded span i::before {
+  line-height: 2.5rem;
+}
+.btn-rounded:hover {
+  background: linear-gradient(to right, rgba(254, 239, 221, 0.95), rgba(247, 128, 28, 0.95));
+  color: #527015;
+}
+.btn-rounded:hover span {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.disabled-button {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
 @font-face {
   font-family: "calli_catregular";
-  src: url("../fonts/callicatregular-rporm-webfont.woff2") format("woff2"), url("../fonts/callicatregular-rporm-webfont.woff") format("woff");
+  src: url("/static/fonts/callicatregular-rporm-webfont.woff2") format("woff2"), url("/static/fonts/callicatregular-rporm-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0020-002F, U+0041-FFFF;
 }
 @font-face {
   font-family: "margin_demoregular";
-  src: url("../fonts/margin_demo-webfont.woff2") format("woff2"), url("../fonts/margin_demo-webfont.woff") format("woff");
+  src: url("/static/fonts/margin_demo-webfont.woff2") format("woff2"), url("/static/fonts/margin_demo-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "balabeloo";
-  src: url("../fonts/BalabelooPro-Regular.woff2") format("woff2");
+  src: url("/static/fonts/BalabelooPro-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
-body {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-
 .display-2 {
   margin-bottom: 1rem;
   text-transform: capitalize;
@@ -15638,116 +15735,24 @@ body {
   }
 }
 
-.snow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50px;
-  height: 50px;
-  background-image: url("../img/star.png");
-  background-size: cover;
-  animation: animationSnow 4s ease-in-out infinite;
-}
-@keyframes animationSnow {
-  0% {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(100px, 50vh);
-    opacity: 0;
-  }
-}
-
-.disabled-button {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.feedback {
-  font-family: "calli_catregular", sans-serif;
-  font-size: 0.8rem;
-}
-
-.shining-btn {
-  padding: 0.5rem;
-  color: #f7801c;
-  font-size: 1rem;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.015);
-  border-radius: 40px;
-  border: 2px solid #f7801c;
-  outline: none;
-  cursor: pointer;
-  letter-spacing: 0.1em;
-  transition: 1s;
-  overflow: hidden;
-}
-.shining-btn:hover {
-  background: #f7801c;
-  box-shadow: 0 0 25px #f7801c, 0 0 100px #f7801c, 0 0 150px #f7801c;
-}
-.shining-btn span {
-  position: relative;
-  display: inline-block;
-  transition: transform 0.5s;
-  text-shadow: 0 35px #fff;
-  transform: translateY(0px);
-}
-.shining-btn:hover span.hover {
-  transform: translateY(-35px);
-}
-.shining-btn span.hover {
-  transform: translateY(-35px);
-}
-
-.btn-rounded {
-  position: relative;
-  padding: 0.8375rem 4.375rem 0.8375rem 1.25rem;
-  font-weight: 700;
-  margin: 0;
-  border: 0.1rem solid rgba(255, 255, 240, 0.6);
-  background-color: #FFFFF0;
-  color: #1b3711;
-  display: block;
-}
-.btn-rounded span {
-  position: absolute;
-  background-color: #f7801c;
-  width: 2.5rem;
-  height: 2.5rem;
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-}
-.btn-rounded span i {
-  color: #FFFFF0;
-  font-size: 1rem;
-  line-height: 2.5rem;
-}
-.btn-rounded span i::before {
-  line-height: 2.5rem;
-}
-.btn-rounded:hover {
-  background: linear-gradient(to right, rgba(247, 128, 28, 0.95), rgba(82, 112, 21, 0.95));
-  color: #FFFFF0;
-}
-.btn-rounded:hover span {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
 .register {
   min-height: 100vh;
-  background: url("../img/register_background2.png") center/cover no-repeat;
+  background: url("/static/img/register_background2.png") center/cover no-repeat;
 }
 
 .login {
   min-height: 100vh;
-  background: url("../img/cooking_cat.png") center/cover no-repeat;
+  background: url("/static/img/cooking_cat.png") center/cover no-repeat;
+}
+
+.forgot-password {
+  min-height: 100vh;
+  background: url("/static/img/register_background.png") center/cover no-repeat;
+}
+
+.reset-password {
+  min-height: 100vh;
+  background: url("/static/img/register_background.png") center/cover no-repeat;
 }
 
 .auth-form {
@@ -15859,22 +15864,26 @@ body {
 .auth-form form .check label span a:hover {
   text-decoration: underline;
 }
-.auth-form form .signin {
+.auth-form form .signin, .auth-form form .forgot-password-link {
   margin-top: 1.5rem;
   text-align: center;
 }
-.auth-form form .signin p {
+.auth-form form .signin p, .auth-form form .forgot-password-link p {
   font-size: 0.9rem;
   color: #fff;
 }
-.auth-form form .signin p a {
+.auth-form form .signin p a, .auth-form form .forgot-password-link p a {
   color: #fff;
   text-decoration: none;
   font-weight: 700;
 }
-.auth-form form .signin p a:hover {
+.auth-form form .signin p a:hover, .auth-form form .forgot-password-link p a:hover {
   text-decoration: underline;
   opacity: 0.8;
+}
+.auth-form .feedback {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 0.8rem;
 }
 
 .notifications {
@@ -15954,6 +15963,18 @@ body {
   100% {
     transform: translateX(0);
   }
+}
+
+#flash-container {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #fff;
 }
 
 html {

@@ -21,7 +21,7 @@
 </head>
 
 <body>
-  <div id="flash-container" class="position-fixed top-0 end-0 mt-5 p-2" style="z-index: 1055;">
+  <div id="flash-container" class="position-fixed p-2">
   </div> 
   {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
@@ -54,6 +54,8 @@
   
 
   <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
   <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
   <script src="{{ url_for('static', filename='js/formHandlers.js') }}"></script>
   <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
