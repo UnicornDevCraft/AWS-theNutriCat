@@ -1,3 +1,4 @@
+console.log("Notifications script loaded.");
 function showFlashMessage (message, type = "info") {
     const container = document.getElementById("flash-container");
   

@@ -1,3 +1,4 @@
+console.log("Recipes JS loaded");
 window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
     const apiUrl = document.getElementById("recipes-api-url").value;
     let queryUrl = `${apiUrl}?page=${page}`;
@@ -25,7 +26,7 @@ window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
                 container.innerHTML += `
                     <div class="col recipe-card">
                         <div class="card shadow-sm rounded-5 mx-auto">
-                            <img src="${recipe.compressed_img_URL || recipe.quality_img_URL}" alt="${recipe.title}" data-recipe-id="${ recipe.id }" class="recipe-img">
+                            <img src="${recipe.compressed_img_URL || recipe.quality_img_URL || '/static/img/recipes/placeholder-image.jpeg'}" alt="${recipe.title}" data-recipe-id="${ recipe.id }" class="recipe-img">
                             <div class="card-body">
                                 <h3 class="card-header text-center"><a href="#" class="text-secondary fs-6 recipe-link" data-recipe-id="{{ recipe.id }}">${recipe.title.charAt(0).toUpperCase() + recipe.title.slice(1).toLowerCase()}</a></h3>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
@@ -214,6 +215,17 @@ if (window.location.pathname.startsWith("/recipes")) {
         let currentSearch = "";
         const urlParams = new URLSearchParams(window.location.search);
         const activeFilter = urlParams.get('filter');
+        const searchInput = document.getElementById("search-input");
+        const searchForm = document.getElementById("search-form");
+
+        if (searchInput && searchForm) {
+            searchInput.addEventListener("keypress", function (event) {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                searchRecipes(currentFilter, currentSort);
+              }
+            });
+          }
 
         if (activeFilter) {
             document.querySelectorAll('.filter-btn').forEach(button => {

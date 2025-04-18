@@ -38,3 +38,10 @@
     </div>
 </section>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/formHandlers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

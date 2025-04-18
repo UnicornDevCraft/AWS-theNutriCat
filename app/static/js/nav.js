@@ -1,5 +1,5 @@
 // Navbar logic for all pages exept authorization
-
+console.log("Navbar JS loaded");
 if (!window.location.pathname.startsWith("/auth/")) {
     document.addEventListener("DOMContentLoaded", () => {
       // Declaring variables for navigation

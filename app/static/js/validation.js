@@ -1,5 +1,5 @@
 // This file contains the validation logic for the registration and log-in forms.
-
+console.log("Validation loaded");
 // Centralized validation router
 function validateField(field, value) {
     switch (field) {

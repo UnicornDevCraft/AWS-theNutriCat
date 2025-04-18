@@ -43,7 +43,7 @@
     <div class="container-fluid recipes-search pb-5">
         <div class="row d-flex mx-3 justify-content-center">
             <div class="col-md-6 recipes-search">
-                <form class="searchBox position-relative" role="search">
+                <form id="search-form" class="searchBox position-relative" role="search">
                     <input id="search-input" class="form-control rounded-5" type="search" placeholder="Search" aria-label="Search" autofocus>
                     <button id="search-btn" class="btn btn-primary position-absolute end-0 top-50 translate-middle-y rounded-5" type="submit" area-label="Search">
                         <i class="bi bi-search"></i>
@@ -53,7 +53,11 @@
             <div class="row d-flex justify-content-center mt-5">
                 <div class="col-md-6 d-flex flex-column align-items-center">
                     <p class="text-center text-white">You can also add your own recipe!</p>
-                    <button class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3"><i class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</button>
+                    {% if g.user %}
+                        <a href="{{ url_for('recipes.create') }}" class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3"><i class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</a>
+                    {% else %}
+                        <a class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3" data-bs-toggle="modal" data-bs-target="#authoriseModal"><i class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</a>
+                    {% endif %}
                     <p class="text-center text-white mt-5">Or browse all the recipes below:</p>
                 </div>
             </div>
@@ -61,8 +65,36 @@
         </div>
     </div>   
 </section>
-<section class="recipes-body album pt-2 pb-5 justify-content-center">
-    <h1 class="text-capitalize text-center text-secondary" id="all-recipes">All recipes</h1>
+<!-- Add recipe Confirmation Modal -->
+<div class="modal fade" id="authoriseModal" tabindex="-1" aria-labelledby="authoriseModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
+            <div class="modal-header border-0 d-flex justify-content-between">
+                <h5 class="modal-title fw-bold me-5" id="authoriseModalLabel">Please sign in to continue...</h5>
+                <button type="button" class="btn-close bg-success text-white" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x"></i></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="fw-semibold fs-4">Sign in to add recipes!</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <button type="button" class="btn btn-outline-secondary rounded-3 px-4" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-success rounded-3 px-4">
+                Sign In
+            </a>
+            </div>
+            <div class="justify-content-center mb-4 text-center">
+                <p class="text-center text-muted mt-3 mb-2">Don't have an account yet?</p>
+                <a href="{{ url_for('auth.register') }}" class="text-center px-3">
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="recipes-body album py-5 justify-content-center align-items-center text-center">
+    <a href="{{ url_for('recipes.recipes') }}" class="text-capitalize text-secondary" id="all-recipes">All recipes</a>
     <!-- Start filtering and sorting controls -->
     <div class="conteiner-fluid my-5 filter-sort">
         <div class="row justify-content-center align-content-center mx-3">
@@ -105,13 +137,16 @@
         </div>
     </div>
     <!-- Start recipe section -->
-    <div class="container-fluid my-5 show-recipes">     
+    <div class="container-fluid my-5 show-recipes">    
+        {% if recipes %} 
         <div id="recipes-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
             {% for recipe in recipes %}
                 <div class="col recipe-card">
                     <div class="card shadow-sm rounded-5 mx-auto">
                         {% if recipe['compressed_img_URL'] %}
                             <img src="{{ recipe['compressed_img_URL'] }}" alt="{{ recipe['title'] }}" data-recipe-id="{{ recipe.id }}" class="recipe-img">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='img/recipes/placeholder-image.jpeg') }}" alt="{{ recipe['title'] }}" data-recipe-id="{{ recipe.id }}" class="recipe-img">
                         {% endif %}
                         <div class="card-body">
                             <h3 class="card-header text-center"><a href="{{ url_for('recipes.recipe_id', recipe_id=recipe.id) }}" class="text-secondary fs-6 recipe-link" data-recipe-id="{{ recipe.id }}"> {{ recipe.title.capitalize() }}</a></h3>
@@ -147,6 +182,11 @@
                 </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="row d-flex justify-content-center align-items-center">
+            <p class="text-center fw-bold fs-4 text-secondary">No recipes found</p>
+        </div>
+        {% endif %}
     </div>
 
     <nav aria-label="Recipe Pagination">
@@ -176,4 +216,8 @@
 
 {% block footer %}
 {% include '_components/_footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/recipes.js') }}"></script>
 {% endblock %}

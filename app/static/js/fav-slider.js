@@ -1,5 +1,5 @@
-
-if (!window.location.pathname.startsWith("/auth/")) {
+console.log("fav-slider.js loaded");
+if (window.location.pathname.startsWith("/")) {
     document.addEventListener("DOMContentLoaded", () => {
         var TrandingSlider = new Swiper('.favorite-slider', {
             effect: 'coverflow',

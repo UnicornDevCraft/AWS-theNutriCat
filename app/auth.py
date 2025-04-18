@@ -6,7 +6,7 @@ from flask import (
     Blueprint, current_app, flash, g, jsonify, redirect, render_template, request, session, url_for
 )
 from itsdangerous import URLSafeTimedSerializer
-from app.models import User
+from app.models import User, Recipe, Tag, Favorite
 from app.db import db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -15,11 +15,17 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     """Register user"""
     # Forget any user_id
-    session.clear()
+    session.pop('user_id', None)
+
 
     if request.method == 'POST':
+        print(request.url)
+
         # Get reCAPTCHA token from form
         recaptcha_response = request.form.get('g-recaptcha-response')
+        if not recaptcha_response:
+            flash("reCAPTCHA verification failed. Try again.", "error")
+            return redirect(url_for('auth.register'))
     
         # Verify with Google
         secret_key = current_app.config['RECAPTCHA_SECRET_KEY']
@@ -27,11 +33,11 @@ def register():
             'https://www.google.com/recaptcha/api/siteverify',
             data={'secret': secret_key, 'response': recaptcha_response}
         )
-    
+
         result = response.json()
         
         if not result.get('success'):
-            flash('reCAPTCHA verification failed. Try again.', 'error')
+            flash("reCAPTCHA verification failed. Try again.", "error")
             return redirect(url_for('auth.register'))
     
         # Get form data
@@ -122,8 +128,62 @@ def profile():
     if user is None:
         flash('You need to be logged in to view your profile.', 'error')
         return redirect(url_for('auth.login'))
+
+    recipe_count = (
+        db.session.query(Recipe)
+        .join(Recipe.tags)
+        .filter(Tag.type == "my_recipe")
+        .count()
+    )
+    favorite_count = Favorite.query.filter_by(user_id=user.id).count()
     
-    return render_template('auth/profile.html', user=user)
+    return render_template('auth/profile.html', user=user, user_recipe_count=recipe_count, favorite_count=favorite_count)  
+
+
+@bp.route('/change-username', methods=['POST'])
+@login_required
+def change_username():
+    user_id = session.get('user_id')
+    new_username = request.form.get('new_username').strip()
+
+    if not user_id or not new_username:
+        flash('Invalid request.', 'error')
+        return redirect(url_for('auth.profile'))  
+
+    user = User.query.get(user_id)
+
+    if not user:
+        flash('User not found.', 'error')
+        return redirect(url_for('auth.profile'))
+
+    # Optional: check for duplicate username
+    if User.query.filter_by(username=new_username).first():
+        flash('Username already taken.', 'error')
+        return redirect(url_for('auth.profile'))
+
+    user.username = new_username
+    db.session.commit()
+    flash('Username updated successfully!', 'success')
+    return redirect(url_for('auth.profile'))
+
+@bp.route('/change-password', methods=['POST'])
+@login_required
+def change_password():
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+
+    if not g.user.check_password(current_password):
+        flash('Current password is incorrect.', 'error')
+        return redirect(url_for('auth.profile'))
+
+    if current_password == new_password:
+        flash('New password must be different from the current one.', 'error')
+        return redirect(url_for('auth.profile'))
+
+    g.user.set_password(new_password)
+    db.session.commit()
+    flash('Your password has been updated successfully!', 'success')
+    return redirect(url_for('auth.profile'))
 
 @bp.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():

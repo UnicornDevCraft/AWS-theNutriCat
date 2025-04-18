@@ -95,9 +95,7 @@
                 font-size: 1.2rem;
                 line-height: 2rem;
             }
-        }
-        
-        
+        } 
     }
 
     .recipe-details{
@@ -110,7 +108,7 @@
             top: -40px;
 
             @include media-breakpoint-up(md){
-                margin-left: 1rem;
+                margin-left: 2rem;
             }
 
             .filtered-btn{
@@ -121,6 +119,16 @@
                     padding: 0.2rem 0.6rem;
                     font-size: 1rem;
                 }
+            }
+        }
+
+        .editing-btns{
+            position: relative;
+            top: -40px;
+            margin: 2rem 0;
+
+            @include media-breakpoint-up(md){
+                margin: 3rem;
             }
         }
 
@@ -240,7 +248,8 @@
     }
 
     .tab-content{
-
+        max-width: 800px;
+        
         .tab-pane{
             background: none;
         }

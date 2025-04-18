@@ -2,7 +2,7 @@ from app.db import db
 from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from sqlalchemy import DDL, Index
+from sqlalchemy import DDL, Index, event
 from sqlalchemy.schema import CreateTable
 from sqlalchemy.orm import validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
@@ -35,15 +35,23 @@ class Recipe(db.Model):
     compressed_img_URL = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    tags = db.relationship('Tag', secondary='recipe_tags', backref='recipes')
+    
+    tags = db.relationship('Tag', secondary='recipe_tags', back_populates='recipes', cascade="all, delete")
     ingredients = db.relationship('Ingredient', secondary='recipe_ingredients', backref='recipes')
-    instructions = db.relationship('Instruction', backref='recipes', lazy=True)
+    instructions = db.relationship('Instruction', backref='recipes', lazy=True, cascade="all, delete-orphan")
+    notes = db.relationship("UserRecipeNote", backref="recipes", cascade="all, delete-orphan")
     title_search = db.Column(TSVECTOR)
 
     @validates('title')
     def validate_title(self, key, value):
         self.title_search = func.to_tsvector('english', value)
         return value
+
+@event.listens_for(Recipe, 'before_insert')
+@event.listens_for(Recipe, 'before_update')
+def update_title_search(mapper, connection, target):
+    if target.title:
+        target.title_search = func.to_tsvector('english', target.title)
 
 class RecipeTranslation(db.Model):
     __tablename__ = "recipe_translations"
@@ -119,10 +127,13 @@ class Tag(db.Model):
     __tablename__ = "tags"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), unique=True, nullable=False)
+    name = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(50), nullable=False)
+     # Recipe relationship using the association table 'recipe_tags'
+    recipes = db.relationship("Recipe", secondary="recipe_tags", back_populates="tags", passive_deletes=True)
 
     __table_args__ = (
+        db.UniqueConstraint('name', 'type', name='uix_tag_name_type'),
         Index('ix_tags_name', 'name'), 
     )
 
@@ -152,10 +163,10 @@ class UserRecipeNote(db.Model):
     note = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-
-    # Optional relationships
+    # Ensures a user cannot leave multiple notes for the same recipe
     user = db.relationship("User", backref="recipe_notes")
     recipe = db.relationship("Recipe", backref="user_notes")
+    
 
     __table_args__ = (db.UniqueConstraint('user_id', 'recipe_id', name='uix_user_recipe'),)
 

@@ -1,15 +1,117 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}New Recipe{% endblock %}</h1>
+{% block title %}New recipe | The Nutri Cat{% endblock %}
+{% block navbar %}
+{% include '_components/_navbar.html' %}
+{% endblock %}
+{% block section %}
+<!-- ////////////////////////////////////////////////////////////////////////////////////////
+                               START THE ADD NEW RECIPE SECTION
+/////////////////////////////////////////////////////////////////////////////////////////////-->
+<section class="add-recipe px-1 px-md-3">
+  <div class="container py-4">
+    <h1 class="text-capitalize text-center mb-4">Add New Recipe</h1>
+    <div id="form-alert" class="alert alert-danger text-center d-none show" role="alert">
+      Please fill in all required fields.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-8">
+        <form method="POST" action="{{ url_for('recipes.create') }}" enctype="multipart/form-data"
+          class="needs-validation text-white d-flex flex-column justify-content-center mb-5" novalidate
+          id="add-recipe-form">
+          <!-- Title -->
+          <div class="mb-3">
+            <label for="title" class="form-label">Recipe Title *</label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="Super tasty nutri meal"
+              required>
+          </div>
+          <div class="row d-flex flex-row justify-content-between align-items-center">
+            <!-- Servings -->
+            <div class="mb-3 col-4">
+              <label for="servings" class="form-label">Servings *</label>
+              <input type="number" class="form-control" name="servings" id="servings" value="1" min="1" max="50"
+                required>
+            </div>
+
+            <!-- Prep Time -->
+            <div class="mb-3 col-4">
+              <label for="prep_time" class="form-label">Prep (min)*</label>
+              <input type="number" class="form-control" name="prep_time" id="prep_time" required>
+            </div>
+
+            <!-- Cook Time -->
+            <div class="mb-3 col-4">
+              <label for="cook_time" class="form-label">Cook (min)*</label>
+              <input type="number" class="form-control" name="cook_time" id="cook_time" required>
+            </div>
+          </div>
+          <!-- Ingredients -->
+          <div class="mb-3">
+            <label class="form-label">Ingredients *</label>
+            <div id="ingredients-container"></div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addIngredient()">+ Add
+              Ingredient</button>
+
+            <!-- Datalist for autocomplete -->
+            <datalist id="ingredient-list">
+              {% for ingredient in ingredients %}
+              <option value="{{ ingredient.name }}">
+                {% endfor %}
+            </datalist>
+          </div>
+
+          <!-- Tags -->
+          <div class="mb-3">
+            <label class="form-label">Tags *</label>
+            <div id="tags-container"></div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addTag()">+ Add Tag</button>
+
+            <!-- Datalist for autocomplete -->
+            <datalist id="tag-list">
+              {% for tag in tags %}
+              <option value="{{ tag.name }}">
+                {% endfor %}
+            </datalist>
+          </div>
+
+          <!-- Instructions -->
+          <div class="mb-3">
+            <label class="form-label">Instructions *</label>
+            <div id="instructions-container"></div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addInstruction()">+ Add
+              Instruction</button>
+          </div>
+
+          <!-- Notes -->
+          <div class="mb-3">
+            <label for="notes" class="form-label">Your Notes</label>
+            <textarea class="form-control" name="notes" id="notes" rows="3"
+              placeholder="Will try for sure..."></textarea>
+          </div>
+
+          <!-- Image Upload -->
+          <div class="mb-3">
+            <label for="image" class="form-label">Recipe Image</label>
+            <input type="file" class="form-control" name="image" id="image" accept="image/*">
+          </div>
+
+          <button type="submit" class="btn shining-btn px-3 text-capitalize my-5 w-md-50 mx-auto">Submit &nbsp;
+            Recipe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 {% endblock %}
 
-{% block content %}
-  <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-    <input type="submit" value="Save">
-  </form>
+{% block footer %}
+{% include '_components/_footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/create.js') }}"></script>
+<script src="{{ url_for('static', filename='js/animations.js') }}"></script>
 {% endblock %}

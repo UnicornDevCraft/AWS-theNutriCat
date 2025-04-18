@@ -1,5 +1,5 @@
 // This file contains the JavaScript code for form events, button spinner, flash message timeouts and password toggle functionality.
-
+console.log("Form handlers loaded");
 // Sets up the form submission with a spinner
 function setupPasswordToggles(toggleBtns) {
     toggleBtns.forEach((toggleBtn) => {

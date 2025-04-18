@@ -1,3 +1,4 @@
+console.log("Menus JS loaded");
 if (window.location.pathname.startsWith("/menus")) {
     document.addEventListener("DOMContentLoaded", function () {
         const next = document.querySelector(".next");

@@ -23,10 +23,10 @@ background: $ivory;
 .favorites-slider{
     font-size: 0.8rem;
     color: $secondary;
-    padding: 2.5rem 0;
+    padding-top: 2.5rem;
 
     @include media-breakpoint-up(xxl){
-        padding: 4.5rem 0;
+        padding-top: 4.5rem;
     }
 
     .container {

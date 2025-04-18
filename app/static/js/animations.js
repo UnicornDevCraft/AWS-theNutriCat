@@ -1,5 +1,5 @@
 // This file contains the JavaScript code for various animations used in the web application.
-
+console.log("Animations loaded");
 // Button shine animation
 function btnShine() {
     const button = document.querySelector(".shining-btn");

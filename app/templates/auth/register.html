@@ -9,7 +9,7 @@
         <div class="row justify-content-center align-items-center">
             <div
                 class="col-12 col-xs-10 col-s-9 col-sm-7 col-m-6 col-md-5 col-lg-4 register-form d-flex justify-content-center align-items-center auth-form">
-                <form id="registration-form" action="/auth/register" method="post" autocomplete="off">
+                <form id="registration-form" action="{{ url_for('auth.register') }}" method="post" autocomplete="off">
                     <h2 class="position-relative text-white text-center fs-3 fw-semibold my-5">Sign Up</h2>
                     <div class="input-group">
                         <input type="email" class="input required-field" name="email" id="email" data-field="email"
@@ -51,4 +51,11 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/formHandlers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 {% endblock %}

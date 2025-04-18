@@ -1,4 +1,5 @@
 // This file contains the Javascript code for registration and sign-in forms.
+console.log("Auth loaded");
 if (window.location.pathname.startsWith("/auth/register")) {
   document.addEventListener("DOMContentLoaded", () => {
     letItSnow();
@@ -110,4 +111,24 @@ if (window.location.pathname.startsWith("/auth/register")) {
         setupFormSubmitWithSpinner(form, submitButton, "Submitted");
         autoDismissToasts();          
   });
+} else if(window.location.pathname.startsWith("/auth/profile")) {
+   
+      const modal = document.getElementById("changePasswordModal");
+
+      modal.addEventListener("shown.bs.modal", () => {
+        const form = document.querySelector("#changePasswordForm");
+        if (form) {
+          const submitButton = document.querySelector("#submit-change-password-form");
+          const inputFields = form.querySelectorAll(".required-field");
+
+          const formStatus = {
+            password: 1,
+            confirm_password: 1,
+          };
+
+        updateSubmitButtonState(formStatus, submitButton);
+        setupInputValidation(inputFields, formStatus, submitButton);
+        setupFormSubmitWithSpinner(form, submitButton, "Submitted");
+      }
+    });
 }

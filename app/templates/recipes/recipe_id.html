@@ -12,7 +12,7 @@
     <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
         <div class="row d-flex flex-column recipe-card">
             <div class="col recipe-image w-100">
-                <img src="{{ recipe.quality_img_URL or recipe.compressed_img_URL }}" alt="{{ recipe.title }}" class="img-fluid">
+                <img src="{{ recipe.quality_img_URL or recipe.compressed_img_URL or url_for('static', filename='img/recipes/placeholder-image.jpeg') }}" alt="{{ recipe.title }}" class="img-fluid">
             </div>
             <div class="col recipe-buttons d-flex justify-content-center align-items-center w-100">
                 <div class="col-2 d-flex justify-content-start">
@@ -52,6 +52,12 @@
                         <button class="btn btn-outline-secondary rounded-3 mx-1 filtered-btn" data-filter="{{ tag.name }}">{{ tag.name }}</button>
                     {% endfor %}
                 {% endif %}
+            </div>
+            <div class="col editing-btns d-flex justify-content-end align-items-center">
+            {% if editable %}
+                <a href="{{ url_for('recipes.edit', id=recipe.id) }}" class="btn btn-sm btn-primary mx-2 px-2 px-md-4 py-md-2">Edit</a>
+                <button class="btn btn-sm btn-danger mx-2 px-2 px-md-4 py-md-2" data-bs-toggle="modal" data-bs-target="#deleteModal" aria-label="Delete recipe">Delete</button>
+            {% endif %}
             </div>
             <div class="row-cols-3 d-flex justify-content-center recipe-data mt-4">
                 <div class="col text-center">
@@ -108,10 +114,10 @@
                                     {% endif %}
                                 </div>
                                 {% if ingredient.quantity %}
-                                    <span class="ingredient-quantity" data-original="{{ ingredient.quantity }}" data-unit="{{ ingredient.unit }}">{{ ingredient.quantity }}</span>
+                                    <span class="ingredient-quantity ms-3" data-original="{{ ingredient.quantity }}" data-unit="{{ ingredient.unit }}">{{ ingredient.quantity }}</span>
                                 {% endif %}
                                 {% if ingredient.quantity_notes %}
-                                    <span>{{ ingredient.quantity_notes }}</span>
+                                    <span class="quantity-notes ms-3">{{ ingredient.quantity_notes }}</span>
                                 {% endif %}
                             </li>
                         {% endfor %}
@@ -146,7 +152,7 @@
                             <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
                         </form>
                     {% else %}
-                        <form method="POST" action="{{ url_for('recipes.save_note', recipe_id=recipe.id) }}">
+                        <form method="POST" action="{{ url_for('recipes.save_note', recipe_id=recipe.id) }}" class="mt-3 w-100">
                             <textarea name="note" class="form-control" rows="4">{{ note.note if note else '' }}</textarea>
                             <button type="submit" class="btn btn-primary mt-2">Save Note</button>
                         </form>
@@ -159,110 +165,39 @@
 
 
     </div>
-   <!--  <div class="container-fluid d-flex flex-column align-items-center g-5">
-        
-        <div class="row recipe-header mt-md-5 w-100">
-            <div class="col-lg-4 d-flex flex-column align-items-center h-100 order-2 order-md-1 recipe-details">
-                <div class="row d-flex justify-content-between align-items-center my-2 buttons">
-                    <div class="col">
-                        <a href="{{ url_for('recipes.recipes') }}" class="btn rounded-circle back-btn" aria-label="Back to recipes" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        data-bs-custom-class="custom-tooltip" data-bs-title="Back to recipes">
-                            <i class="bi bi-arrow-left"></i>
-                        </a>
-                    </div>
-                    <div class="col">
-                    {% if g.user %}
-                        <a href="#" class="btn rounded-circle save-btn" data-recipe-id="{{ recipe.id }}" aria-label="Save recipe to the custom menu" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        data-bs-custom-class="custom-tooltip" data-bs-title="Add to the custom menu">
-                            <span id="menu-add" class="material-symbols-outlined">
-                                library_add
-                            </span>
-                        </a>
-                    </div>
-                    <div class="col">
-                
-                        <button class="btn rounded-circle favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add or remove from favorites">
-                        {% if recipe.id in favorite_recipe_ids_set %}
-                            <i class="bi bi-heart-fill heart-icon" name="heart" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            data-bs-custom-class="custom-tooltip" data-bs-title="Remove from favorites"></i>
-                        {% else %}
-                            <i class="bi bi-heart heart-icon" name="heart-outline" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            data-bs-custom-class="custom-tooltip" data-bs-title="Add to favorites"></i>
-                        {% endif %} 
-                        </button>
-                    {% endif %}
-                    </div>
-                </div>
-            
-                <div class="row-cols-2 d-flex justify-content-between recipe-data">
-                    <div class="col-6">   
-                        <img src="{{ url_for('static', filename='img/icons/time.svg') }}" alt="Time icon">
-                        <span> {{ recipe.prep_time }} </span>
-                        <p>Preparation time</p>
-                    </div>
-                    <div class="col-6">
-                        <img src="{{ url_for('static', filename='img/icons/pot.svg') }}" alt="Time icon">
-                        <span> {{ recipe.cook_time }} </span>
-                        <p>Cooking time</p>
-                    </div>
-                    <div class="col-12">
-                        <p>Servings <span class="text-muted">(adjust to change)</span></p>
-                        <input type="number" class="form-control" id="servings" name="servings" value="{{ recipe.servings }}" min="1" max="5" step="1" aria-label="Number of servings">
-                    </div>
-                    <div class="recipe-tags d-flex justify-content-start align-items-center">
-                        {% if recipe.tags %}
-                            {% for tag in recipe.tags %}
-                                <button class="btn btn-outline-secondary rounded-3 mx-1 mt-3 filter-btn" data-filter="{{ tag.name }}">{{ tag.name }}</button>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-7 h-100 order-1 order-md-2 recipe-image">
-                <img src="{{ recipe.quality_img_URL or recipe.compressed_img_URL }}" alt="{{ recipe.title }}" class="img-fluid">
-                <h2>{{ recipe.title.capitalize() }}</h2>
+
+    <!-- DELETE Confirmation Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-0">
+            <div class="modal-header border-0 d-flex justify-content-between">
+                <h5 class="modal-title fw-bold me-2" id="deleteModalLabel">Do you want to DELETE the recipe?</h5>
+                <button type="button" class="btn-close bg-success" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x text-white"></i></button>
             </div>
         </div>
-    
-
-        <div class="row recipe-content">
-        
-            <ul class="nav nav-pills mt-3" id="recipeTabs">
-                <li class="nav-item">
-                    <button class="nav-link active tab-button" data-bs-toggle="pill" data-bs-target="#ingredientsTab">Ingredients</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link tab-button" data-bs-toggle="pill" data-bs-target="#instructionsTab">Instructions</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link tab-button" data-bs-toggle="pill" data-bs-target="#instructionsTab">Notes</button>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="ingredientsTab">
-                    <ul class="list-group mt-3">
-                        {% for ingredient in ingredients %}
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>{{ ingredient.name }}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-    
-                <div class="tab-pane fade" id="instructionsTab">
-                    <ol class="list-group list-group-numbered mt-3">
-                        {% for instruction in instructions %}
-                            <li class="list-group-item">{{ instruction.instruction }}</li>
-                        {% endfor %}
-                    </ol>
-                </div>
-            </div>
+        <div class="modal-body text-center">
+          <p>If you delete it, you will not be able to see it again.</p>
         </div>
-    </div> -->
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-outline-secondary rounded-3 px-4" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <form action="{{ url_for('recipes.delete', recipe_id=recipe.id) }}" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-danger rounded-3 px-4">Delete</button>
+          </form>          
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 {% endblock %}
 
 {% block footer %}
 {% include '_components/_footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/recipe_id.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/recipes.js') }}"></script>
 {% endblock %}

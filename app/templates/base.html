@@ -51,24 +51,17 @@
   {% block section %}{% endblock %}
   {% block footer %}{% endblock %}
 
-  
 
   <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/formHandlers.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/recipes.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/recipe_id.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/menus.js') }}"></script>
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <script src="{{ url_for('static', filename='js/fav-slider.js') }}"></script>
   
+
+  {% block scripts %}{% endblock %}
 </body>
 
 </html>
