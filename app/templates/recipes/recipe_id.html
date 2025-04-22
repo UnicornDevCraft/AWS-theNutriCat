@@ -55,7 +55,7 @@
             </div>
             <div class="col editing-btns d-flex justify-content-end align-items-center">
             {% if editable %}
-                <a href="{{ url_for('recipes.edit', id=recipe.id) }}" class="btn btn-sm btn-primary mx-2 px-2 px-md-4 py-md-2">Edit</a>
+                <a href="{{ url_for('recipes.edit', recipe_id=recipe.id) }}" class="btn btn-sm btn-primary mx-2 px-2 px-md-4 py-md-2">Edit</a>
                 <button class="btn btn-sm btn-danger mx-2 px-2 px-md-4 py-md-2" data-bs-toggle="modal" data-bs-target="#deleteModal" aria-label="Delete recipe">Delete</button>
             {% endif %}
             </div>

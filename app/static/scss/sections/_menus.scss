@@ -3,7 +3,7 @@
 @use '../components/typography' as *;
 @use '../components/mixins' as *;
 
-.menus {
+.menus-slider {
   margin-top: 80px;
   min-height: calc(100vh - 80px);
   background: $white-transparent-08;
@@ -223,5 +223,85 @@
         }
       }
     }
+  }
+}
+
+.choose-menu{
+  text-align: center;
+  color: $secondary;
+  font-size: 1.3rem;
+}
+
+.menus-content {
+  background: $light;
+
+  .menu-title{
+    h1{
+      font-family: $font-bala;
+      font-size: 4rem;
+      line-height: 3rem;
+      color: $secondary;
+      text-align: center;
+      padding: 0 0 4rem 0;
+    }
+  }
+  
+  span{
+    padding-left: 5rem;
+  }
+}
+
+.week-cards{
+  .day-of-week-card{
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px $black-transparent-05;
+    display: flex;
+    flex-direction: column;
+    background: $ivory;
+
+    .week-card-header{
+      border-radius: 20px 20px 0 0;
+
+      h2{
+        font-size: 1.8rem;
+        padding: 1.5rem; 
+        text-align: center;
+      }
+    }
+
+    .week-card-content{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      color: $secondary;
+      flex-grow: 1;
+      
+      span{
+        padding: 0;
+        font-size: 0.9rem;
+        color: $success;
+      }
+
+      a{
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 2.5rem;
+        text-decoration: none;
+        color: $secondary;
+
+        &:hover{
+          color: $primary;
+          background: rgba(255, 165, 0, 0.2);
+          border-color: rgba(255, 165, 0, 0.4);
+          box-shadow: 0 0 10px rgba(255, 165, 0, 0.6), 0 4px 20px $black-transparent-02;
+
+        }
+      }
+    }
+
+  
   }
 }

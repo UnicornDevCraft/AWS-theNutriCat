@@ -37,13 +37,13 @@
             <!-- Prep Time -->
             <div class="mb-3 col-4">
               <label for="prep_time" class="form-label">Prep (min)*</label>
-              <input type="number" class="form-control" name="prep_time" id="prep_time" required>
+              <input type="number" class="form-control" name="prep_time" id="prep_time" min="1" max="500" required>
             </div>
 
             <!-- Cook Time -->
             <div class="mb-3 col-4">
               <label for="cook_time" class="form-label">Cook (min)*</label>
-              <input type="number" class="form-control" name="cook_time" id="cook_time" required>
+              <input type="number" class="form-control" name="cook_time" id="cook_time" min="1" max="500" required>
             </div>
           </div>
           <!-- Ingredients -->
@@ -61,6 +61,14 @@
             </datalist>
           </div>
 
+          <!-- Instructions -->
+          <div class="mb-3">
+            <label class="form-label">Instructions *</label>
+            <div id="instructions-container"></div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addInstruction()">+ Add
+              Instruction</button>
+          </div>
+
           <!-- Tags -->
           <div class="mb-3">
             <label class="form-label">Tags *</label>
@@ -75,17 +83,9 @@
             </datalist>
           </div>
 
-          <!-- Instructions -->
-          <div class="mb-3">
-            <label class="form-label">Instructions *</label>
-            <div id="instructions-container"></div>
-            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addInstruction()">+ Add
-              Instruction</button>
-          </div>
-
           <!-- Notes -->
           <div class="mb-3">
-            <label for="notes" class="form-label">Your Notes</label>
+            <label for="notes" class="form-label">My Notes</label>
             <textarea class="form-control" name="notes" id="notes" rows="3"
               placeholder="Will try for sure..."></textarea>
           </div>
@@ -94,6 +94,10 @@
           <div class="mb-3">
             <label for="image" class="form-label">Recipe Image</label>
             <input type="file" class="form-control" name="image" id="image" accept="image/*">
+            <div id="upload-error" class="my-2"></div>
+            <div id="preview-container">
+              <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 300px; margin-top: 10px;" />
+            </div>
           </div>
 
           <button type="submit" class="btn shining-btn px-3 text-capitalize my-5 w-md-50 mx-auto">Submit &nbsp;

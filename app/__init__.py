@@ -37,5 +37,8 @@ def create_app():
     # Add Flask-Recaptcha configuration
     app.config['RECAPTCHA_SITE_KEY'] = os.getenv('RECAPTCHA_SITE_KEY')
     app.config['RECAPTCHA_SECRET_KEY'] = os.getenv('RECAPTCHA_SECRET_KEY')
+
+    # 2MB limit for all uploads 
+    app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  
     
     return app

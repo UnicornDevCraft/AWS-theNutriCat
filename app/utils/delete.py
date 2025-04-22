@@ -6,6 +6,7 @@ import boto3
 
 AWS_REGION = os.getenv("AWS_REGION")
 S3_BUCKET_NAME = os.getenv("AWS_S3_BUCKET_NAME")
+S3_BUCKET_LINK = os.getenv("AWS_S3_BUCKET_LINK")
 s3_folder = os.getenv("AWS_S3_FOLDER")
 
 def delete_local_image(path):
@@ -17,12 +18,27 @@ def delete_local_image(path):
 def delete_s3_image(s3_url):
     # Parse bucket and key from the URL
     s3 = boto3.client('s3')
-    key = s3_url.split(f"{S3_BUCKET_NAME}/")[-1]
+    key = s3_url.split(f"{S3_BUCKET_LINK}")[1]
+    print(f"Attempting to delete key: {key} from bucket: {S3_BUCKET_NAME}")
+
 
     try:
         s3.delete_object(Bucket=S3_BUCKET_NAME, Key=key)
+        print(f"Successfully deleted {s3_url}!")
     except Exception as e:
         print(f"Failed to delete from S3: {e}")
+
+    try:
+        s3.head_object(Bucket=S3_BUCKET_NAME, Key=key)
+        print("File still exists after delete attempt!")
+    except s3.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == '404':
+            print("File is confirmed deleted.")
+        else:
+            print("Other error:", e)
+
+
+    
 
 
 def delete_recipe(recipe_id):
