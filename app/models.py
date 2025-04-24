@@ -39,7 +39,7 @@ class Recipe(db.Model):
     tags = db.relationship('Tag', secondary='recipe_tags', back_populates='recipes', cascade="all, delete")
     ingredients = db.relationship('Ingredient', secondary='recipe_ingredients', backref='recipes')
     instructions = db.relationship('Instruction', backref='recipes', lazy=True, cascade="all, delete-orphan")
-    notes = db.relationship("UserRecipeNote", backref="recipes", cascade="all, delete-orphan")
+    #notes = db.relationship("UserRecipeNote", backref="recipes", cascade="all, delete-orphan")
     title_search = db.Column(TSVECTOR)
 
     @validates('title')

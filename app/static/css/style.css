@@ -17056,7 +17056,7 @@ html .modal .modal-header .btn-close i::before {
   transition: 0.25s;
   transition-delay: 0s;
   transform: translateY(40px);
-  z-index: 10000;
+  z-index: 100;
   opacity: 0;
 }
 @media (min-width: 640px) {
@@ -17201,7 +17201,7 @@ html .modal .modal-header .btn-close i::before {
 }
 
 .week-cards {
-  max-width: 90%;
+  max-width: 95%;
 }
 .week-cards .day-of-week-card {
   width: 95%;
