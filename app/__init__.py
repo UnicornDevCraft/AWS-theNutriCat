@@ -23,6 +23,9 @@ def create_app():
     from app.recipes import bp as recipes_bp
     app.register_blueprint(recipes_bp)
 
+    from app.menus import bp as menus_bp
+    app.register_blueprint(menus_bp)
+
     # Add Flask-Mail configuration
     app.config['MAIL_SERVER'] = 'localhost'
     app.config['MAIL_PORT'] = 8025

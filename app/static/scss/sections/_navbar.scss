@@ -5,10 +5,15 @@
 
 html{
     scroll-behavior: smooth;
+    box-sizing: border-box;
+
+    body{font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;}
 
     .menu {
         height: 80px;
         background: $ivory;
+        max-width: 100vw;
+        overflow: hidden;
 
         .search-user{
             a{

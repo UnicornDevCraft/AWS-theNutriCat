@@ -633,31 +633,6 @@ def delete(recipe_id):
     return redirect(url_for("recipes.index"))
 
 
-@bp.route('/menus')
-def menus():
-    # Get unique tag types and their names
-    tag_types = db.session.query(Tag.type).distinct().all()
-    tag_types = [t[0] for t in tag_types]
-    tag_options = {}
-    for t in tag_types:
-        options = db.session.query(Tag.name).filter(Tag.type == t).distinct().all()
-        options = [n[0] for n in options]
-        if "day" in t:
-            week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-            options = sorted(options, key=lambda x: week_days.index(x) if x in week_days else len(week_days))
-            tag_name = "Day of the week"
-        elif "meal" in t:
-            meal_order = ["Breakfast", "Lunch", "Dinner", "Dessert"]
-            options = sorted(options, key=lambda x: meal_order.index(x) if x in meal_order else len(meal_order))
-            tag_name = "Meals"
-        elif "menu" in t:
-            options = sorted(options)
-            tag_name = "Menu"
-        else:
-            tag_name = None
-            
-        tag_options[tag_name] = options
 
-    return render_template('recipes/menus.html')
 
 

@@ -4,7 +4,6 @@
 @use '../components/mixins' as *;
 
 .home {
-
   margin-top: 80px;
   min-height: calc(100vh - 80px);
   background: url('../img/cat_salad.png') center / cover no-repeat;
@@ -109,6 +108,7 @@
     }
   }
 }
+
 .accordion-body {
   a {
       text-decoration: none;

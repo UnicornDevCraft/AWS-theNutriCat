@@ -58,5 +58,13 @@ if (!window.location.pathname.startsWith("/auth/")) {
     });
     });
   }
+
+function navigateTo(page) {
+    const toURL = document.getElementById(`${page}-url`).value;
+    window.location.href = toURL;
+}
+ 
+  
+
   
   
