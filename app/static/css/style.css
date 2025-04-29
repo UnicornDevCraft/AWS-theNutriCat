@@ -16559,7 +16559,6 @@ html .modal .modal-header .btn-close i::before {
   letter-spacing: 0.2em;
 }
 .recipes-header .header-text h1 {
-  font-family: "balabeloo", sans-serif;
   font-size: 4rem;
   line-height: 3rem;
 }
@@ -16594,8 +16593,7 @@ html .modal .modal-header .btn-close i::before {
   background: #FEEFDD;
 }
 .recipes-body #all-recipes {
-  font-family: "balabeloo", sans-serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding-top: 4rem;
   text-decoration: none;
   margin-top: 2rem;
@@ -16607,7 +16605,7 @@ html .modal .modal-header .btn-close i::before {
 }
 @media (min-width: 768px) {
   .recipes-body #all-recipes {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 }
 .recipes-body .row .card {
@@ -17176,7 +17174,6 @@ html .modal .modal-header .btn-close i::before {
   top: -100px;
 }
 .menus-content .menu-title h1 {
-  font-family: "balabeloo", sans-serif;
   font-size: 3rem;
   line-height: 3rem;
   color: #1b3711;
@@ -17252,6 +17249,43 @@ html .modal .modal-header .btn-close i::before {
 .week-cards .day-of-week-card .week-card-btn i {
   margin-right: 0.5rem;
   font-size: 1.2rem;
+}
+
+#shopping-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+#shopping-info-container h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  color: #1b3711;
+  margin-bottom: -1rem;
+}
+@media (min-width: 640px) {
+  #shopping-info-container h2 {
+    font-size: 2.5rem;
+  }
+}
+#shopping-info-container ul {
+  color: #1b3711;
+  margin: 2rem 0;
+}
+#shopping-info-container ul li {
+  color: #1b3711;
+}
+#shopping-info-container p {
+  color: #1b3711;
+  font-size: 0.8rem;
+  text-align: start;
+  font-family: "Courier New", Courier, monospace;
+}
+@media (min-width: 640px) {
+  #shopping-info-container p {
+    font-size: 1rem;
+  }
 }
 
 .add-recipe {

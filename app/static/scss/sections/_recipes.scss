@@ -24,7 +24,6 @@
 
   .header-text{
     h1{
-        font-family: $font-bala;
         font-size: 4rem;
         line-height: 3rem;
     }
@@ -65,8 +64,7 @@
   background: $light;
 
   #all-recipes{
-    font-family: $font-bala;
-    font-size: 3rem;
+    font-size: 2.5rem;
     padding-top: 4rem;
     text-decoration: none;
     margin-top: 2rem;
@@ -80,7 +78,7 @@
     }
 
     @include media-breakpoint-up(md){
-      font-size: 4rem;
+      font-size: 3.5rem;
     }
   }
 

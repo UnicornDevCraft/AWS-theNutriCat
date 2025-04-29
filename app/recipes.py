@@ -158,6 +158,22 @@ def recipes():
         user=user
     )
 
+
+@bp.route("/search")
+def search():
+    q = request.args.get("q", "")
+    if q:
+        results = Recipe.query.filter(Recipe.title.ilike(f"%{q}%")).limit(10).all()
+    else:
+        results = []
+    # Return JSON response
+    return jsonify([
+        {"title": r.title.capitalize(), 
+         "id": r.id,
+         "thumbnail": r.compressed_img_URL} for r in results
+    ])
+
+
 @bp.route('/recipe/<int:recipe_id>')
 def recipe_id(recipe_id):
     note = None
@@ -195,6 +211,9 @@ def recipe_id(recipe_id):
         }
         for ri, ingredient in recipe_ingredients
     ]
+
+    user = None
+    has_my_recipe_tag = False
 
     # Favorite recipes set and notes
     favorite_recipe_ids_set = set()

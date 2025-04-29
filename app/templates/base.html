@@ -21,6 +21,12 @@
 </head>
 
 <body>
+  <!-- Routes to pass into javascript -->
+  <input type="hidden" id="recipes-api-url" value="{{ url_for('recipes.recipes') }}">
+  <input type="hidden" id="recipe-id-url" value="{{ url_for('recipes.recipe_id', recipe_id=0)[:-1] }}">
+  <input type="hidden" id="menus-api-url" value="{{ url_for('menus.menus') }}">
+
+  <!-- Notification containers -->
   <div id="flash-container" class="position-fixed p-2">
   </div> 
   {% with messages = get_flashed_messages(with_categories=true) %}
@@ -43,7 +49,6 @@
       </div>
       {% endfor %}
     </div>
-       
   </section>
   {% endif %}
   {% endwith %}
@@ -59,7 +64,8 @@
   
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  
+
+  <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
 
   {% block scripts %}{% endblock %}
 </body>

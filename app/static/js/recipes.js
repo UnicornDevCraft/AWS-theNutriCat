@@ -1,6 +1,7 @@
 console.log("Recipes JS loaded");
 window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
     const apiUrl = document.getElementById("recipes-api-url").value;
+    console.log("API URL:", apiUrl);
     let queryUrl = `${apiUrl}?page=${page}`;
 
     if (search) queryUrl += `&search=${search}`;
@@ -142,7 +143,7 @@ window.updatePagination = function (totalPages, currentPage = 1, filter = "", so
 };
 
 window.searchRecipes = function (filter = "", sort = "") {
-    const searchQuery = document.getElementById('search-input').value.trim();
+    const searchQuery = document.getElementById('searching-input').value.trim();
     const encodedSearch = encodeURIComponent(searchQuery);
 
     console.log("Searching for:", searchQuery);
@@ -215,7 +216,7 @@ if (window.location.pathname.startsWith("/recipes")) {
         let currentSearch = "";
         const urlParams = new URLSearchParams(window.location.search);
         const activeFilter = urlParams.get('filter');
-        const searchInput = document.getElementById("search-input");
+        const searchInput = document.getElementById("searching-input");
         const searchForm = document.getElementById("search-form");
 
         if (searchInput && searchForm) {

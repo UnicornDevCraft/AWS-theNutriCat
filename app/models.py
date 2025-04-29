@@ -170,6 +170,20 @@ class UserRecipeNote(db.Model):
 
     __table_args__ = (db.UniqueConstraint('user_id', 'recipe_id', name='uix_user_recipe'),)
 
+class MenuShoppingInfo(db.Model):
+    __tablename__ = "menu_shopping_infos"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    menu_tag_id = db.Column(db.Integer, db.ForeignKey('tags.id', ondelete="CASCADE"), unique=True, nullable=False)
+    shopping_list_text = db.Column(db.Text, nullable=True)
+    preparations_text = db.Column(db.Text, nullable=True)
+    meat_marinades_text = db.Column(db.Text, nullable=True)
+    dressings_text = db.Column(db.Text, nullable=True)
+    rules_and_tips_text = db.Column(db.Text, nullable=True)
+
+    menu_tag = db.relationship('Tag')
+
+
 
 # Adding indexing for search
 Index('ix_recipes_title_search', Recipe.title_search, postgresql_using='gin')
