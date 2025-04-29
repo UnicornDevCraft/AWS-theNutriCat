@@ -1,41 +1,43 @@
+// This file contains styling for the footer 
+
+// Import custom variables
 @use '../custom' as *;
-@use '../components/typography' as *;
 @use '../components/mixins' as *;
 
-.footer{
+// Footer styling
+.footer {
     background: $ivory;
 
-    .footer-logo{
+    .footer-logo {
 
-        a{
+        a {
             width: 60%;
 
-            @include media-breakpoint-up(xs){
+            @include media-breakpoint-up(xs) {
                 max-width: 125px;
             }
 
-            img{
+            img {
                 width: 100%;
             }
         }
-    
-        span{
+
+        span {
             width: 100%;
             color: $secondary;
         }
     }
 
-    .social-media{
+    .social-media {
 
-        li a i{
+        li a i {
             font-size: 1.6rem;
             margin: 0 0.3rem;
         }
     }
 }
 
-
-//back to top button
+// Back to top button styling
 .back-to-top {
     position: fixed;
     width: 3rem;
@@ -43,10 +45,10 @@
     right: 1.875rem;
     bottom: 1.875rem;
     z-index: 9999;
-  
+
     i {
         color: $ivory;
         font-size: 1rem;
         @include absoluteCenter;
     }
-  }
+}

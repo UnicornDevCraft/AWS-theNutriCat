@@ -14,18 +14,21 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-4">
                 <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-chevron justify-content-center p-3 ">
-                    <li class="breadcrumb-item">
-                        <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        data-bs-custom-class="custom-tooltip" data-bs-title="Home" href="{{ url_for('recipes.index') }}">
-                            The Nutri Cat
-                            <span class="visually-hidden">Home</span>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fw-semibold text-decoration-none text-uppercase" href="{{ url_for('recipes.recipes') }}">Recipes</a>
-                    </li>
-                </ol>
+                    <ol class="breadcrumb breadcrumb-chevron justify-content-center p-3 ">
+                        <li class="breadcrumb-item">
+                            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                data-bs-custom-class="custom-tooltip" data-bs-title="Home"
+                                href="{{ url_for('recipes.index') }}">
+                                The Nutri Cat
+                                <span class="visually-hidden">Home</span>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fw-semibold text-decoration-none text-uppercase"
+                                href="{{ url_for('recipes.recipes') }}">Recipes</a>
+                        </li>
+                    </ol>
                 </nav>
             </div>
         </div>
@@ -34,8 +37,10 @@
     <div class="container-fluid header-text mt-2 mt-md-5 mb-5">
         <div class="row d-flex justify-content-center text-white">
             <div class="col-md-6 text-center">
-                <h1>Search Recipes</h1>
-                <p>We’ve lovingly organized these recipes to make your search a breeze—whether it’s weeknight dinners, meal prep ideas, or something special. Whatever you’re craving, we’re here to help you find your perfect match!</p>
+                <h2 class="display-2">Search Recipes</h2>
+                <p class="display-2--description">We’ve lovingly organized these recipes to make your search a
+                    breeze—whether it’s weeknight dinners, meal prep ideas, or something special. Whatever you’re
+                    craving, we’re here to help you find your perfect match!</p>
             </div>
         </div>
     </div>
@@ -44,8 +49,11 @@
         <div class="row d-flex mx-3 justify-content-center">
             <div class="col-md-6 recipes-search">
                 <form id="search-form" class="searchBox position-relative" role="search">
-                    <input id="searching-input" class="form-control rounded-5" type="search" placeholder="Search" aria-label="Search" autofocus>
-                    <button id="search-btn" class="btn btn-primary position-absolute end-0 top-50 translate-middle-y rounded-5" type="submit" area-label="Search">
+                    <input id="searching-input" class="form-control rounded-5" type="search" placeholder="Search"
+                        aria-label="Search" autofocus>
+                    <button id="search-btn"
+                        class="btn btn-primary position-absolute end-0 top-50 translate-middle-y rounded-5"
+                        type="submit" aria-label="Search">
                         <i class="bi bi-search"></i>
                     </button>
                 </form>
@@ -54,16 +62,20 @@
                 <div class="col-md-6 d-flex flex-column align-items-center">
                     <p class="text-center text-white">You can also add your own recipe!</p>
                     {% if g.user %}
-                        <a href="{{ url_for('recipes.create') }}" class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3"><i class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</a>
+                    <a href="{{ url_for('recipes.create') }}"
+                        class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3"><i
+                            class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</a>
                     {% else %}
-                        <a class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3" data-bs-toggle="modal" data-bs-target="#authoriseModal"><i class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</a>
+                    <a class="btn btn-outline-primary rounded-pill shadow-lg text-white w-50 p-2 mt-3"
+                        data-bs-toggle="modal" data-bs-target="#authoriseModal"><i
+                            class="bi bi-plus-lg"></i>&nbsp;&nbsp;Add recipe</a>
                     {% endif %}
                     <p class="text-center text-white mt-5">Or browse all the recipes below:</p>
                 </div>
             </div>
-            
+
         </div>
-    </div>   
+    </div>
 </section>
 <!-- Add recipe Confirmation Modal -->
 <div class="modal fade" id="authoriseModal" tabindex="-1" aria-labelledby="authoriseModal" aria-hidden="true">
@@ -71,7 +83,8 @@
         <div class="modal-content rounded-4">
             <div class="modal-header border-0 d-flex justify-content-between">
                 <h5 class="modal-title fw-bold me-5" id="authoriseModalLabel">Please sign in to continue...</h5>
-                <button type="button" class="btn-close bg-success text-white" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x"></i></button>
+                <button type="button" class="btn-close bg-success text-white" data-bs-dismiss="modal"
+                    aria-label="Close"><i class="bi bi-x"></i></button>
             </div>
             <div class="modal-body text-center">
                 <p class="fw-semibold fs-4">Sign in to add recipes!</p>
@@ -80,9 +93,9 @@
                 <button type="button" class="btn btn-outline-secondary rounded-3 px-4" data-bs-dismiss="modal">
                     Cancel
                 </button>
-            <a href="{{ url_for('auth.login') }}" class="btn btn-success rounded-3 px-4">
-                Sign In
-            </a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-success rounded-3 px-4">
+                    Sign In
+                </a>
             </div>
             <div class="justify-content-center mb-4 text-center">
                 <p class="text-center text-muted mt-3 mb-2">Don't have an account yet?</p>
@@ -94,7 +107,9 @@
     </div>
 </div>
 <section class="recipes-body album py-5 justify-content-center align-items-center text-center">
-    <a href="{{ url_for('recipes.recipes') }}" class="text-capitalize text-secondary" id="all-recipes">All recipes</a>
+    <a href="{{ url_for('recipes.recipes') }}" class="text-capitalize text-secondary display-3" id="all-recipes">All
+        recipes</a>
+    <div class="heading-line mb-5 mt-3"></div>
     <!-- Start filtering and sorting controls -->
     <div class="conteiner-fluid my-5 filter-sort">
         <div class="row justify-content-center align-content-center mx-3">
@@ -102,7 +117,8 @@
             <div id="filter-container" class="col-md-6 d-flex flex-wrap gap-2 justify-content-center">
                 {% for type, options in tag_options.items() %}
                 <div class="dropdown">
-                    <button class="btn btn-outline-success dropdown-toggle rounded-pill px-3 mx-2" type="button" id="dropdown-{{ type }}" data-bs-toggle="dropdown">
+                    <button class="btn btn-outline-success dropdown-toggle rounded-pill px-3 mx-2" type="button"
+                        data-bs-toggle="dropdown">
                         {{ type }}
                     </button>
                     <ul class="dropdown-menu">
@@ -118,65 +134,77 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6 d-flex justify-content-center">
                     <!-- Sorting Button -->
-                    <button id="sort-btn" class="btn btn-outline-success rounded-pill w-75 mt-2" data-sort="{{ sort_order if sort_order in ['asc', 'desc'] else 'default' }}">
+                    <button id="sort-btn" class="btn btn-outline-success rounded-pill w-75 mt-2"
+                        data-sort="{{ sort_order if sort_order in ['asc', 'desc'] else 'default' }}">
                         Sort by the title&nbsp;
                         {% if sort_order == "asc" %}
-                            <i class="bi bi-sort-alpha-down"></i>
+                        <i class="bi bi-sort-alpha-down"></i>
                         {% elif sort_order == "desc" %}
-                            <i class="bi bi-sort-alpha-down-alt"></i>
+                        <i class="bi bi-sort-alpha-down-alt"></i>
                         {% else %}
-                            <i class="bi bi-filter"></i>
+                        <i class="bi bi-filter"></i>
                         {% endif %}
                     </button>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <!-- Start recipe section -->
-    <div class="container-fluid my-5 show-recipes">    
-        {% if recipes %} 
+    <div class="container-fluid my-5 show-recipes">
+        {% if recipes %}
         <div id="recipes-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
             {% for recipe in recipes %}
-                <div class="col recipe-card">
-                    <div class="card shadow-sm rounded-5 mx-auto">
-                        {% if recipe['compressed_img_URL'] %}
-                            <img src="{{ recipe['compressed_img_URL'] }}" alt="{{ recipe['title'] }}" data-recipe-id="{{ recipe.id }}" class="recipe-img">
-                        {% else %}
-                            <img src="{{ url_for('static', filename='img/recipes/placeholder-image.jpeg') }}" alt="{{ recipe['title'] }}" data-recipe-id="{{ recipe.id }}" class="recipe-img">
-                        {% endif %}
-                        <div class="card-body">
-                            <h3 class="card-header text-center"><a href="{{ url_for('recipes.recipe_id', recipe_id=recipe.id) }}" class="text-secondary fs-6 recipe-link" data-recipe-id="{{ recipe.id }}"> {{ recipe.title.capitalize() }}</a></h3>
-                            
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                {% if g.user %}
-                                <!-- Heart Button -->
-                                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add or remove from favorites">
-                                    {% if recipe.id in favorite_recipe_ids_set %}
-                                        <i class="bi bi-heart-fill heart-icon" name="heart" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        data-bs-custom-class="custom-tooltip" data-bs-title="Remove from favorites"></i>
-                                    {% else %}
-                                        <i class="bi bi-heart heart-icon" name="heart-outline" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        data-bs-custom-class="custom-tooltip" data-bs-title="Add to favorites"></i>
-                                    {% endif %} 
-                                    </button>
+            <div class="col recipe-card">
+                <div class="card shadow-sm rounded-5 mx-auto">
+                    {% if recipe['compressed_img_URL'] %}
+                    <img src="{{ recipe['compressed_img_URL'] }}" alt="{{ recipe['title'] }}"
+                        data-recipe-id="{{ recipe.id }}" class="recipe-img">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='img/recipes/placeholder-image.jpeg') }}"
+                        alt="{{ recipe['title'] }}" data-recipe-id="{{ recipe.id }}" class="recipe-img">
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-header text-center"><a
+                                href="{{ url_for('recipes.recipe_id', recipe_id=recipe.id) }}"
+                                class="text-secondary fs-6 recipe-link" data-recipe-id="{{ recipe.id }}"> {{
+                                recipe.title.capitalize() }}</a></h3>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            {% if g.user %}
+                            <!-- Heart Button -->
+                            <button class="favorite-btn" data-recipe-id="{{ recipe.id }}"
+                                aria-label="Add or remove from favorites">
+                                {% if recipe.id in favorite_recipe_ids_set %}
+                                <i class="bi bi-heart-fill heart-icon" data-icon="heart" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="Remove from favorites"></i>
+                                {% else %}
+                                <i class="bi bi-heart heart-icon" data-icon="heart-outline" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="Add to favorites"></i>
                                 {% endif %}
-                                <div class="cook-time d-flex justify-content-center align-items-center">
-                                    &nbsp;<ion-icon name="time-outline"></ion-icon>
-                                    &nbsp; <span class="text-white">{{ recipe['prep_time'] + recipe['cook_time'] }}</span>&nbsp; 
-                                </div>
-                                <div class="recipe-tags d-flex justify-content-start align-items-center">
-                                    {% if recipe.tags %}
-                                        {% for tag in recipe.tags %}
-                                            <button class="btn btn-outline-secondary rounded-3 mx-1 filter-btn" data-filter="{{ tag.name }}">{{ tag.name }}</button>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-                                <button type="button" class="btn btn-m btn-success rounded-4 text-white make" data-recipe-id="{{ recipe.id }}">Make</button>
+                            </button>
+                            {% endif %}
+                            <div class="cook-time d-flex justify-content-center align-items-center">
+                                &nbsp;<ion-icon name="time-outline"></ion-icon>
+                                &nbsp; <span class="text-white">{{ recipe['prep_time'] + recipe['cook_time']
+                                    }}</span>&nbsp;
                             </div>
+                            <div class="recipe-tags d-flex justify-content-start align-items-center">
+                                {% if recipe.tags %}
+                                {% for tag in recipe.tags %}
+                                <button class="btn btn-outline-secondary rounded-3 mx-1 filter-btn"
+                                    data-filter="{{ tag.name }}">{{ tag.name }}</button>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <button type="button" class="btn btn-m btn-success rounded-4 text-white make"
+                                data-recipe-id="{{ recipe.id }}">Make</button>
                         </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
         {% else %}
@@ -189,32 +217,30 @@
     <nav aria-label="Recipe Pagination">
         <ul class="pagination justify-content-center">
             {% if page > 1 %}
-                <li class="page-item">
-                    <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=page-1) }}"><i class="bi bi-chevron-bar-left"></i></a>
-                </li>
+            <li class="page-item">
+                <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=page-1) }}"
+                    aria-label="Previous page"><i class="bi bi-chevron-bar-left"></i></a>
+            </li>
             {% endif %}
 
             {% for p in range(1, total_pages + 1) %}
-                <li class="page-item {% if p == page %}active{% endif %}">
-                    <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=p) }}">{{ p }}</a>
-                </li>
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=p) }}">{{ p }}</a>
+            </li>
             {% endfor %}
 
-            {% if page < total_pages %}
-                <li class="page-item">
-                    <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=page+1) }}"><i class="bi bi-chevron-bar-right"></i></a>
+            {% if page < total_pages %} <li class="page-item">
+                <a class="page-link page-link-btn" href="{{ url_for('recipes.recipes', page=page+1) }}"
+                    aria-label="Next page"><i class="bi bi-chevron-bar-right"></i></a>
                 </li>
-            {% endif %}
+                {% endif %}
         </ul>
     </nav>
 </section>
-
 {% endblock %}
-
 {% block footer %}
 {% include '_components/_footer.html' %}
 {% endblock %}
-
 {% block scripts %}
-  <script src="{{ url_for('static', filename='js/recipes.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recipes.js') }}"></script>
 {% endblock %}

@@ -10,7 +10,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////////-->
 <section class="edit-recipe px-1 px-md-3">
   <div class="container py-4">
-    <h1 class="text-capitalize text-center mb-4">Edit Recipe</h1>
+    <h2 class="text-capitalize text-center mb-4">Edit Recipe</h2>
+    <div class="heading-line mb-5"></div>
     <div id="form-alert" class="alert alert-danger text-center d-none show" role="alert">
       Please fill in all required fields.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -23,27 +24,27 @@
           <!-- Title -->
           <div class="mb-3">
             <label for="title" class="form-label">Recipe Title *</label>
-            <input type="text" class="form-control" name="title" id="title" placeholder="Super tasty nutri meal" value="{{ recipe.title }}"
-              required>
+            <input type="text" class="form-control" name="title" id="title" placeholder="Super tasty nutri meal"
+              value="{{ recipe.title }}" required>
           </div>
           <div class="row d-flex flex-row justify-content-between align-items-center">
             <!-- Servings -->
             <div class="mb-3 col-4">
               <label for="servings" class="form-label">Servings *</label>
-              <input type="number" class="form-control" name="servings" id="servings" value="{{ recipe.servings }}" min="1" max="50"
-                required>
+              <input type="number" class="form-control" name="servings" id="servings" value="{{ recipe.servings }}"
+                min="1" max="50" required>
             </div>
-
             <!-- Prep Time -->
             <div class="mb-3 col-4">
               <label for="prep_time" class="form-label">Prep (min)*</label>
-              <input type="number" class="form-control" name="prep_time" id="prep_time" value="{{ recipe.prep_time }}" required>
+              <input type="number" class="form-control" name="prep_time" id="prep_time" value="{{ recipe.prep_time }}"
+                required>
             </div>
-
             <!-- Cook Time -->
             <div class="mb-3 col-4">
               <label for="cook_time" class="form-label">Cook (min)*</label>
-              <input type="number" class="form-control" name="cook_time" id="cook_time" value="{{ recipe.cook_time }}" required>
+              <input type="number" class="form-control" name="cook_time" id="cook_time" value="{{ recipe.cook_time }}"
+                required>
             </div>
           </div>
           <!-- Ingredients -->
@@ -51,41 +52,44 @@
             <label class="form-label">Ingredients *</label>
             <div id="ingredients-container">
               {% for recipe_ingredient, ingredient in ingredients %}
-                <div class="row g-2 mb-2">
-                  <div class="col-11">
-                    <input type="text" name="ingredient_name[]" class="form-control" placeholder="Ingredient" list="ingredient-list" title="Ingredient name" value="{{ ingredient.name }}" required>
-                  </div>
-                  <div class="col-auto">
-                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.row').remove()">
-                      ✕
-                    </button>
-                  </div>
-                  <div class="col-4 col-md-2">
-                    <input type="text" name="quantity[]" class="form-control" title="Ingredient quantity" placeholder="Qty" value="{{ ingredient.quantity }}">
-                  </div>
-                  <div class="col-4 col-md-2">
-                    <input type="text" name="unit[]" class="form-control" title="Quantity unit" placeholder="Unit" value="{{ ingredient.unit }}">
-                  </div>
-                  <div class="col-4 col-md-2">
-                    <input type="text" name="quantity_notes[]" class="form-control" title="Quantity notes" placeholder="(to taste)" value="{{ ingredient.quantity_notes }}">
-                  </div>
-                  <div class="col-5">
-                    <input type="text" name="ingredient_notes[]" class="form-control" title="Ingredient notes" placeholder="Note (e.g. cooked, raw, etc.)" value="{{ ingredient.ingredient_notes }}">
-                  </div>
+              <div class="row g-2 mb-2">
+                <div class="col-11">
+                  <input type="text" name="ingredient_name[]" class="form-control" placeholder="Ingredient"
+                    list="ingredient-list" title="Ingredient name" value="{{ ingredient.name }}" required>
                 </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.row').remove()">
+                    ✕
+                  </button>
+                </div>
+                <div class="col-4 col-md-2">
+                  <input type="text" name="quantity[]" class="form-control" title="Ingredient quantity"
+                    placeholder="Qty" value="{{ ingredient.quantity }}">
+                </div>
+                <div class="col-4 col-md-2">
+                  <input type="text" name="unit[]" class="form-control" title="Quantity unit" placeholder="Unit"
+                    value="{{ ingredient.unit }}">
+                </div>
+                <div class="col-4 col-md-2">
+                  <input type="text" name="quantity_notes[]" class="form-control" title="Quantity notes"
+                    placeholder="(to taste)" value="{{ ingredient.quantity_notes }}">
+                </div>
+                <div class="col-5">
+                  <input type="text" name="ingredient_notes[]" class="form-control" title="Ingredient notes"
+                    placeholder="Note (e.g. cooked, raw, etc.)" value="{{ ingredient.ingredient_notes }}">
+                </div>
+              </div>
               {% endfor %}
             </div>
             <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addIngredient()">+ Add
               Ingredient</button>
-
             <!-- Datalist for autocomplete -->
             <datalist id="ingredient-list">
               {% for ingredient in ingredients %}
               <option value="{{ ingredient.name }}">
-              {% endfor %}
+                {% endfor %}
             </datalist>
           </div>
-
           <!-- Instructions -->
           <div class="mb-3">
             <label class="form-label">Instructions *</label>
@@ -93,10 +97,12 @@
               {% for instruction in instructions %}
               <div class="row g-2 mb-2">
                 <div class="col-2">
-                  <input type="number" name="step[]" min="1" max="50" class="form-control" title="Step number" placeholder="Step" value="{{ instruction.step_number }}" required>
+                  <input type="number" name="step[]" min="1" max="50" class="form-control" title="Step number"
+                    placeholder="Step" value="{{ instruction.step_number }}" required>
                 </div>
                 <div class="col-9">
-                  <textarea name="instruction[]" class="form-control instruction" title="Instruction text" placeholder="Instruction" rows="3" required>{{instruction.instruction}}</textarea>
+                  <textarea name="instruction[]" class="form-control instruction" title="Instruction text"
+                    placeholder="Instruction" rows="3" required>{{instruction.instruction}}</textarea>
                 </div>
                 <div class="col-auto">
                   <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.row').remove()">
@@ -109,34 +115,32 @@
             <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addInstruction()">+ Add
               Instruction</button>
           </div>
-
           <!-- Tags -->
           <div class="mb-3">
             <label class="form-label">Tags *</label>
             <div id="tags-container">
               {% for tag in recipe.tags %}
-                <div class="row g-2 mb-2">
-                  <div class="col-11">
-                    <input type="text" name="tag[]" class="form-control" placeholder="Tag" title="Tag for the recipe" list="tag-list" value="{{ tag.name }}" required>
-                  </div>
-                  <div class="col-auto">
-                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.row').remove()">
-                      ✕
-                  </button>
-                  </div>
+              <div class="row g-2 mb-2">
+                <div class="col-11">
+                  <input type="text" name="tag[]" class="form-control" placeholder="Tag" title="Tag for the recipe"
+                    list="tag-list" value="{{ tag.name }}" required>
                 </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.row').remove()">
+                    ✕
+                  </button>
+                </div>
+              </div>
               {% endfor %}
             </div>
             <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addTag()">+ Add Tag</button>
-
             <!-- Datalist for autocomplete -->
             <datalist id="tag-list">
               {% for tag in tags %}
-                <option value="{{ tag.name }}">
-              {% endfor %}
+              <option value="{{ tag.name }}">
+                {% endfor %}
             </datalist>
           </div>
-
           <!-- Notes -->
           <div class="mb-3">
             <label for="notes" class="form-label">My Notes</label>
@@ -148,28 +152,29 @@
               placeholder="Will try for sure..."></textarea>
             {% endif %}
           </div>
-
           <!-- Image Upload -->
           <div class="mb-3">
             <label for="image" class="form-label">Recipe Image</label>
             {% if recipe.compressed_img_URL %}
             <div class="mb-4">
-              <img src="{{recipe.compressed_img_URL}}" alt="Current Image" class="img-fluid mb-3" style="max-width: 200px;">
+              <img src="{{recipe.compressed_img_URL}}" alt="Current Image" class="img-fluid mb-3"
+                style="max-width: 200px;">
               <button type="button" class="btn btn-danger" onclick="removeImage()">Remove Image</button>
             </div>
             {% elif recipe.quality_img_URL %}
             <div class="mb-4">
-              <img src="{{recipe.quality_img_URL}}" alt="Current Image" class="img-fluid mb-3" style="max-width: 200px;">
+              <img src="{{recipe.quality_img_URL}}" alt="Current Image" class="img-fluid mb-3"
+                style="max-width: 200px;">
               <button type="button" class="btn btn-danger" onclick="removeImage()">Remove Image</button>
             </div>
             {% endif %}
             <input type="file" class="form-control" name="image" id="image" accept="image/*">
             <div id="upload-error" class="my-2"></div>
             <div id="preview-container">
-              <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 300px; margin-top: 10px;" />
+              <img id="image-preview" src="#" alt="Image Preview"
+                style="display: none; max-width: 300px; margin-top: 10px;">
             </div>
           </div>
-
           <button type="submit" class="btn shining-btn px-3 text-capitalize my-5 w-md-50 mx-auto">Submit &nbsp;
             Recipe</button>
         </form>
@@ -177,14 +182,10 @@
     </div>
   </div>
 </section>
-
-
 {% endblock %}
-
 {% block footer %}
 {% include '_components/_footer.html' %}
 {% endblock %}
-
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/create.js') }}"></script>
 <script src="{{ url_for('static', filename='js/animations.js') }}"></script>

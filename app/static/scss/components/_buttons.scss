@@ -1,9 +1,10 @@
+// This file contains buttons styling used in the app
+
+// Import custom variables
 @use '../custom' as *;
 @use '../components/mixins' as *;
 
-// ====================
 // SHINING BUTTON
-// ====================
 .shining-btn {
     padding: 0.5rem;
     color: $primary;
@@ -40,9 +41,7 @@
     }
 }
 
-// ====================
 // ROUNDED BUTTON
-// ====================
 .btn-rounded {
     position: relative;
     padding: 0.8375rem 4.375rem 0.8375rem 1.25rem;
@@ -88,9 +87,7 @@
     }
 }
 
-// ====================
 // DISABLED BUTTON
-// ====================
 .disabled-button {
     cursor: not-allowed;
     opacity: 0.6;

@@ -88,12 +88,12 @@ if (window.location.pathname.startsWith("/recipe/")) {
             if (isNowFavorite === true) {
                 
                 // Now it's a favorite
-                icon.setAttribute("name", "heart");
+                icon.setAttribute("data-icon", "heart");
                 icon.setAttribute("data-bs-title", "Remove from favorites");
                 icon.classList.replace("bi-heart", "bi-heart-fill");
             } else if (isNowFavorite === false) {
                 // Now it's removed from favorites
-                icon.setAttribute("name", "heart-outline");
+                icon.setAttribute("data-icon", "heart-outline");
                 icon.setAttribute("data-bs-title", "Add to favorites");
                 icon.classList.replace("bi-heart-fill", "bi-heart");
             } else {

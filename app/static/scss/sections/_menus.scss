@@ -1,14 +1,15 @@
+// This document contains styling for the menus page
+
 // Importing custom variables
 @use '../custom' as *;
-@use '../components/typography' as *;
-@use '../components/mixins' as *;
 
+// Styling of the main slider
 .menus-slider {
   margin-top: 80px;
   min-height: calc(100vh - 80px);
   background: $white-transparent-08;
 
-  .slider-container{
+  .slider-container {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -17,23 +18,23 @@
     justify-content: center;
     align-self: center;
 
-    .slider{
+    .slider {
       position: absolute;
       inset: 10px 40px 150px 40px;
-      background: $secondary; 
-      border-radius: 20px; 
+      background: $secondary;
+      border-radius: 20px;
 
-      @include media-breakpoint-up(m){
+      @include media-breakpoint-up(m) {
         position: absolute;
         inset: 10px 80px 150px 40px;
       }
 
-      @include media-breakpoint-up(lg){
+      @include media-breakpoint-up(lg) {
         position: absolute;
         inset: 10px 200px 150px 80px;
       }
-    
-      .slides{
+
+      .slides {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -49,17 +50,18 @@
         justify-content: flex-start;
         align-items: flex-end;
 
-        @include media-breakpoint-up(m){
+        @include media-breakpoint-up(m) {
           width: 200px;
           height: 260px;
         }
 
-        @include media-breakpoint-up(lg){
+        @include media-breakpoint-up(lg) {
           width: 240px;
           height: 320px;
         }
 
-        &:nth-child(1), &:nth-child(2){
+        &:nth-child(1),
+        &:nth-child(2) {
           position: absolute;
           top: 0;
           left: 0;
@@ -69,55 +71,55 @@
           box-shadow: 0 25px 50px $black-transparent-005;
           background-size: cover;
 
-          .content{
+          .content {
             opacity: 1;
             transform: translateY(0px);
             transition-delay: 0.5s;
           }
         }
 
-        &:nth-child(3){
+        &:nth-child(3) {
           top: 25%;
           transform: none;
           left: calc(50% + 120px);
           background-size: cover;
 
-          @include media-breakpoint-up(m){
+          @include media-breakpoint-up(m) {
             left: calc(50% + 180px);
           }
 
-          @include media-breakpoint-up(lg){
+          @include media-breakpoint-up(lg) {
             left: calc(50% + 240px);
           }
         }
 
-        &:nth-child(4){
+        &:nth-child(4) {
           top: 25%;
           transform: none;
           left: calc(50% + 360px);
           background-size: cover;
 
-          @include media-breakpoint-up(lg){
+          @include media-breakpoint-up(lg) {
             left: calc(50% + 500px);
           }
         }
 
-        &:nth-child(5){
+        &:nth-child(5) {
           top: 25%;
           transform: none;
           left: calc(50% + 760px);
           background-size: cover;
         }
 
-        &:nth-child(6){
+        &:nth-child(6) {
           top: 25%;
           transform: none;
           left: calc(50% + 1020px);
           background-size: cover;
           opacity: 0;
         }
-        
-        .content{
+
+        .content {
           position: relative;
           padding: 10px;
           max-width: 200px;
@@ -127,17 +129,17 @@
           z-index: 100;
           opacity: 0;
 
-          @include media-breakpoint-up(m){
+          @include media-breakpoint-up(m) {
             padding: 20px;
             max-width: 350px;
           }
 
-          @include media-breakpoint-up(lg){
+          @include media-breakpoint-up(lg) {
             padding: 40px;
             max-width: 600px;
           }
 
-          h2{
+          h2 {
             font-size: 1.5rem;
             color: $white;
             background: $black-transparent-05;
@@ -146,16 +148,16 @@
             border-radius: 15px;
             padding: 0.2rem 0.8rem;
 
-            @include media-breakpoint-up(m){
+            @include media-breakpoint-up(m) {
               font-size: 2.2rem;
             }
 
-            @include media-breakpoint-up(lg){
+            @include media-breakpoint-up(lg) {
               font-size: 3rem;
             }
           }
 
-          p{
+          p {
             font-size: 0.8rem;
             color: $white;
             background: $black-transparent-05;
@@ -164,27 +166,27 @@
             border-radius: 15px;
             padding: 0.2rem 0.8rem;
 
-            @include media-breakpoint-up(m){
+            @include media-breakpoint-up(m) {
               font-size: 1rem;
             }
 
-            @include media-breakpoint-up(lg){
+            @include media-breakpoint-up(lg) {
               font-size: 1.2rem;
             }
           }
 
-          a{
+          a {
             color: $secondary;
 
-            &:hover{
+            &:hover {
               color: $white;
               text-shadow: 1px 1px 2px $white-transparent-01,
-                          0 0 25px $white-transparent-01,
-                          0 0 5px $secondary;
+                0 0 25px $white-transparent-01,
+                0 0 5px $secondary;
               transition: all 0.3s ease-in-out;
             }
 
-            @include media-breakpoint-up(m){
+            @include media-breakpoint-up(m) {
               font-size: 1rem;
               padding: 0.5rem 1rem;
             }
@@ -193,13 +195,13 @@
       }
     }
 
-    .buttons{
+    .buttons {
       position: absolute;
       bottom: 100px;
       display: flex;
       gap: 20px;
 
-      span{
+      span {
         position: relative;
         width: 40px;
         height: 40px;
@@ -210,7 +212,7 @@
         align-items: center;
         border-radius: 50%;
 
-        &::before{
+        &::before {
           content: '';
           position: absolute;
           width: 15px;
@@ -220,11 +222,11 @@
           transform: rotate(315deg) translate(2px, 2px);
         }
 
-        &:nth-child(2)::before{
+        &:nth-child(2)::before {
           transform: rotate(135deg) translate(2px, 2px);
         }
 
-        &:active{
+        &:active {
           opacity: 0.5;
         }
       }
@@ -232,7 +234,8 @@
   }
 }
 
-.choose-menu{
+// Styling for instructions
+.choose-menu {
   text-align: center;
   color: $secondary;
   font-size: 1rem;
@@ -240,18 +243,19 @@
   position: relative;
   top: -75px;
 
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(md) {
     font-size: 1.3rem;
   }
 }
 
+// Styling the menu content
 .menus-content {
   background: $light;
   position: relative;
   top: -100px;
 
-  .menu-title{
-    h1{
+  .menu-title {
+    h1 {
       font-size: 3rem;
       line-height: 3rem;
       color: $secondary;
@@ -259,28 +263,28 @@
       padding: 0 0 2rem 0;
       margin-top: 2rem;
 
-      @include media-breakpoint-up(md){
+      @include media-breakpoint-up(md) {
         line-height: 4.5rem;
         font-size: 4rem;
       }
     }
   }
-  
-  span{
+
+  span {
     font-size: 1rem;
     text-align: center;
 
-    @include media-breakpoint-up(md){
+    @include media-breakpoint-up(md) {
       font-size: 1.25rem;
     }
-    
   }
 }
 
-.week-cards{
+// Styling cards for each day of the week
+.week-cards {
   max-width: 95%;
 
-  .day-of-week-card{
+  .day-of-week-card {
     width: 95%;
     margin-left: auto;
     height: 100%;
@@ -290,17 +294,17 @@
     flex-direction: column;
     background: $ivory;
 
-    .week-card-header{
+    .week-card-header {
       border-radius: 20px 20px 0 0;
 
-      h2{
+      h2 {
         font-size: 1.8rem;
-        padding: 1.5rem; 
+        padding: 1.5rem;
         text-align: center;
       }
     }
 
-    .week-card-content{
+    .week-card-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -308,14 +312,14 @@
       padding: 2rem 1.5rem 0rem;
       color: $secondary;
       flex-grow: 1;
-      
-      span{
+
+      span {
         padding: 0;
         font-size: 0.9rem;
         color: $success;
       }
 
-      a{
+      a {
         text-align: center;
         font-size: 1rem;
         line-height: 1.5rem;
@@ -323,7 +327,7 @@
         color: $secondary;
         margin-bottom: 1rem;
 
-        &:hover{
+        &:hover {
           color: $primary;
           background: rgba(255, 165, 0, 0.2);
           border-color: rgba(255, 165, 0, 0.4);
@@ -333,8 +337,8 @@
       }
     }
 
-    .week-card-btn{
-      i{
+    .week-card-btn {
+      i {
         margin-right: 0.5rem;
         font-size: 1.2rem;
       }
@@ -342,39 +346,41 @@
   }
 }
 
-#shopping-info-container{
+// Styling shopping information
+#shopping-info-container {
   display: flex;
   justify-content: center;
   align-items: stretch;
   flex-direction: column;
   padding: 1rem 0;
 
-  h2{
+  h2 {
     font-size: 1.8rem;
     text-align: center;
     color: $secondary;
     margin-bottom: -1rem;
 
-    @include media-breakpoint-up(m){
+    @include media-breakpoint-up(m) {
       font-size: 2.5rem;
     }
   }
 
-  ul{
+  ul {
     color: $secondary;
     margin: 2rem 0;
-    li{
+
+    li {
       color: $secondary;
     }
   }
 
-  p{
+  p {
     color: $secondary;
     font-size: 0.8rem;
     text-align: start;
     font-family: 'Courier New', Courier, monospace;
 
-    @include media-breakpoint-up(m){
+    @include media-breakpoint-up(m) {
       font-size: 1rem;
     }
   }

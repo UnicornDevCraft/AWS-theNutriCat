@@ -35,10 +35,10 @@ window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
                                     <div class="text-end mt-2">
                                         <button class="favorite-btn" data-recipe-id="${recipe.id}" aria-label="Add or remove from favorites">
                                             ${recipe.favorite ? `
-                                                <i class="bi bi-heart-fill heart-icon" name="heart" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                <i class="bi bi-heart-fill heart-icon" data-icon="heart" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                 data-bs-custom-class="custom-tooltip" data-bs-title="Remove from favorites"></i>
                                             ` : `
-                                                <i class="bi bi-heart heart-icon" name="heart-outline" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                <i class="bi bi-heart heart-icon" data-icon="heart-outline" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                 data-bs-custom-class="custom-tooltip" data-bs-title="Add to favorites"></i>
                                             `}
                                         </button>
@@ -82,11 +82,11 @@ window.attachFavoriteListeners = function() {
         try {
           
             if (isNowFavorite === true) {
-                icon.setAttribute("name", "heart");
+                icon.setAttribute("data-icon", "heart");
                 icon.setAttribute("data-bs-title", "Remove from favorites");
                 icon.classList.replace("bi-heart", "bi-heart-fill");
             } else if (isNowFavorite === false) {
-                icon.setAttribute("name", "heart-outline");
+                icon.setAttribute("data-icon", "heart-outline");
                 icon.setAttribute("data-bs-title", "Add to favorites");
                 icon.classList.replace("bi-heart-fill", "bi-heart");
             } else {
@@ -309,12 +309,12 @@ if (window.location.pathname.startsWith("/recipes")) {
                 if (isNowFavorite === true) {
                     
                     // Now it's a favorite
-                    icon.setAttribute("name", "heart");
+                    icon.setAttribute("data-icon", "heart");
                     icon.setAttribute("data-bs-title", "Remove from favorites");
                     icon.classList.replace("bi-heart", "bi-heart-fill");
                 } else if (isNowFavorite === false) {
                     // Now it's removed from favorites
-                    icon.setAttribute("name", "heart-outline");
+                    icon.setAttribute("data-icon", "heart-outline");
                     icon.setAttribute("data-bs-title", "Add to favorites");
                     icon.classList.replace("bi-heart-fill", "bi-heart");
                 } else {

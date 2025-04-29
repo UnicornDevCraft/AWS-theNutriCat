@@ -1,33 +1,46 @@
-// Importing custom variables
-@use '../custom' as *;
-@use '../components/typography' as *;
-@use '../components/mixins' as *;
+// This page contains Add / Edit Recipe Page Styles
 
-// ====================
-// ADD NEW RECIPE PAGE
-// ====================
-.add-recipe{
+// Import custom variables and mixins
+@use '../custom' as *;
+
+// Shared form section styles
+%shared-recipe-form {
+    flex-wrap: wrap;
+    background: $white-transparent-0015;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 5px 25px $black-transparent-03;
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+// Shared layout styles
+%shared-recipe-layout {
     margin-top: 80px;
     min-height: calc(100vh - 80px);
     background: $dark-salad;
 
-    h1{
-        font-family: $font-bala;
+    h2 {
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
         font-size: 3rem;
         padding-top: 4rem;
         color: $white;
-    
-        @include media-breakpoint-up(md){
-          font-size: 4rem;
+
+        @include media-breakpoint-up(md) {
+            font-size: 4rem;
         }
     }
 
-    form{
-        flex-wrap: wrap;
-        background: $white-transparent-0015;
-        backdrop-filter: blur(30px);
-        box-shadow: 0 5px 25px $black-transparent-03;
-        border-radius: 15px;
-        padding: 2rem;
+    form {
+        @extend %shared-recipe-form;
     }
+}
+
+// Add Recipe Page
+.add-recipe {
+    @extend %shared-recipe-layout;
+}
+
+// Edit Recipe Page
+.edit-recipe {
+    @extend %shared-recipe-layout;
 }

@@ -602,10 +602,7 @@ if __name__ == "__main__":
     # Push application context
     with app.app_context():
         recipes = db.session.query(Recipe).all()
-        for recipe in recipes:
-            print(recipe.id, recipe.title)
-        
-        """ while True:
+        while True:
             try:
                 print(f'Fetching data for recipe with ID {recipe_id}...')
                 recipe = get_recipe_by_id(recipe_id)
@@ -717,4 +714,4 @@ if __name__ == "__main__":
             except (SQLAlchemyError, psycopg2.DatabaseError) as e:
                 print(f"Database error: {e}")
             except Exception as e:
-                print(f"Unexpected error: {e}") """
+                print(f"Unexpected error: {e}")

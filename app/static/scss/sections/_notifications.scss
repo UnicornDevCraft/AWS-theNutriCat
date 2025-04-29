@@ -1,15 +1,17 @@
-// Importing custom variables
+// This file contains styling for the flash messages
+
+// Importing custom variables and mixins
 @use '../custom' as *;
 @use '../components/mixins' as *;
 
 // Styling flash messages
-.notifications{
+.notifications {
     position: fixed;
     z-index: 100000;
     top: 5rem;
     right: 0;
 
-    .toast{
+    .toast {
         position: relative;
         padding: 0.8rem;
         color: $white;
@@ -21,82 +23,85 @@
         border-radius: 5px;
         animation: show 0.3s ease 1 forwards;
 
-        &::before{
+        &::before {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             height: 3px;
             content: "";
-            
+
             animation: timeOut 5s linear 1 forwards;
 
-            @keyframes timeOut{
-                to{
+            @keyframes timeOut {
+                to {
                     width: 0;
                 }
             }
         }
 
-        span.material-symbols-outlined{
+        span.material-symbols-outlined {
             display: flex;
             justify-content: center;
-            
         }
 
-        span.fading{
+        span.fading {
             color: $white;
             opacity: 0.6;
         }
 
-        &.success{
+        &.success {
             @include linear-gradient(to right, $dark-salad, 0%, $dark-green 30%);
 
-            &::before{
+            &::before {
                 background-color: $salad;
                 box-shadow: 0 0 10px $salad;
             }
 
-            .type-success{
+            .type-success {
                 color: $salad;
                 font-size: 2.5rem;
                 align-items: center;
             }
         }
 
-        &.error{
+        &.error {
             @include linear-gradient(to right, $dark-red, 0%, $darkest-red 30%);
 
-            &::before{
+            &::before {
                 background-color: $red;
                 box-shadow: 0 0 10px $red;
             }
 
-            .type-error{
+            .type-error {
                 color: $red;
                 font-size: 2.5rem;
                 align-items: center;
             }
         }
 
-        @keyframes show{
-            0%{
+        @keyframes show {
+            0% {
                 transform: translateX(100%);
             }
-            40%{
+
+            40% {
                 transform: translateX(-20%);
             }
-            80%{
+
+            80% {
                 transform: translateX(-10%);
             }
-            100%{
+
+            100% {
                 transform: translateX(0);
             }
         }
     }
 }
 
-#flash-container{
+// Styling the flash container
+#flash-container {
     position: fixed;
     z-index: 1000;
     top: 0;

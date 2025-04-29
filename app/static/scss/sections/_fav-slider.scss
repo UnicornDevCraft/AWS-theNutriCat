@@ -1,31 +1,33 @@
-@use '../custom' as *;
-@use '../components/typography' as *;
-@use '../components/mixins' as *;
+// This page containes styles for the slider with the recipes on the homepage
 
+// Import custom variables
+@use '../custom' as *;
+
+// Slider styling
 ::-webkit-scrollbar {
     width: 0.85rem;
-  }
-  
+}
+
 ::-webkit-scrollbar-thumb {
-border-radius: 0.65rem;
-background: $dark-salad;
-transition: all 0.5s ease-in-out;
+    border-radius: 0.65rem;
+    background: $dark-salad;
+    transition: all 0.5s ease-in-out;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-background: $almost-black;
+    background: $almost-black;
 }
 
 ::-webkit-scrollbar-track {
-background: $ivory;
+    background: $ivory;
 }
 
-.favorites-slider{
+.favorites-slider {
     font-size: 0.8rem;
     color: $secondary;
     padding-top: 2.5rem;
 
-    @include media-breakpoint-up(xxl){
+    @include media-breakpoint-up(xxl) {
         padding-top: 4.5rem;
     }
 
@@ -35,46 +37,46 @@ background: $ivory;
         margin: 0 auto;
     }
 
-    .favorite-slider{
+    .favorite-slider {
         height: 32.5rem;
         padding: 1.25rem 0;
         position: relative;
 
-        @include media-breakpoint-down(sm){
+        @include media-breakpoint-down(sm) {
             height: 28.125rem;
         }
     }
 
-    .favorite-slide{
+    .favorite-slide {
         width: 23.125rem;
         height: 26.25rem;
         position: relative;
 
-        @include media-breakpoint-down(sm){
+        @include media-breakpoint-down(sm) {
             width: 17.5rem;
             height: 22.5rem;
         }
 
-        &-img img{
+        &-img img {
             width: 23.125rem;
             height: 26.25rem;
             border-radius: 1.25rem;
             object-fit: cover;
 
-            @include media-breakpoint-down(sm){
+            @include media-breakpoint-down(sm) {
                 width: 17.5rem;
                 height: 22.5rem;
             }
         }
 
-        &-content{
+        &-content {
             position: absolute;
             left: 0;
             top: 0;
             right: 0;
             bottom: 0;
 
-            .favorite-btn{
+            .favorite-btn {
                 position: absolute;
                 top: 1rem;
                 left: 1.25rem;
@@ -82,10 +84,9 @@ background: $ivory;
                 border: none;
                 color: $white;
                 font-size: 2rem;
-                
             }
 
-            .cook-time{
+            .cook-time {
                 position: absolute;
                 top: 1.25rem;
                 right: 1.25rem;
@@ -96,7 +97,7 @@ background: $ivory;
                 border-radius: 15px;
             }
 
-            &-bottom{
+            &-bottom {
                 position: absolute;
                 bottom: 1.25rem;
                 left: 1.25rem;
@@ -104,7 +105,7 @@ background: $ivory;
                 margin-right: 1.25rem;
 
 
-                .dish-name{
+                .dish-name {
                     font-size: 1.2rem;
                     background: $black-transparent-05;
                     backdrop-filter: blur(30px);
@@ -112,12 +113,12 @@ background: $ivory;
                     border-radius: 15px;
                     padding: 0.2rem 0.8rem;
 
-                    @include media-breakpoint-up(md){
+                    @include media-breakpoint-up(md) {
                         font-size: 1.4rem;
                     }
                 }
 
-                .dish-rating{
+                .dish-rating {
                     font-size: 1rem;
                     display: flex;
                     gap: 0.625rem;
@@ -129,15 +130,14 @@ background: $ivory;
                     margin-top: 0.5rem;
                     margin-right: 5.5rem;
 
-                    @include media-breakpoint-up(sm){
+                    @include media-breakpoint-up(sm) {
                         margin-right: 8.75rem;
                         font-size: 1.2rem;
                         padding: 0.2rem 0.8rem;
                     }
-                    
 
-                    .rating{
-                        .star{
+                    .rating {
+                        .star {
                             position: relative;
                         }
                     }
@@ -149,9 +149,10 @@ background: $ivory;
 
 .swiper-slide-shadow-left,
 .swiper-slide-shadow-right {
-  display: none;
+    display: none;
 }
 
+// Styling for slider controls
 .favorite-slider-control {
     position: relative;
     bottom: 1.25rem;
@@ -163,24 +164,24 @@ background: $ivory;
         left: 58% !important;
         transform: translateX(-58%) !important;
 
-        @include media-breakpoint-down(lg){
+        @include media-breakpoint-down(lg) {
             left: 70% !important;
             transform: translateX(-70%) !important;
         }
 
-        @include media-breakpoint-down(s){
+        @include media-breakpoint-down(s) {
             left: 80% !important;
             transform: translateX(-80%) !important;
         }
     }
 
-    .swiper-button-prev{
-        @include media-breakpoint-down(lg){
+    .swiper-button-prev {
+        @include media-breakpoint-down(lg) {
             left: 30% !important;
             transform: translateX(-30%) !important;
         }
 
-        @include media-breakpoint-down(s){
+        @include media-breakpoint-down(s) {
             left: 20% !important;
             transform: translateX(-20%) !important;
         }
@@ -199,14 +200,14 @@ background: $ivory;
             font-size: 2rem;
             color: $almost-black;
 
-            &:hover{
+            &:hover {
                 color: $white;
                 background: $primary;
                 border-radius: 50%;
             }
         }
 
-        &::after{
+        &::after {
             content: '';
         }
     }
@@ -218,10 +219,10 @@ background: $ivory;
 
         .swiper-pagination-bullet {
             filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
-        
-            &-active{
+
+            &-active {
                 background: $primary;
             }
         }
     }
-  }
+}

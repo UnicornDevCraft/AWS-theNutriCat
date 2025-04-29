@@ -1,14 +1,16 @@
-@use '../custom' as *;
-@use '../components/typography' as *;
-@use '../components/mixins' as *;
+// This file contains styling for the about us section of the homepage
 
-.about{
+// Import custom variables
+@use '../custom' as *;
+
+// Styling the about us section
+.about {
     position: relative;
     padding: 1rem 0 0 0;
-    background: #FEEFDD;
+    background: $light;
     color: $dark-green;
 
-    &-line{
+    &-line {
         font-size: 1.2rem;
 
         @include media-breakpoint-up(lg) {
@@ -16,7 +18,7 @@
         }
     }
 
-    &-descr{
+    &-descr {
         font-size: 1rem;
 
         @include media-breakpoint-up(lg) {
@@ -51,13 +53,11 @@
         }
     }
 
-
     &__pic {
         max-width: 80%;
 
-        @include media-breakpoint-up(lg){
+        @include media-breakpoint-up(lg) {
             max-width: 100%;
         }
     }
-
 }

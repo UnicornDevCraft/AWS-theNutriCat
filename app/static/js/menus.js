@@ -14,7 +14,8 @@ function addStartMenu(menuName){
         <path fill="#FFF" fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,101.3C384,117,480,203,576,218.7C672,235,768,181,864,181.3C960,181,1056,235,1152,218.7C1248,203,1344,117,1392,74.7L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
     </svg>
     <div class="menu-title text-center pb-3">
-        <h1 id="menu-name-heading">${menuName} Menu</h1>
+        <h1 id="menu-name-heading" class="display-2">${menuName} Menu</h1>
+        <div class="heading-line mb-5"></div>
         <span class="text-secondary my-3">Click on the recipe to start creating!</span>
     </div>
     <div id="menu-content" class="row d-flex flex-row flex-wrap justify-content-evenly week-cards align-items-stretch mx-auto mt-3 pb-3">

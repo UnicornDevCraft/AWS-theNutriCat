@@ -64,17 +64,26 @@ def get_weekly_menu(menu_name):
 
     # If menu shopping info is available, extract the relevant information
     if menu_shopping_info:
-        shopping_list["rules_and_tips"] = [line for line in menu_shopping_info.rules_and_tips_text.replace("\\n", "\n").split("\n") if line.strip().startswith("*")]
-        shopping_list["preparations"] = [line for line in menu_shopping_info.preparations_text.replace("\\n","\n").split("\n")[1:] if line.strip()]
-        shopping_list["shopping_list"] = to_structured_list(menu_shopping_info.shopping_list_text.replace("\\n","\n").split("\n")[1:])
-        shopping_list["meat_marinades"] = to_structured_list(menu_shopping_info.meat_marinades_text.replace("\\n","\n").split("\n")[1:])
-        shopping_list["dressings"] = to_structured_list(menu_shopping_info.dressings_text.replace("\\n","\n").split("\n")[1:])
-    else:
-        shopping_list["rules_and_tips"] = ""
-        shopping_list["shopping_list"] = ""
-        shopping_list["preparations"] = ""  
-        shopping_list["meat_marinades"] = ""
-        shopping_list["dressings"] = ""
+        if menu_shopping_info.rules_and_tips_text:
+            shopping_list["rules_and_tips"] = [line for line in menu_shopping_info.rules_and_tips_text.replace("\\n", "\n").split("\n") if line.strip().startswith("*")]
+        else:
+            shopping_list["rules_and_tips"] = ""
+        if menu_shopping_info.preparations_text:
+            shopping_list["preparations"] = [line for line in menu_shopping_info.preparations_text.replace("\\n","\n").split("\n")[1:] if line.strip()]
+        else:
+            shopping_list["preparations"] = ""
+        if menu_shopping_info.shopping_list_text:
+            shopping_list["shopping_list"] = to_structured_list(menu_shopping_info.shopping_list_text.replace("\\n","\n").split("\n")[1:])
+        else:
+            shopping_list["shopping_list"] = ""
+        if menu_shopping_info.meat_marinades_text:
+            shopping_list["meat_marinades"] = to_structured_list(menu_shopping_info.meat_marinades_text.replace("\\n","\n").split("\n")[1:])
+        else:
+            shopping_list["meat_marinades"] = ""
+        if menu_shopping_info.dressings_text:
+            shopping_list["dressings"] = to_structured_list(menu_shopping_info.dressings_text.replace("\\n","\n").split("\n")[1:])
+        else:
+            shopping_list["dressings"] = ""
 
     print(shopping_list["preparations"])
     # Return the JSON response including menu shopping info

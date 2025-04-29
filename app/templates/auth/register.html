@@ -40,7 +40,9 @@
                         </label>
                     </div>
                     <!-- reCAPTCHA widget -->
-                    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+                    </div>
                     <button id="submit-registration-form" class="btn w-100 text-uppercase shining-btn mt-3"
                         type="submit">Submit</button>
                     <div class="signin">
@@ -52,10 +54,9 @@
     </div>
 </section>
 {% endblock %}
-
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/formHandlers.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+<script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+<script src="{{ url_for('static', filename='js/formHandlers.js') }}"></script>
+<script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 {% endblock %}

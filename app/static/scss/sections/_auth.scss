@@ -1,9 +1,9 @@
+// This file contains styling for the authorization pages
+
 // Importing custom variables
 @use '../custom' as *;
 
-// ====================
 // AUTH PAGE BACKGROUNDS
-// ====================
 .register {
     min-height: 100vh;
     background: url('/static/img/register_background2.png') center / cover no-repeat;
@@ -24,9 +24,7 @@
     background: url('/static/img/register_background.png') center / cover no-repeat;
 }
 
-// ====================
 // SHARED AUTH FORM STYLE
-// ====================
 .auth-form {
     flex-wrap: wrap;
     background: $white-transparent-0015;
@@ -42,9 +40,7 @@
             font-family: 'Poppins', sans-serif;
         }
         
-    // ====================
-    // INPUT GROUP
-    // ====================
+    // INPUT GROUP STYLING
         .input-group {
             position: relative;
             margin: 2rem auto 0;
@@ -110,9 +106,7 @@
                 }
             }
         }
-    // ====================
     // CHECKBOX SECTION
-    // ====================
         .check label {
             margin: 1.5rem 0;
             font-size: 0.9rem;
@@ -159,9 +153,7 @@
             }
         }
 
-        // ====================
         // SIGN-IN LINK
-        // ====================
         .signin, .forgot-password-link {
             margin-top: 1.5rem;
             text-align: center;
@@ -185,14 +177,14 @@
         }
     }
 }
- // ====================
+
 // FEEDBACK MESSAGE
-// ====================
 .feedback{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 0.8rem;
 }
 
+// Confirmation modal styling
 .modal.fade.show{
     display: flex !important;
     justify-content: center;

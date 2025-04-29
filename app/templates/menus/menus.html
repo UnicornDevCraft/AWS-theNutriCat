@@ -8,6 +8,7 @@
 <section class="menus-slider">
     <div class="slider-container">
         <div class="slider">
+            <!-- Start the slides -->
             <div class="slides" style="--img: url('https://nutri-cat-images.s3.eu-central-1.amazonaws.com/recipe_images/chicken_lasagna_alla_genovese.png')">
                 <div class="content">
                     <h2>Italian menu</h2>
@@ -64,13 +65,10 @@
 <section id="menu-container" class="menus-content mb-5">
 
 </section>
-
-
 {% endblock %}
 {% block footer %}
 {% include '_components/_footer.html' %}
 {% endblock %}
-
 {% block scripts %}
   <script src="{{ url_for('static', filename='js/menus.js') }}"></script>
   <script src="{{ url_for('static', filename='js/recipes.js') }}"></script>

@@ -1,83 +1,84 @@
+// This file contains the styles for the all recipes section.
+
 // Importing custom variables
 @use '../custom' as *;
-@use '../components/typography' as *;
-@use '../components/mixins' as *;
 
-.recipes-header{
+// Styling the all recipes section
+.recipes-header {
   margin-top: 80px;
   min-height: calc(100vh - 80px);
   background: $dark-salad;
 
-  .breadcrumbs-container{
+  .breadcrumbs-container {
     padding-top: 2rem;
 
     .breadcrumb-chevron {
-        --bs-breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-        gap: 0.5rem;
-    }
-    
-    .breadcrumb-item{
-        font-size: 1em;
-        letter-spacing: 0.2em;
-    }
-  }
-
-  .header-text{
-    h1{
-        font-size: 4rem;
-        line-height: 3rem;
+      --bs-breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+      gap: 0.5rem;
     }
 
-    p{
-        font-size: 1rem;
-        font-family: 'Courier New', Courier, monospace;
-        padding: 2rem 1rem 0;
-
-        @include media-breakpoint-up(md){
-          font-size: 1.2rem;
-        }
+    .breadcrumb-item {
+      font-size: 1em;
+      letter-spacing: 0.2em;
     }
   }
 
-  .recipes-search{
-    .searchBox{
-        width: 100%;
+  .header-text {
+    h1 {
+      font-size: 4rem;
+      line-height: 3rem;
     }
 
-    #search-btn{
+    p {
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 2rem 1rem 0;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .recipes-search {
+    .searchBox {
+      width: 100%;
+    }
+
+    #search-btn {
       color: $secondary;
     }
 
-    p{
+    p {
       font-size: 1rem;
       font-family: 'Courier New', Courier, monospace;
       padding-top: 1rem;
 
-      @include media-breakpoint-up(md){
+      @include media-breakpoint-up(md) {
         font-size: 1.2rem;
       }
     }
   }
 }
 
-.recipes-body{
+.recipes-body {
   background: $light;
 
-  #all-recipes{
+  #all-recipes {
     font-size: 2.5rem;
     padding-top: 4rem;
     text-decoration: none;
     margin-top: 2rem;
 
-    &:hover{
+    &:hover {
       text-shadow: 1px 1px 2px $white-transparent-01,
-                  0 0 25px $white-transparent-01,
-                  0 0 5px $dark-salad;
+        0 0 25px $white-transparent-01,
+        0 0 5px $dark-salad;
       color: $dark-salad !important;
       transition: all 0.3s ease-in-out;
     }
 
-    @include media-breakpoint-up(md){
+    @include media-breakpoint-up(md) {
       font-size: 3.5rem;
     }
   }
@@ -87,81 +88,79 @@
       min-width: 300px;
       max-width: 80vw;
 
-        img {
-            height: 100%;
-            border-top-left-radius: 25px;
-            border-top-right-radius: 25px;
-        }
+      img {
+        height: 100%;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+      }
 
-        h3 {
-          color: $dark-salad;
-          font-weight: bold;
-          font-size: 1.2rem;
-          background: transparent;
+      h3 {
+        color: $dark-salad;
+        font-weight: bold;
+        font-size: 1.2rem;
+        background: transparent;
 
-          a{
-            text-decoration: none;
-            
-            &:hover{
-              text-shadow: 1px 1px 2px $white-transparent-01,
-                          0 0 25px $white-transparent-01,
-                          0 0 5px $dark-salad;
-              color: $dark-salad !important;
-              transition: all 0.3s ease-in-out;
-            }
-          }
-        }
+        a {
+          text-decoration: none;
 
-        .favorite-btn{
-          position: absolute;
-          top: 1rem;
-          left: 1.25rem;
-          background-color: transparent;
-          border: none;
-          color: $white;
-          font-size: 1.6rem;
-
-          &:hover{
-            color: $primary;
+          &:hover {
+            text-shadow: 1px 1px 2px $white-transparent-01,
+              0 0 25px $white-transparent-01,
+              0 0 5px $dark-salad;
+            color: $dark-salad !important;
             transition: all 0.3s ease-in-out;
-            
           }
-        }
-
-        .cook-time{
-          position: absolute;
-          top: 1.25rem;
-          right: 1.25rem;
-          color: $white;
-          background: $white-transparent-01;
-          backdrop-filter: blur(30px);
-          box-shadow: 0 5px 25px $black-transparent-03;
-          border-radius: 15px;
-          font-size: 1.5rem;
-          color: $white;
-        }
-
-        .recipe-tags{
-          font-family: 'Courier New', Courier, monospace;
-          flex-wrap: wrap;
-          row-gap: 0.5rem;
-
-          .filter-btn{
-            padding: 0.2rem 0.3rem;
-            font-size: 0.9rem;
-          }
-        }
-
-        .make{
-          font-weight: bold;
         }
       }
+
+      .favorite-btn {
+        position: absolute;
+        top: 1rem;
+        left: 1.25rem;
+        background-color: transparent;
+        border: none;
+        color: $white;
+        font-size: 1.6rem;
+
+        &:hover {
+          color: $primary;
+          transition: all 0.3s ease-in-out;
+        }
+      }
+
+      .cook-time {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        color: $white;
+        background: $white-transparent-01;
+        backdrop-filter: blur(30px);
+        box-shadow: 0 5px 25px $black-transparent-03;
+        border-radius: 15px;
+        font-size: 1.5rem;
+        color: $white;
+      }
+
+      .recipe-tags {
+        font-family: 'Courier New', Courier, monospace;
+        flex-wrap: wrap;
+        row-gap: 0.5rem;
+
+        .filter-btn {
+          padding: 0.2rem 0.3rem;
+          font-size: 0.9rem;
+        }
+      }
+
+      .make {
+        font-weight: bold;
+      }
     }
-  
+  }
 }
 
-.active{
+// Styling the recipe tags
+.active {
   background-color: $secondary;
   color: white;
-  
 }
