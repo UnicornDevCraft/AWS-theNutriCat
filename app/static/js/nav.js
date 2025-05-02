@@ -1,5 +1,4 @@
 // Navbar logic for all pages exept authorization
-console.log("Navbar JS loaded");
 
 if (!window.location.pathname.startsWith("/auth/")) {
     document.addEventListener("DOMContentLoaded", () => {
@@ -11,7 +10,7 @@ if (!window.location.pathname.startsWith("/auth/")) {
         // Closing menu after click on the link
         links.forEach((link) => {
             link.addEventListener('click', () => {
-                links.forEach((link) => {link.classList.remove('active')});
+                links.forEach((link) => { link.classList.remove('active') });
                 link.classList.add('active');
                 bsOffcanvas.hide();
             });
@@ -24,7 +23,7 @@ if (!window.location.pathname.startsWith("/auth/")) {
         // Notifications configuration
         let toasts = document.querySelectorAll(".toast");
         toasts.forEach((toast) => {
-        toast.timeOut = setTimeout(() => toast.remove(), 5500);
+            toast.timeOut = setTimeout(() => toast.remove(), 5500);
         });
     });
 }
@@ -76,58 +75,58 @@ if (searchModal) {
 
         });
 
+        // Search input event listener for suggestions
         const suggestionsList = document.getElementById('searchSuggestions');
-        searchInput.addEventListener('input', async function() {
+        searchInput.addEventListener('input', async function () {
             const query = searchInput.value.trim();
             if (query.length < 2) {
                 suggestionsList.style.display = 'none';
                 return;
             }
-        
+
             try {
                 let response = await fetch('/search?q=' + encodeURIComponent(query));
                 let recipes = await response.json();
-        
+
                 if (recipes.length === 0) {
                     suggestionsList.style.display = 'none';
                     return;
                 }
-        
+
                 suggestionsList.innerHTML = '';
-        
+
                 for (let recipe of recipes) {
                     const item = document.createElement('li');
                     item.className = 'list-group-item list-group-item-action d-flex align-items-center gap-2';
-        
+
                     item.innerHTML = `
                         ${recipe.thumbnail ? `<img src="${recipe.thumbnail}" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:4px;">` : ''}
                         <span>${recipe.title}</span>
                     `;
-        
+
                     item.addEventListener('click', () => {
                         window.location.href = `${recipeUrlPrefix}${recipe.id}`;
                     });
-        
+
                     suggestionsList.appendChild(item);
                 }
-        
+
                 suggestionsList.style.display = 'block';
-        
+
             } catch (error) {
                 console.error('Error fetching search suggestions:', error);
             }
         });
-        
+
         // Hide suggestions if clicked outside
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             if (!searchInput.contains(event.target) && !suggestionsList.contains(event.target)) {
                 suggestionsList.style.display = 'none';
             }
         });
     });
 }
- 
-  
 
-  
-  
+
+
+

@@ -1,0 +1,620 @@
+[2025-04-30 20:36:12,594] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:36:12,597] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:36:20,728] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:36:20,729] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:36:20,732] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:36:21,775] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:36:21,778] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:36:24,590] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:36:24,592] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:36:24,593] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:36:25,884] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:36:25,886] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:36:32,044] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/auth.py', reloading
+[2025-04-30 20:36:32,045] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/auth.py', reloading
+[2025-04-30 20:36:32,054] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/auth.py', reloading
+[2025-04-30 20:36:34,140] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:36:34,142] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:36:35,785] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/auth.py', reloading
+[2025-04-30 20:36:35,786] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/auth.py', reloading
+[2025-04-30 20:36:35,788] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/auth.py', reloading
+[2025-04-30 20:36:37,249] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:36:37,252] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:36:51,340] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:36:51,341] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:36:51,344] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:36:52,511] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:36:52,514] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:36:54,870] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:36:54,871] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:36:54,874] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:36:58,909] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:36:58,913] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:37:08,026] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:08,027] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:08,030] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:09,123] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:37:09,125] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:37:11,594] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:11,594] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:11,608] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:13,263] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:37:13,265] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:37:15,548] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:15,549] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:15,558] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/db.py', reloading
+[2025-04-30 20:37:17,349] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:37:17,352] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:37:43,040] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/menus.py', reloading
+[2025-04-30 20:37:43,041] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/menus.py', reloading
+[2025-04-30 20:37:43,045] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/menus.py', reloading
+[2025-04-30 20:37:44,821] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:37:44,824] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:37:46,696] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/menus.py', reloading
+[2025-04-30 20:37:46,697] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/menus.py', reloading
+[2025-04-30 20:37:46,707] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/menus.py', reloading
+[2025-04-30 20:37:48,158] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:37:48,160] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:37:51,618] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/recipes.py', reloading
+[2025-04-30 20:37:51,618] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/recipes.py', reloading
+[2025-04-30 20:37:51,620] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/recipes.py', reloading
+[2025-04-30 20:37:53,840] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:37:53,843] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:37:54,110] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/recipes.py', reloading
+[2025-04-30 20:37:54,114] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/recipes.py', reloading
+[2025-04-30 20:37:54,114] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/recipes.py', reloading
+[2025-04-30 20:37:55,920] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:37:55,923] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:42:25,053] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:25,054] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:25,057] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:27,007] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:42:27,010] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:42:36,427] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:36,429] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:36,430] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:38,322] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:42:38,325] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:42:49,647] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:49,649] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:49,650] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:51,518] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:42:51,520] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:42:57,282] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:57,283] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:57,285] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:42:58,720] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:42:58,722] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:43:06,365] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:06,366] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:06,368] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:08,004] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:43:08,006] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:43:16,506] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:16,506] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:16,515] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:18,301] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:43:18,305] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:43:24,003] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:24,007] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:24,108] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:43:25,414] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:43:25,416] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:44:53,437] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:44:53,440] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:44:53,442] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:44:55,937] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:44:55,940] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:44:59,857] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:44:59,858] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:44:59,860] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:01,235] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:45:01,239] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:45:21,853] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:21,858] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:21,863] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:23,531] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:45:23,533] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:45:25,087] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:25,089] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:25,091] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:26,687] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:45:26,689] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:45:57,511] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:57,512] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:57,522] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:45:59,335] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:45:59,338] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:46:19,570] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:19,570] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:19,572] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:23,175] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:46:23,178] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:46:23,976] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:23,977] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:23,978] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:25,450] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:46:25,453] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:46:25,641] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:25,642] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:25,642] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:30,665] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:46:30,668] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:46:59,447] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:59,448] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:46:59,450] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:01,085] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:47:01,088] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:47:24,418] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:24,419] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:25,415] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:47:25,417] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:47:32,884] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:32,885] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:32,888] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:34,584] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:47:34,586] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:47:55,102] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:55,104] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:55,105] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:47:56,911] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:47:56,913] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:48:02,580] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:48:02,580] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:48:02,585] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:49:31,069] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:49:31,071] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:49:36,492] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:49:36,493] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:49:36,501] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:49:38,184] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:49:38,186] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:49:59,983] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:49:59,984] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:49:59,993] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:01,708] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:50:01,711] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:50:04,568] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:04,569] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:04,570] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:06,144] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:50:06,148] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:50:15,743] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:15,745] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:15,748] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:38,371] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:50:38,374] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:50:45,906] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:45,908] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:45,909] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:47,470] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:50:47,472] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:50:52,085] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:52,086] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:52,088] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:53,603] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:50:53,605] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:50:55,519] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:55,522] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:55,525] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:50:56,954] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:50:56,956] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:51:00,807] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:00,808] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:00,810] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:02,042] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:51:02,045] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:51:24,258] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:24,259] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:24,261] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:25,335] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:51:25,336] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:51:30,694] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:30,695] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:30,703] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:32,893] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:51:32,896] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:51:38,524] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:38,525] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:38,533] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:51:40,137] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:51:40,139] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:52:14,390] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:52:14,391] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:52:14,393] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:52:15,456] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:52:15,459] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-04-30 20:52:25,826] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:52:25,827] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:52:25,836] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/utils/delete.py', reloading
+[2025-04-30 20:52:28,011] WARNING in _internal:  * Debugger is active!
+[2025-04-30 20:52:28,013] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:56:29,672] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:29,715] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:29,716] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:35,552] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:56:35,572] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:56:36,272] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:36,273] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:36,274] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:38,320] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:56:38,322] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:56:46,791] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:46,792] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:46,795] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:48,482] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:56:48,486] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:56:49,672] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:49,674] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:49,676] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:51,650] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:56:51,652] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:56:51,933] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:51,935] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:51,937] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:54,299] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:56:54,302] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:56:54,664] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:54,665] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:54,667] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:56,660] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:56:56,662] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:56:58,026] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:58,027] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:58,028] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:56:59,757] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:56:59,759] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:57:03,201] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:03,202] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:03,226] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:07,319] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:57:07,322] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:57:11,601] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:11,602] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:11,603] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:14,535] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:57:14,537] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:57:33,854] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:33,857] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:33,859] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:38,325] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:57:38,328] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:57:42,354] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:42,354] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:42,357] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:48,782] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:57:48,785] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:57:50,329] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:50,331] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:50,333] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:51,986] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:57:51,988] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:57:54,534] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:54,535] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:54,537] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:57:56,070] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:57:56,073] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:59:57,105] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:59:57,106] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:59:57,108] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:59:58,560] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:59:58,562] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 11:59:58,694] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 11:59:59,839] WARNING in _internal:  * Debugger is active!
+[2025-05-01 11:59:59,841] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:11,999] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:12,001] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:12,004] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:13,096] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:13,099] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:13,568] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:13,569] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:13,579] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:15,221] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:15,224] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:18,025] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:18,026] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:18,027] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:19,341] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:19,343] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:29,544] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:29,545] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:29,547] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:31,099] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:31,101] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:37,548] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:37,549] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:37,551] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:39,580] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:39,583] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:40,624] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:40,625] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:40,626] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:41,713] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:41,716] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:50,535] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:50,536] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:50,545] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:51,967] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:51,969] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:53,968] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:53,970] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:53,987] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:55,673] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:55,675] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:00:56,837] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:56,839] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:56,840] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:00:58,932] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:00:58,935] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:01:00,286] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:01:00,287] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:01:00,288] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:01:02,050] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:01:02,052] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:01:02,467] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:01:02,468] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:01:02,470] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:01:04,186] WARNING in _internal:  * Debugger is active!
+[2025-05-01 12:01:04,189] INFO in _internal:  * Debugger PIN: 180-925-462
+[2025-05-01 12:04:08,743] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:04:08,744] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-01 12:04:08,747] INFO in _internal:  * Detected change in '/home/kseniia/AWS/AWS-theNutriCat/app/__init__.py', reloading
+[2025-05-02 08:13:49,553] ERROR in __init__: Unhandled Exception: Mapper 'Mapper[Ingredient(ingredients)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2522, in get_property
+    return self._props[key]
+           ~~~~~~~~~~~^^^^^
+KeyError: 'recipes'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/auth.py", line 69, in load_logged_in_user
+    g.user = User.query.get(user_id)
+             ^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 276, in __init__
+    self._set_entities(entities)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    coercions.expect(
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 388, in expect
+    insp._post_inspect
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 1257, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4214, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4255, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2418, in _post_configure_properties
+    prop.init()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/interfaces.py", line 589, in init
+    self.do_init()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 1661, in do_init
+    self._generate_backref()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 2147, in _generate_backref
+    self._add_reverse_property(self.back_populates)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 1592, in _add_reverse_property
+    other = self.mapper.get_property(key, _configure_mappers=False)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2524, in get_property
+    raise sa_exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Mapper 'Mapper[Ingredient(ingredients)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+[2025-05-02 08:13:51,379] ERROR in __init__: Unhandled Exception: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Ingredient(ingredients)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/auth.py", line 69, in load_logged_in_user
+    g.user = User.query.get(user_id)
+             ^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 276, in __init__
+    self._set_entities(entities)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    coercions.expect(
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 388, in expect
+    insp._post_inspect
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 1257, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4214, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4251, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Ingredient(ingredients)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+[2025-05-02 08:14:08,817] ERROR in __init__: Unhandled Exception: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Ingredient(ingredients)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/auth.py", line 69, in load_logged_in_user
+    g.user = User.query.get(user_id)
+             ^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 276, in __init__
+    self._set_entities(entities)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    coercions.expect(
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 388, in expect
+    insp._post_inspect
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 1257, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4214, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4251, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Ingredient(ingredients)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+[2025-05-02 08:22:28,134] ERROR in __init__: Unhandled Exception: Mapper 'Mapper[Instruction(instructions)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2522, in get_property
+    return self._props[key]
+           ~~~~~~~~~~~^^^^^
+KeyError: 'recipes'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/auth.py", line 69, in load_logged_in_user
+    g.user = User.query.get(user_id)
+             ^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 276, in __init__
+    self._set_entities(entities)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    coercions.expect(
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 388, in expect
+    insp._post_inspect
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 1257, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4214, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4255, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2418, in _post_configure_properties
+    prop.init()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/interfaces.py", line 589, in init
+    self.do_init()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 1661, in do_init
+    self._generate_backref()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 2147, in _generate_backref
+    self._add_reverse_property(self.back_populates)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 1592, in _add_reverse_property
+    other = self.mapper.get_property(key, _configure_mappers=False)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2524, in get_property
+    raise sa_exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Mapper 'Mapper[Instruction(instructions)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+[2025-05-02 08:22:29,302] ERROR in __init__: Unhandled Exception: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Instruction(instructions)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/auth.py", line 69, in load_logged_in_user
+    g.user = User.query.get(user_id)
+             ^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 276, in __init__
+    self._set_entities(entities)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    coercions.expect(
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 388, in expect
+    insp._post_inspect
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 1257, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4214, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4251, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Instruction(instructions)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+[2025-05-02 08:22:30,165] ERROR in __init__: Unhandled Exception: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Instruction(instructions)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/auth.py", line 69, in load_logged_in_user
+    g.user = User.query.get(user_id)
+             ^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask_sqlalchemy/model.py", line 22, in __get__
+    return cls.query_class(
+           ^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 276, in __init__
+    self._set_entities(entities)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 289, in _set_entities
+    coercions.expect(
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 388, in expect
+    insp._post_inspect
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 1257, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4214, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py", line 4251, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Recipe(recipes)]'. Original exception was: Mapper 'Mapper[Instruction(instructions)]' has no property 'recipes'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+[2025-05-02 08:29:46,397] ERROR in __init__: Unhandled Exception: 'MenuShoppingInfo' object has no attribute 'shopping_info_text'
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/menus.py", line 91, in get_weekly_menu
+    ) if menu_shopping_info.shopping_info_text else ""
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MenuShoppingInfo' object has no attribute 'shopping_info_text'. Did you mean: 'shopping_list_text'?
+[2025-05-02 08:30:51,245] ERROR in __init__: Unhandled Exception: 'MenuShoppingInfo' object has no attribute 'shopping_info_text'
+Traceback (most recent call last):
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kseniia/AWS/AWS-theNutriCat/app/menus.py", line 91, in get_weekly_menu
+    ) if menu_shopping_info.shopping_info_text else ""
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MenuShoppingInfo' object has no attribute 'shopping_info_text'. Did you mean: 'shopping_list_text'?

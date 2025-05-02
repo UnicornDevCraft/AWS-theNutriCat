@@ -1,5 +1,6 @@
 // This file contains the JavaScript code for the create recipe page.
-console.log("Create recipe loaded");
+
+// Dynamically adds a new ingredient input row to the form
 function addIngredient(ingredientData = null) {
   const container = document.getElementById('ingredients-container');
   const row = document.createElement('div');
@@ -31,7 +32,7 @@ function addIngredient(ingredientData = null) {
 
   container.appendChild(row);
 }
-
+// Dynamically adds a new instruction input row to the form
 function addInstruction(instructionData = null) {
   const container = document.getElementById('instructions-container');
   const row = document.createElement('div');
@@ -53,7 +54,7 @@ function addInstruction(instructionData = null) {
   container.appendChild(row);
   updateStepNumbers();
 }
-
+// Dynamically adds a new tag input row to the form.
 function addTag(tagData = null) {
   const container = document.getElementById('tags-container');
   const row = document.createElement('div');
@@ -72,7 +73,8 @@ function addTag(tagData = null) {
   container.appendChild(row);
 }
 
-function checkRecipeForm (form, alertBox) {
+// Checks the recipe form for validity and displays an alert if invalid
+function checkRecipeForm(form, alertBox) {
   form.addEventListener("submit", function (event) {
     alertBox.classList.add('d-none'); // Hide any previous alert
     let customInvalid = false;
@@ -102,7 +104,7 @@ function checkRecipeForm (form, alertBox) {
       event.stopPropagation();
       alertBox.classList.remove("d-none");
 
-      // ⏱ Auto-hide after 5 seconds
+      // Auto-hide after 5 seconds
       setTimeout(() => {
         alertBox.classList.add("fade");
         alertBox.classList.remove("show");
@@ -114,10 +116,11 @@ function checkRecipeForm (form, alertBox) {
       }, 5000);
     }
 
-    form.classList.add("was-validated"); // Apply Bootstrap styles
+    form.classList.add("was-validated");
   });
 }
 
+// Updates the step numbers in the instruction form
 function updateStepNumbers() {
   const stepInputs = document.querySelectorAll('input[name="step[]"]');
   stepInputs.forEach((input, index) => {
@@ -125,51 +128,56 @@ function updateStepNumbers() {
   });
 }
 
+// Removes the image preview and clears the input field
 function removeImage() {
   const imageInput = document.getElementById('image');
-  imageInput.value = '';  // Clear the file input
+  imageInput.value = '';
   const currentImage = document.querySelector('.img-fluid');
   if (currentImage) {
-    currentImage.style.display = 'none';  // Hide the current image preview
+    currentImage.style.display = 'none';
   }
 }
 
+// Shows a preview of the uploaded image
 function showPreview() {
   const imageInput = document.getElementById('image');
-    const preview = document.getElementById('image-preview');
-    const uploadError = document.getElementById('upload-error');
-    const maxSize = 4 * 1024 * 1024;
-  
-    imageInput.addEventListener('change', function () {
-      uploadError.textContent = '';
-      uploadError.classList.remove("alert", "alert-danger");
+  const preview = document.getElementById('image-preview');
+  const uploadError = document.getElementById('upload-error');
+  const maxSize = 4 * 1024 * 1024;
 
-      const file = this.files[0];
-      if (file) {
-        if (file.size > maxSize) {
-          uploadError.textContent = "File is too large! Maximum size is 4MB.";
-          uploadError.classList.add("alert", "alert-danger");
-          imageInput.value = "";  // Clear the input
-          preview.src = "#";
-          preview.style.display = "none";
-          return;
-        }
+  imageInput.addEventListener('change', function () {
+    uploadError.textContent = '';
+    uploadError.classList.remove("alert", "alert-danger");
 
-        const reader = new FileReader();
-  
-        reader.onload = function (e) {
-          preview.src = e.target.result;
-          preview.style.display = 'block';
-        };
-  
-        reader.readAsDataURL(file);
-      } else {
-        preview.src = '#';
-        preview.style.display = 'none';
+    const file = this.files[0];
+    if (file) {
+      if (file.size > maxSize) {
+        uploadError.textContent = "File is too large! Maximum size is 4MB.";
+        uploadError.classList.add("alert", "alert-danger");
+        imageInput.value = "";
+        preview.src = "#";
+        preview.style.display = "none";
+        return;
       }
-    });
+
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = '#';
+      preview.style.display = 'none';
+    }
+  });
 }
 
+// This script is for the create and edit recipe pages.
+// It handles the dynamic addition of ingredients, instructions, and tags,
+// as well as form validation and image preview functionality.
 if (window.location.pathname.startsWith('/create')) {
   document.addEventListener("DOMContentLoaded", function () {
     // Add the first ingredient row on page load
@@ -183,7 +191,6 @@ if (window.location.pathname.startsWith('/create')) {
 
     checkRecipeForm(form, alertBox);
     showPreview();
-    
   });
 } else if (window.location.pathname.startsWith('/edit')) {
   document.addEventListener("DOMContentLoaded", function () {

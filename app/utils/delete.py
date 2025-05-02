@@ -1,79 +1,50 @@
-from app.db import db
-from app.models import Recipe, Tag
-from werkzeug.exceptions import NotFound
+"""
+Utility functions for managing image deletion locally and on AWS S3.
+"""
 import os
+import logging
+
 import boto3
+from botocore.exceptions import ClientError
+
+logger = logging.getLogger(__name__)
 
 AWS_REGION = os.getenv("AWS_REGION")
 S3_BUCKET_NAME = os.getenv("AWS_S3_BUCKET_NAME")
 S3_BUCKET_LINK = os.getenv("AWS_S3_BUCKET_LINK")
 s3_folder = os.getenv("AWS_S3_FOLDER")
 
-def delete_local_image(path):
+
+
+def delete_local_image(path: str) -> None:
+    """Delete an image file from the local filesystem."""
     try:
         os.remove(path)
     except Exception as e:
-        print(f"Failed to delete local image: {e}")
+        logger.warning(f"Failed to delete local image: {e}")
 
-def delete_s3_image(s3_url):
-    # Parse bucket and key from the URL
+
+def delete_s3_image(s3_url: str) -> None:
+    """Delete an image from S3 given its public URL."""
     s3 = boto3.client('s3')
-    key = s3_url.split(f"{S3_BUCKET_LINK}")[1]
-    print(f"Attempting to delete key: {key} from bucket: {S3_BUCKET_NAME}")
-
 
     try:
+        key = s3_url.split(f"{S3_BUCKET_LINK}")[1]
+        if not key:
+            logger.error(f"Could not extract key from URL: {s3_url}")
+            return
+        
+        logger.info(f"Attempting to delete key: {key} from bucket: {S3_BUCKET_NAME}")
         s3.delete_object(Bucket=S3_BUCKET_NAME, Key=key)
-        print(f"Successfully deleted {s3_url}!")
-    except Exception as e:
-        print(f"Failed to delete from S3: {e}")
+        logger.info(f"Successfully deleted {s3_url}!")
 
-    try:
+        # Confirm deletion
         s3.head_object(Bucket=S3_BUCKET_NAME, Key=key)
-        print("File still exists after delete attempt!")
-    except s3.exceptions.ClientError as e:
+        logger.warning("File still exists after delete attempt!")
+    except ClientError as e:
         if e.response['Error']['Code'] == '404':
-            print("File is confirmed deleted.")
+            logger.info("File is confirmed deleted.")
         else:
-            print("Other error:", e)
-
-
-    
-
-
-def delete_recipe(recipe_id):
-    recipe = Recipe.query.get(recipe_id)
-
-    if not recipe:
-        raise NotFound("Recipe not found.")
-
-    # Delete images (handle S3 or local path)
-    if recipe.local_image_path:
-        delete_local_image(recipe.local_image_path)
-
-    if recipe.compressed_img_URL:
-        delete_s3_image(recipe.compressed_img_URL)
-
-    if recipe.quality_img_URL:
-        delete_s3_image(recipe.quality_img_URL)
-
-    # Detach tags to check which are orphaned
-    my_recipe_tag_ids = []
-    for tag in recipe.tags:
-        if tag.type == 'my_recipe':
-            my_recipe_tag_ids.append(tag.id)
-
-    db.session.delete(recipe)
-    db.session.commit()
-
-    # Now remove orphaned "my_recipe" tags
-    for tag_id in my_recipe_tag_ids:
-        tag = Tag.query.get(tag_id)
-        if tag and tag.type == 'my_recipe' and len(tag.recipes) == 0:
-            print(f"Deleting orphaned tag: {tag.name}")
-            db.session.delete(tag)
-
-    db.session.commit()
-    return True
-
-
+            logger.error(f"Error checking for deleted file: {e}")
+    except Exception as e:
+        logger.error(f"Failed to delete from S3: {e}")

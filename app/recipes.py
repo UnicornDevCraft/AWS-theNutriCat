@@ -1,38 +1,50 @@
+"""Recipe management routes."""
+
+# Standard library imports
+import logging
+import mimetypes
+import os
+import uuid
+
+# Related third-party imports
+import boto3
 from flask import (
     Blueprint, flash, g, jsonify, redirect, render_template, request, session, url_for
 )
 from flask_sqlalchemy import pagination
-from werkzeug.exceptions import abort
+from sqlalchemy import asc, desc, func
 from sqlalchemy.orm import joinedload
-from sqlalchemy import func, or_
-from sqlalchemy import asc, desc
+from werkzeug.exceptions import abort
+from werkzeug.utils import secure_filename
+
+# Local application/library imports
 from app.auth import login_required
 from app.db import db
-from app.models import Favorite, Ingredient, Recipe, Instruction, RecipeTag, RecipeIngredient, Tag, User, UserRecipeNote
+from app.models import Favorite, Ingredient, Instruction, Recipe, RecipeIngredient, RecipeTag, Tag, User, UserRecipeNote
 from app.utils.delete import delete_s3_image
-from werkzeug.utils import secure_filename
-import os
-import uuid
 
 
+# Create a blueprint for the recipes
 bp = Blueprint('recipes', __name__)
 
+# Set up logging
+logger = logging.getLogger(__name__)
+
 # AWS S3 configuration
-import boto3
-import mimetypes
 AWS_REGION = os.getenv("AWS_REGION")
 S3_BUCKET_NAME = os.getenv("AWS_S3_BUCKET_NAME")
-s3_folder = os.getenv("AWS_S3_FOLDER")
+S3_FOLDER = os.getenv("AWS_S3_FOLDER")
+
 # Image upload configuration
 MAX_FILE_SIZE = 4 * 1024 * 1024
 
+# --- Routes ---
+
 @bp.route('/')
 def index():
+    """Render the index page with a list of first 7 recipes."""
     # Fetch first 7 recipes
     recipes = Recipe.query.limit(7).all()
-
-    # Fetch the user from the session
-    user = User.query.filter_by(id=session.get('user_id')).first()
 
     favorite_recipes = [
         {
@@ -43,11 +55,33 @@ def index():
         }
         for recipe in recipes
     ]
+
+    # Fetch the user from the session
+    user = User.query.filter_by(id=session.get('user_id')).first()
     
     return render_template('recipes/index.html', favorites=favorite_recipes, user=user)
 
+
+@bp.route("/search")
+def search():
+    """Search for recipes by title."""
+    # Fetch query parameter
+    q = request.args.get("q", "")
+    if q:
+        results = Recipe.query.filter(Recipe.title.ilike(f"%{q}%")).limit(10).all()
+    else:
+        results = []
+    # Return JSON response
+    return jsonify([
+        {"title": r.title.capitalize(), 
+         "id": r.id,
+         "thumbnail": r.compressed_img_URL} for r in results
+    ])
+
+
 @bp.route('/recipes')
 def recipes():
+    """Render the recipes page with filtering and sorting options."""
     # Get query parameters
     search_query = request.args.get('search', '')
     filter_tag = request.args.get('filter', None)
@@ -159,25 +193,9 @@ def recipes():
     )
 
 
-@bp.route("/search")
-def search():
-    q = request.args.get("q", "")
-    if q:
-        results = Recipe.query.filter(Recipe.title.ilike(f"%{q}%")).limit(10).all()
-    else:
-        results = []
-    # Return JSON response
-    return jsonify([
-        {"title": r.title.capitalize(), 
-         "id": r.id,
-         "thumbnail": r.compressed_img_URL} for r in results
-    ])
-
-
 @bp.route('/recipe/<int:recipe_id>')
 def recipe_id(recipe_id):
-    note = None
-
+    """Render the recipe detail page."""
     # Fetch recipe and eager-load relationships
     recipe = Recipe.query.options(
         joinedload(Recipe.tags),
@@ -200,7 +218,7 @@ def recipe_id(recipe_id):
         .all()
     )
 
-    # Format ingredient data as needed: [(ingredient_name, quantity, unit, ingredient_notes)]
+    # Format ingredient data as needed
     ingredients = [
         {
             'name': ingredient.name,
@@ -212,18 +230,20 @@ def recipe_id(recipe_id):
         for ri, ingredient in recipe_ingredients
     ]
 
-    user = None
+    # Set up initial values
+    user = g.user
     has_my_recipe_tag = False
+    note = None
+    favorite_recipe_ids_set = set()
 
     # Favorite recipes set and notes
-    favorite_recipe_ids_set = set()
-    if g.user:
+    if user:
         favorite_recipe_ids_set = {
             fav.recipe_id for fav in Favorite.query.filter_by(user_id=g.user.id).all()
         }
         note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
-        user = g.user
-        # Check if this recipe has a 'my_recipe' tag
+
+        # Check if this recipe has a 'my_recipe' tag to determine if it's editable
         has_my_recipe_tag = any(tag.type == "my_recipe" for tag in recipe.tags)
 
     return render_template(
@@ -237,12 +257,56 @@ def recipe_id(recipe_id):
         editable=has_my_recipe_tag
     )
 
+
+@bp.route('/recipe/<int:recipe_id>/note', methods=['POST'])
+@login_required
+def save_note(recipe_id):
+    """Save a note for a recipe."""
+    note_text = request.form.get('note', '')
+    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
+
+    if note:
+        note.note = note_text
+    else:
+        note = UserRecipeNote(user_id=g.user.id, recipe_id=recipe_id, note=note_text)
+        db.session.add(note)
+
+    db.session.commit()
+    flash("Note saved successfully.", "success")
+    return redirect(url_for('recipes.recipe_id', recipe_id=recipe_id, note=note_text))
+
+
+@bp.route("/recipe/<int:recipe_id>/note/edit", methods=["POST"])
+@login_required
+def edit_note(recipe_id):
+    """Edit an existing note for a recipe."""
+    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
+    if note:
+        note.note = request.form["note"]
+        db.session.commit()
+        flash("Note updated successfully.", "success")
+    return redirect(url_for("recipes.recipe_id", recipe_id=recipe_id))
+
+
+@bp.route("/recipe/<int:recipe_id>/note/delete", methods=["POST"])
+@login_required
+def delete_note(recipe_id):
+    """Delete a note for a recipe."""
+    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
+    if note:
+        db.session.delete(note)
+        db.session.commit()
+        flash("Note deleted.","success")
+    return redirect(url_for("recipes.recipe_id", recipe_id=recipe_id))
+
+
 @bp.route("/toggle_favorite/<int:recipe_id>", methods=["POST"])
 @login_required
 def toggle_favorite(recipe_id):
+    """Toggle favorite status for a recipe."""
     user = g.user
-
     recipe = Recipe.query.get(recipe_id)
+
     if not recipe:
         return jsonify({"success": False, "error": "Recipe not found"}), 404
 
@@ -258,66 +322,32 @@ def toggle_favorite(recipe_id):
         db.session.commit()
         return jsonify({"success": True, "favorite": True, "message": "Added to favorites!"})
 
-@bp.route('/recipe/<int:recipe_id>/note', methods=['POST'])
-@login_required
-def save_note(recipe_id):
-    note_text = request.form.get('note', '')
-    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
-
-    if note:
-        note.note = note_text
-    else:
-        note = UserRecipeNote(user_id=g.user.id, recipe_id=recipe_id, note=note_text)
-        db.session.add(note)
-
-    db.session.commit()
-    flash("Note saved successfully.", "success")
-    return redirect(url_for('recipes.recipe_id', recipe_id=recipe_id, note=note_text))
-
-@bp.route("/recipe/<int:recipe_id>/note/edit", methods=["POST"])
-@login_required
-def edit_note(recipe_id):
-    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
-    if note:
-        note.note = request.form["note"]
-        db.session.commit()
-        flash("Note updated successfully.", "success")
-    return redirect(url_for("recipes.recipe_id", recipe_id=recipe_id))
-
-@bp.route("/recipe/<int:recipe_id>/note/delete", methods=["POST"])
-@login_required
-def delete_note(recipe_id):
-    note = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe_id).first()
-    if note:
-        db.session.delete(note)
-        db.session.commit()
-        flash("Note deleted.","success")
-    return redirect(url_for("recipes.recipe_id", recipe_id=recipe_id))
 
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
+    """Create a new recipe."""
     if request.method == "POST":
-        # --- BASIC FIELDS ---
+        # Get form data
         title = request.form.get("title")
         servings = request.form.get("servings", type=int)
         prep_time = request.form.get("prep_time", type=int)
         cook_time = request.form.get("cook_time", type=int)
         notes = request.form.get("notes")
 
-        # --- INGREDIENTS ---
+        # Get ingredients data
         ingredient_names = request.form.getlist("ingredient_name[]")
         quantities = request.form.getlist("quantity[]")
         units = request.form.getlist("unit[]")
         quantity_notes = request.form.getlist("quantity_notes[]")
         ingredient_notes = request.form.getlist("ingredient_notes[]")
 
-        # --- INSTRUCTIONS ---
+        # Get instructions data
         steps = request.form.getlist("step[]")
         instructions = request.form.getlist("instruction[]")
 
-        # --- TAGS ---
+        # Fetch tags
         tag_list = request.form.getlist("tag[]")
 
         # Check for basic required fields
@@ -337,20 +367,22 @@ def create():
             flash("At least one instruction is required.", "error")
             return redirect(request.referrer)
 
-        # --- CREATE RECIPE ---
+        # Create new recipe
         recipe = Recipe(
             title=title.strip(),
             servings=servings,
             prep_time=prep_time,
             cook_time=cook_time,
         )
+        # Add the recipe to the session
         db.session.add(recipe)
-        db.session.flush()  # get recipe.id early for FKs
+        db.session.flush()
 
         for i in range(len(ingredient_names)):
             name = ingredient_names[i].strip()
             if not name:
                 continue
+            # Check if the ingredient already exists if it doesn't exist, create a new one
             ingredient = Ingredient.query.filter_by(name=name).first()
             if not ingredient:
                 ingredient = Ingredient(name=name)
@@ -367,6 +399,7 @@ def create():
             )
             db.session.add(ri)
 
+        # Add instructions
         for i in range(len(instructions)):
             line = instructions[i].strip()
             if not line:
@@ -377,12 +410,13 @@ def create():
                     step_number=steps[i].strip() if i < len(steps) else None,
                     instruction=line
                 ))
-
+        
+        # Add tags
         for i in range(len(tag_list)):
             name = tag_list[i].strip()
             if not name:
                 continue 
-            # Check if the tag already exists
+            # Check if the tag already exists if it doesn't exist, create a new one
             tag = Tag.query.filter_by(name=name, type='my_recipe').first()
             
             if not tag:
@@ -391,7 +425,7 @@ def create():
                 db.session.flush()
             db.session.add(RecipeTag(recipe_id=recipe.id, tag_id=tag.id))
 
-        # --- NOTES ---
+        # Add notes
         if notes:
             user_id = g.user.id
             db.session.add(UserRecipeNote(
@@ -400,7 +434,7 @@ def create():
                 note=notes.strip()
             ))
 
-        # --- IMAGE UPLOAD ---
+        # Upload image
         image = request.files.get("image")
         if image and image.filename:
             image.seek(0, 2)  # Move cursor to end of file
@@ -427,13 +461,13 @@ def create():
             s3.upload_fileobj(
                 image,
                 S3_BUCKET_NAME,
-                f"{s3_folder}/{unique_filename}",
+                f"{S3_FOLDER}/{unique_filename}",
                 ExtraArgs={"ContentType": content_type},
             )
 
             # Construct public URL
-            file_url = f"https://{S3_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{s3_folder}/{unique_filename}"
-            print(f"✅ Upload successful! File URL: {file_url}")
+            file_url = f"https://{S3_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{S3_FOLDER}/{unique_filename}"
+            logger.info(f"✅ Upload successful! File URL: {file_url}")
 
             # Save to database
             recipe.quality_img_URL = file_url
@@ -443,7 +477,7 @@ def create():
         flash("Recipe added successfully!", "success")
         return redirect(url_for("recipes.recipe_id", recipe_id=recipe.id))
 
-    # --- GET ---
+    # If GET request, render the create recipe form
     ingredients = Ingredient.query.order_by(Ingredient.name).all()
     tags = Tag.query.order_by(Tag.name).all()
     return render_template("recipes/create.html", ingredients=ingredients, tags=tags)
@@ -452,6 +486,8 @@ def create():
 @bp.route('/recipe/<int:recipe_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit(recipe_id):
+    """Edit an existing recipe."""
+    # Fetch the recipe by ID
     recipe = Recipe.query.get_or_404(recipe_id)
     # Only allow edit if recipe has a 'my_recipe' tag
     if not any(tag.type == "my_recipe" for tag in recipe.tags):
@@ -459,25 +495,25 @@ def edit(recipe_id):
         return redirect(url_for("recipes.recipe_id", recipe_id=recipe.id))
 
     if request.method == "POST":
-        # --- BASIC FIELDS ---
+        # Get form data
         title = request.form.get("title")
         servings = request.form.get("servings", type=int)
         prep_time = request.form.get("prep_time", type=int)
         cook_time = request.form.get("cook_time", type=int)
         notes = request.form.get("notes")
 
-        # --- INGREDIENTS ---
+        # Get ingredients data
         ingredient_names = request.form.getlist("ingredient_name[]")
         quantities = request.form.getlist("quantity[]")
         units = request.form.getlist("unit[]")
         quantity_notes = request.form.getlist("quantity_notes[]")
         ingredient_notes = request.form.getlist("ingredient_notes[]")
 
-        # --- INSTRUCTIONS ---
+        # Get instructions data
         steps = request.form.getlist("step[]")
         instructions = request.form.getlist("instruction[]")
 
-        # --- TAGS ---
+        # Get tags
         tag_list = request.form.getlist("tag[]")
 
         # Check for basic required fields
@@ -497,15 +533,15 @@ def edit(recipe_id):
             flash("At least one instruction is required.", "error")
             return redirect(request.referrer)
 
-        # --- UPDATE RECIPE ---
+        # Update recipe details
         recipe.title = title.strip()
         recipe.servings = servings
         recipe.prep_time = prep_time
         recipe.cook_time = cook_time
 
-        # --- UPDATE INGREDIENTS ---
         # Remove existing ingredients first
         recipe.ingredients.clear()
+        # Update ingredients
         for i in range(len(ingredient_names)):
             name = ingredient_names[i].strip()
             if not name:
@@ -525,9 +561,9 @@ def edit(recipe_id):
             )
             db.session.add(ri)
 
-        # --- UPDATE INSTRUCTIONS ---
         # Remove existing instructions first
         recipe.instructions.clear()
+        # Update instructions
         for i in range(len(instructions)):
             line = instructions[i].strip()
             if not line:
@@ -538,9 +574,9 @@ def edit(recipe_id):
                 instruction=line
             ))
 
-        # --- UPDATE TAGS ---
         # Remove existing tags first
         recipe.tags.clear()
+        # Update tags
         for i in range(len(tag_list)):
             name = tag_list[i].strip()
             if not name:
@@ -552,7 +588,7 @@ def edit(recipe_id):
                 db.session.add(tag)
             db.session.add(RecipeTag(recipe_id=recipe.id, tag_id=tag.id))
 
-        # --- UPDATE NOTES ---
+        # Update notes
         if notes:
             user_id = g.user.id
             user_note = UserRecipeNote.query.filter_by(user_id=user_id, recipe_id=recipe.id).first()
@@ -565,16 +601,17 @@ def edit(recipe_id):
                     note=notes.strip()
                 ))
 
-        # --- IMAGE UPLOAD ---
+        # Upload image
         image = request.files.get("image")
         if image and image.filename:
-            image.seek(0, 2)  # Move cursor to end of file
-            file_size = image.tell()  # Get current position (== file size in bytes)
-            image.seek(0)  # Reset cursor back to beginning
+            image.seek(0, 2)
+            file_size = image.tell()
+            image.seek(0)
 
             if file_size > MAX_FILE_SIZE:
                 abort(400, description="File is too large. Maximum size is 4MB.")
 
+            # Delete old images from S3
             delete_s3_image(recipe.quality_img_URL)
             delete_s3_image(recipe.compressed_img_URL)
 
@@ -595,13 +632,13 @@ def edit(recipe_id):
             s3.upload_fileobj(
                 image,
                 S3_BUCKET_NAME,
-                f"{s3_folder}/{unique_filename}",
+                f"{S3_FOLDER}/{unique_filename}",
                 ExtraArgs={"ContentType": content_type},
             )
 
             # Construct public URL
-            file_url = f"https://{S3_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{s3_folder}/{unique_filename}"
-            print(f"✅ Upload successful! File URL: {file_url}")
+            file_url = f"https://{S3_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{S3_FOLDER}/{unique_filename}"
+            logger.info(f"✅ Upload successful! File URL: {file_url}")
 
             # Save to database
             recipe.quality_img_URL = file_url
@@ -612,7 +649,7 @@ def edit(recipe_id):
         return redirect(url_for("recipes.recipe_id", recipe_id=recipe.id))
         
 
-    # --- GET --- (PRE-FILL FORM)
+    # If GET request, render the edit recipe form and pre-fill with current data
     ingredients = (
         db.session.query(RecipeIngredient, Ingredient)
         .join(Ingredient, RecipeIngredient.ingredient_id == Ingredient.id)
@@ -630,12 +667,13 @@ def edit(recipe_id):
 
     tags = Tag.query.order_by(Tag.name).all()
 
-    # Pre-fill form with current recipe data
     return render_template("recipes/edit.html", recipe=recipe, ingredients=ingredients, instructions=instructions, tags=tags)
+
 
 @bp.route("/recipe/<int:recipe_id>/delete", methods=["POST"])
 @login_required
 def delete(recipe_id):
+    """Delete a recipe."""
     recipe = Recipe.query.get_or_404(recipe_id)
 
     # Only allow delete if recipe has a 'my_recipe' tag
@@ -650,8 +688,3 @@ def delete(recipe_id):
     db.session.commit()
     flash("Recipe deleted successfully!", "success")
     return redirect(url_for("recipes.index"))
-
-
-
-
-

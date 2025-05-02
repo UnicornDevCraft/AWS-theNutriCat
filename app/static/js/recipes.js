@@ -1,33 +1,33 @@
-console.log("Recipes JS loaded");
-window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
+// This script handles the fetching and displaying of recipes, as well as the filtering and sorting functionality.
+
+// This function fetches recipes from the server and updates the UI accordingly.
+function fetchRecipes(page = 1, filter = "", sort = "", search = "") {
     const apiUrl = document.getElementById("recipes-api-url").value;
-    console.log("API URL:", apiUrl);
     let queryUrl = `${apiUrl}?page=${page}`;
 
     if (search) queryUrl += `&search=${search}`;
     if (filter) queryUrl += `&filter=${filter}`;
     if (sort) queryUrl += `&sort=${sort}`;
-    console.log("Fetching: ", queryUrl)
-    
+
     fetch(queryUrl, {
         headers: { "X-Requested-With": "XMLHttpRequest" }
     })
-    .then(response => {
-        if (!response.ok) throw new Error("Failed to fetch recipes");
-        return response.json();
-    })
-    .then(data => {
-        const container = document.getElementById("recipes-container");
-        container.innerHTML = "";
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch recipes");
+            return response.json();
+        })
+        .then(data => {
+            const container = document.getElementById("recipes-container");
+            container.innerHTML = "";
 
-        if (data.recipes.length === 0) {
-            container.innerHTML = `<p class="text-center mx-auto">No recipes found.</p>`;
-        } else {
-            data.recipes.forEach(recipe => {
-                container.innerHTML += `
+            if (data.recipes.length === 0) {
+                container.innerHTML = `<p class="text-center mx-auto">No recipes found.</p>`;
+            } else {
+                data.recipes.forEach(recipe => {
+                    container.innerHTML += `
                     <div class="col recipe-card">
                         <div class="card shadow-sm rounded-5 mx-auto">
-                            <img src="${recipe.compressed_img_URL || recipe.quality_img_URL || '/static/img/recipes/placeholder-image.jpeg'}" alt="${recipe.title}" data-recipe-id="${ recipe.id }" class="recipe-img">
+                            <img src="${recipe.compressed_img_URL || recipe.quality_img_URL || '/static/img/recipes/placeholder-image.jpeg'}" alt="${recipe.title}" data-recipe-id="${recipe.id}" class="recipe-img">
                             <div class="card-body">
                                 <h3 class="card-header text-center"><a href="#" class="text-secondary fs-6 recipe-link" data-recipe-id="{{ recipe.id }}">${recipe.title.charAt(0).toUpperCase() + recipe.title.slice(1).toLowerCase()}</a></h3>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
@@ -49,70 +49,71 @@ window.fetchRecipes = function (page = 1, filter = "", sort = "", search = "") {
                                         &nbsp; <span class="text-white">${recipe.prep_time + recipe.cook_time}</span>&nbsp; 
                                     </div>
                                     <div class="recipe-tags d-flex justify-content-start align-items-center">
-                                        ${recipe.tags.map(tag => `<button class="btn btn-sm btn-outline-secondary rounded-3 mx-1 filter-btn" data-filter="${ tag.name }">${tag.name}</button>`).join('')}
+                                        ${recipe.tags.map(tag => `<button class="btn btn-sm btn-outline-secondary rounded-3 mx-1 filter-btn" data-filter="${tag.name}">${tag.name}</button>`).join('')}
                                     </div>
-                                    <button type="button" class="btn btn-m btn-success rounded-4 text-white make" data-recipe-id="${ recipe.id }">Make</button>
+                                    <button type="button" class="btn btn-m btn-success rounded-4 text-white make" data-recipe-id="${recipe.id}">Make</button>
                                 </div>
                             </div>
                         </div>
                     </div>`;
-            });
+                });
 
-            // Add 'active' class to all buttons with the same 'data-filter'
-            document.querySelectorAll(`[data-filter="${filter}"]`).forEach(btn => {
-                btn.classList.add("active");
-            });
-        }
-        attachFavoriteListeners();
-        updatePagination(data.total_pages, page, filter, sort, search);
-    })
-    .catch(error => console.error("Error fetching recipes:", error));
+                // Add 'active' class to all buttons with the same 'data-filter'
+                document.querySelectorAll(`[data-filter="${filter}"]`).forEach(btn => {
+                    btn.classList.add("active");
+                });
+            }
+            attachFavoriteListeners();
+            updatePagination(data.total_pages, page, filter, sort, search);
+        })
+        .catch(error => console.error("Error fetching recipes:", error));
 };
 
-window.attachFavoriteListeners = function() {
+// This function attaches event listeners to the favorite buttons and recipe images.
+function attachFavoriteListeners() {
     document.querySelectorAll(".favorite-btn").forEach(button => {
-      button.addEventListener("click", async function () {
-        const recipeId = this.getAttribute("data-recipe-id");
-        const icon = this.querySelector(".heart-icon");
-        
-        this.disabled = true;
+        button.addEventListener("click", async function () {
+            const recipeId = this.getAttribute("data-recipe-id");
+            const icon = this.querySelector(".heart-icon");
+            this.disabled = true;
 
-        const isNowFavorite = await toggleFavorite(recipeId);
-  
-        try {
-          
-            if (isNowFavorite === true) {
-                icon.setAttribute("data-icon", "heart");
-                icon.setAttribute("data-bs-title", "Remove from favorites");
-                icon.classList.replace("bi-heart", "bi-heart-fill");
-            } else if (isNowFavorite === false) {
-                icon.setAttribute("data-icon", "heart-outline");
-                icon.setAttribute("data-bs-title", "Add to favorites");
-                icon.classList.replace("bi-heart-fill", "bi-heart");
-            } else {
-                // Error or not logged in do nothing
-                console.warn("Favorite toggle failed or user not logged in.");
+            const isNowFavorite = await toggleFavorite(recipeId);
+
+            try {
+                // Update the icon and tooltip based on the favorite status
+                if (isNowFavorite === true) {
+                    icon.setAttribute("data-icon", "heart");
+                    icon.setAttribute("data-bs-title", "Remove from favorites");
+                    icon.classList.replace("bi-heart", "bi-heart-fill");
+                } else if (isNowFavorite === false) {
+                    icon.setAttribute("data-icon", "heart-outline");
+                    icon.setAttribute("data-bs-title", "Add to favorites");
+                    icon.classList.replace("bi-heart-fill", "bi-heart");
+                } else {
+                    // Error or not logged in do nothing
+                    console.warn("Favorite toggle failed or user not logged in.");
+                }
+
+                this.disabled = false;
+
+            } catch (err) {
+                console.error("Favorite toggle failed or user not logged in.", err);
+                showAlertMessage("Error toggling favorite", "error");
             }
-
-            this.disabled = false;
-  
-        } catch (err) {
-          console.error("Favorite toggle failed or user not logged in.", err);
-          showAlertMessage("Error toggling favorite", "error");
-        }
-      });
+        });
     });
+    // Attach click event to recipe images and links for redirect
     document.querySelectorAll(".make, .recipe-img, .recipe-link").forEach(button => {
-        button.addEventListener("click", function(e) {
+        button.addEventListener("click", function (e) {
             e.preventDefault();
             const recipeId = this.getAttribute("data-recipe-id");
             window.location.href = `/recipe/${recipeId}`;
         });
     });
-  }
-  
+}
 
-window.updatePagination = function (totalPages, currentPage = 1, filter = "", sort = "", search = "") {
+// This function updates the pagination UI based on the total number of pages and the current page.
+function updatePagination(totalPages, currentPage = 1, filter = "", sort = "", search = "") {
     const paginationContainer = document.querySelector(".pagination");
     paginationContainer.innerHTML = "";
 
@@ -142,14 +143,15 @@ window.updatePagination = function (totalPages, currentPage = 1, filter = "", so
     }
 };
 
-window.searchRecipes = function (filter = "", sort = "") {
+// This function handles the search
+function searchRecipes(filter = "", sort = "") {
     const searchQuery = document.getElementById('searching-input').value.trim();
     const encodedSearch = encodeURIComponent(searchQuery);
 
-    console.log("Searching for:", searchQuery);
     fetchRecipes(1, filter, sort, encodedSearch);
 };
 
+// This function toggles the favorite status of a recipe and updates the UI
 async function toggleFavorite(recipeId) {
     try {
         const response = await fetch(`/toggle_favorite/${recipeId}`, {
@@ -166,7 +168,6 @@ async function toggleFavorite(recipeId) {
         }
 
         const data = await response.json();
-        console.log("Favorite response:", data);
 
         if (data.success) {
             showAlertMessage(data.message, "success");
@@ -182,9 +183,10 @@ async function toggleFavorite(recipeId) {
     }
 }
 
-window.showAlertMessage = function (message, type = "info") {
+// This function shows an alert message in the flash container
+function showAlertMessage(message, type = "info") {
     const container = document.getElementById("flash-container");
-    
+
     if (!container) {
         console.warn("Flash container not found.");
         return;
@@ -197,18 +199,18 @@ window.showAlertMessage = function (message, type = "info") {
       ${message}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
-  
+
     container.appendChild(alert);
-  
+
     // Auto-dismiss after 5 seconds
     setTimeout(() => {
-      alert.classList.remove("show");
-      alert.classList.add("fade");
-      setTimeout(() => alert.remove(), 500); // remove after fade out
+        alert.classList.remove("show");
+        alert.classList.add("fade");
+        setTimeout(() => alert.remove(), 500); // remove after fade out
     }, 5000);
-}  
-  
-// Handle filter and sorting
+}
+
+// Handle filter and sorting on the recipes page
 if (window.location.pathname.startsWith("/recipes")) {
     document.addEventListener("DOMContentLoaded", function () {
         let currentFilter = "";
@@ -221,12 +223,12 @@ if (window.location.pathname.startsWith("/recipes")) {
 
         if (searchInput && searchForm) {
             searchInput.addEventListener("keypress", function (event) {
-              if (event.key === "Enter") {
-                event.preventDefault();
-                searchRecipes(currentFilter, currentSort);
-              }
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    searchRecipes(currentFilter, currentSort);
+                }
             });
-          }
+        }
 
         if (activeFilter) {
             document.querySelectorAll('.filter-btn').forEach(button => {
@@ -236,38 +238,37 @@ if (window.location.pathname.startsWith("/recipes")) {
                 }
             });
         }
-
+        // Search button event listener
         document.getElementById("search-btn").addEventListener("click", function (e) {
             e.preventDefault();
             searchRecipes(currentFilter, currentSort);
         });
-
+        // Filter button event listener
         document.addEventListener("click", function (e) {
             if (e.target.classList.contains("filter-btn") || e.target.classList.contains("filter-option")) {
                 e.preventDefault();
-                console.log("Clicked on filter:", e.target);
-        
+
                 // Remove 'active' class from all filter buttons
                 document.querySelectorAll(".filter-option, .filter-btn").forEach(btn => {
                     btn.classList.remove("active");
                 });
-        
+
                 let selectedFilter = e.target.getAttribute("data-filter");
-        
+
                 // Add 'active' class to all buttons with the same filter
                 document.querySelectorAll(`[data-filter="${selectedFilter}"]`).forEach(btn => {
                     btn.classList.add("active");
                 });
-        
+
                 // Update filter and fetch new results
                 currentFilter = selectedFilter;
                 fetchRecipes(1, currentFilter, currentSort, currentSearch);
             }
         });
-        
+        // Sort button event listener
         document.getElementById("sort-btn").addEventListener("click", function () {
             let currentSort = this.getAttribute("data-sort");
-        
+
             // Toggle sorting: default → asc → desc → default
             if (currentSort === "default") {
                 currentSort = "asc";
@@ -276,54 +277,18 @@ if (window.location.pathname.startsWith("/recipes")) {
             } else {
                 currentSort = "default";
             }
-            
+
             // Update button attribute
             this.setAttribute("data-sort", currentSort);
 
             // Update button icon and text
             this.innerHTML = `Sort by the title&nbsp;
                 <i class="bi ${currentSort === "asc" ? "bi-sort-alpha-down" : currentSort === "desc" ? "bi-sort-alpha-down-alt" : "bi-filter"}"></i>`;
-            
+
             // Call fetchRecipes with the new sorting order
             fetchRecipes(1, currentFilter, currentSort, currentSearch);
         });
-
-        document.querySelectorAll(".make, .recipe-img, .recipe-link").forEach(button => {
-            button.addEventListener("click", function(e) {
-                e.preventDefault();
-                const recipeId = this.getAttribute("data-recipe-id");
-                window.location.href = `/recipe/${recipeId}`;
-            });
-        });
-
-        document.querySelectorAll(".favorite-btn").forEach(button => {
-            button.addEventListener("click", async function () {
-                const recipeId = this.getAttribute("data-recipe-id");
-                const icon = this.querySelector(".heart-icon");
         
-                // Optional: disable button while waiting
-                this.disabled = true;
-        
-                const isNowFavorite = await toggleFavorite(recipeId);
-        
-                if (isNowFavorite === true) {
-                    
-                    // Now it's a favorite
-                    icon.setAttribute("data-icon", "heart");
-                    icon.setAttribute("data-bs-title", "Remove from favorites");
-                    icon.classList.replace("bi-heart", "bi-heart-fill");
-                } else if (isNowFavorite === false) {
-                    // Now it's removed from favorites
-                    icon.setAttribute("data-icon", "heart-outline");
-                    icon.setAttribute("data-bs-title", "Add to favorites");
-                    icon.classList.replace("bi-heart-fill", "bi-heart");
-                } else {
-                    // Error or not logged in: do nothing or revert state if needed
-                    console.warn("Favorite toggle failed or user not logged in.");
-                }
-        
-                this.disabled = false;
-            });
-        });
+        attachFavoriteListeners();
     });
 };

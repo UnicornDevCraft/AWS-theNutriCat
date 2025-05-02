@@ -1,47 +1,114 @@
+"""
+Application initialization functions and logging configuration.
+"""
+
+# Standard library imports
+import os
+import logging
+from logging.handlers import RotatingFileHandler
+
+# Related third-party imports
+from dotenv import load_dotenv
 from flask import Flask
 from flask_mail import Mail
 from flask_migrate import Migrate
-from config import Config
-from app.db import db
-import os
+from werkzeug.exceptions import HTTPException
 
+# Local application/library imports
+from app.db import db
+
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Initialize Flask extensions
 migrate = Migrate()
 mail = Mail()
 
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
+def configure_logging(app):
+    """
+    Configure logging for the Flask application.
+    Args:
+        app (Flask): The Flask application instance.
+    """
+    # Set up logging to a file
+    log_dir = "logs"
+    os.makedirs(log_dir, exist_ok=True)
+    
+    file_handler = RotatingFileHandler(
+        f"{log_dir}/app.log", maxBytes=1_000_000, backupCount=5
+    )
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(logging.Formatter(
+        "[%(asctime)s] %(levelname)s in %(module)s: %(message)s"
+    ))
 
-    db.init_app(app)  # Initialize the database with the app
-    migrate.init_app(app, db)  # Use Flask-Migrate for database changes
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)
 
-    # Register Blueprints
+    # Clear existing handlers if running in debug/reload mode
+    if app.logger.hasHandlers():
+        app.logger.handlers.clear()
+
+    app.logger.addHandler(file_handler)
+    app.logger.addHandler(console_handler)
+    app.logger.setLevel(logging.INFO)
+
+    # Log unhandled exceptions
+    @app.errorhandler(Exception)
+    def handle_exception(e):
+        # Let Flask handle HTTP errors (e.g., 404, 403)
+        if isinstance(e, HTTPException):
+            return e
+        
+        app.logger.exception("Unhandled Exception: %s", e)
+        return "An internal error occurred.", 500
+
+
+def register_blueprints(app):
+    """
+    Register all blueprints for the Flask application.
+    Args:
+        app (Flask): The Flask application instance.
+    """
+    # Register blueprints for different modules
     from app.auth import bp as auth_bp
-    app.register_blueprint(auth_bp)
-
     from app.recipes import bp as recipes_bp
-    app.register_blueprint(recipes_bp)
-
     from app.menus import bp as menus_bp
+
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(recipes_bp)
     app.register_blueprint(menus_bp)
 
-    # Add Flask-Mail configuration
-    app.config['MAIL_SERVER'] = 'localhost'
-    app.config['MAIL_PORT'] = 8025
-    app.config['MAIL_DEFAULT_SENDER'] = 'noreply@nutricat.local'
-    app.config['MAIL_USE_TLS'] = False
-    app.config['MAIL_USE_SSL'] = False
-    app.config['MAIL_USERNAME'] = ''
-    app.config['MAIL_PASSWORD'] = ''
 
+def create_app():
+    """
+    Create and configure the Flask application.
+    Returns:
+        Flask app: The configured Flask application instance.
+    """
+    # Create the Flask application
+    app = Flask(__name__)
+
+    # Load configuration from environment variables
+    config_name = os.getenv("FLASK_CONFIG", "config.DevelopmentConfig")
+    app.config.from_object(config_name)
+    app.logger.info(f"Starting app in {config_name} mode.")
+
+    # Initialize the database with the app
+    db.init_app(app)
+
+    # Register Blueprints
+    register_blueprints(app)
+
+    # Use Flask-Migrate for database changes
+    migrate.init_app(app, db)
+
+    # Initialize Flask-Mail
     mail.init_app(app)
 
-    # Add Flask-Recaptcha configuration
-    app.config['RECAPTCHA_SITE_KEY'] = os.getenv('RECAPTCHA_SITE_KEY')
-    app.config['RECAPTCHA_SECRET_KEY'] = os.getenv('RECAPTCHA_SECRET_KEY')
-
-    # 10MB limit for all uploads 
-    app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  
+    # Configure logging
+    configure_logging(app)
     
     return app
