@@ -618,3 +618,9 @@ Traceback (most recent call last):
     ) if menu_shopping_info.shopping_info_text else ""
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'MenuShoppingInfo' object has no attribute 'shopping_info_text'. Did you mean: 'shopping_list_text'?
+[2025-05-04 17:22:53,983] INFO in delete: Attempting to delete key: user-uploads/6d7eba3883164ddcb93cecf10bf58ed5_placeholder-image.jpeg from bucket: nutri-cat-images
+[2025-05-04 17:22:54,676] INFO in delete: Successfully deleted https://nutri-cat-images.s3.eu-central-1.amazonaws.com/user-uploads/6d7eba3883164ddcb93cecf10bf58ed5_placeholder-image.jpeg!
+[2025-05-04 17:22:54,734] INFO in delete: File is confirmed deleted.
+[2025-05-04 17:22:54,770] INFO in delete: Attempting to delete key: user-uploads/6d7eba3883164ddcb93cecf10bf58ed5_placeholder-image.jpeg from bucket: nutri-cat-images
+[2025-05-04 17:22:55,234] INFO in delete: Successfully deleted https://nutri-cat-images.s3.eu-central-1.amazonaws.com/user-uploads/6d7eba3883164ddcb93cecf10bf58ed5_placeholder-image.jpeg!
+[2025-05-04 17:22:55,268] INFO in delete: File is confirmed deleted.

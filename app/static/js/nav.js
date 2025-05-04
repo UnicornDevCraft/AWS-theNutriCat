@@ -35,7 +35,8 @@ if (searchModal) {
         const searchInput = document.querySelector("#searchModal input[type='search']");
         const recipeUrlPrefix = document.getElementById("recipe-id-url").value;
         const menusApiUrl = document.getElementById("menus-api-url").value;
-
+        const recipeAPIUrl = document.getElementById("recipes-api-url").value;
+        const searchButton = document.getElementById("search-button");
 
         const categoriesContainer = document.getElementById("search-categories");
         categoriesContainer.innerHTML = ""; // clear on each open
@@ -122,6 +123,13 @@ if (searchModal) {
         document.addEventListener('click', function (event) {
             if (!searchInput.contains(event.target) && !suggestionsList.contains(event.target)) {
                 suggestionsList.style.display = 'none';
+            }
+        });
+
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query.length >= 2) {
+                window.location.href = `${recipeAPIUrl}?page=1&search=${encodeURIComponent(query)}`;
             }
         });
     });

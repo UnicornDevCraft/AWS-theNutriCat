@@ -8,7 +8,15 @@ app/static/img/recipes/
 instance/
 
 logs/
+node_modules/
+*.log
+*.scss
+*.map
 
+.vscode/
+Dockerfile
+.dockerignore
+requirements-dev.txt
 .pytest_cache/
 .coverage
 htmlcov/

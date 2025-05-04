@@ -667,7 +667,9 @@ def edit(recipe_id):
 
     tags = Tag.query.order_by(Tag.name).all()
 
-    return render_template("recipes/edit.html", recipe=recipe, ingredients=ingredients, instructions=instructions, tags=tags)
+    notes = UserRecipeNote.query.filter_by(user_id=g.user.id, recipe_id=recipe.id).first()
+
+    return render_template("recipes/edit.html", recipe=recipe, ingredients=ingredients, instructions=instructions, tags=tags, notes=notes, user=g.user)
 
 
 @bp.route("/recipe/<int:recipe_id>/delete", methods=["POST"])
