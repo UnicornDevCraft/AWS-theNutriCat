@@ -87,7 +87,7 @@ This project was developed as my **final submission for Harvard's CS50x course**
 
 ---
 
-## 📸 Demo Screenshots
+## 📸 Demo Video
 
 > https://youtu.be/N6tW8SH_coY
 
